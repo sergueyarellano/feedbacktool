@@ -1,0 +1,322 @@
+// Fichero donde se especifican los datos mocks de usuarios para las casuisticas cuando no se ha hecho login .
+// IMPORTANTE: No poner caracteres UTF-8 en los comentarios
+
+[
+{"cclient": "099809243", "ivUser": "19L", "ivTicket": "oBOr2BT4+5aXNDQIYKMs+mPkS5TkxIFzH6r1xjBS5P+5L9IXTlBIag=="},
+{"cclient": "033777177", "ivUser": "51091318S", "ivTicket": "F6KEe0MPZYPovaqkDCrTez0mvjq2EFfC3Tl2uP9J9gdY720Hxh23XGSma3k5zthk"},
+{"cclient": "099774680", "ivUser": "22E", "ivTicket": "oBOr2BT4+5YyZNxxOZwRu4M9omTHgJCE4TyLbwkgRrp+aPQcXgCI/RWyP0gfVlK1"},
+{"cclient": "017499112", "ivUser": "45683235Z"},
+{"cclient": "017851767", "ivUser": "13795283K"},
+{"cclient": "099810053", "ivUser": "2W", "ivTicket": "oBOr2BT4+5bIJWW9m7eqOOJhzr/cP0a+uI1vr/ZhQnz6/hFTIQGOCa1B4cUAJtNY"},
+{"cclient": "001233832", "ivUser": "078000000P", "ivTicket": "iRiHTxkWyZfzyUTCOCEgf6ui+hrg8eXMliU4WcYsbj4h+VSBbf8iqZ8Ohv6Hab4T"},
+{"cclient": "099808451", "ivUser": "50461445C"},
+{"cclient": "000074420", "ivUser": "91649233Y"},
+{"cclient": "000072973", "ivUser": "57099880B"},
+{"cclient": "000071475", "ivUser": "079418167H"},
+{"cclient": "099818946", "ivUser": "55D"},
+{"cclient": "001271920", "ivUser": "2003W"},
+{"cclient": "008739502", "ivUser": "X5765099b","ivTicket":"rW3snUsobmpOfyCqI0zu9x4FO7E5G8LEYewp1hlCQ6yjj0R3cV5E++DYNFsQZq8J"},
+{"cclient": "099789801", "ivUser": "36156304M"},
+{"cclient": "003763342", "ivUser": "16811544Q"},
+{"cclient": "000000301", "ivUser": "41489376K"},
+{"cclient": "000752207", "ivUser": "100P", "ivTicket": "oBOr2BT4+5bsJ5fGRGZIitICFpDk6vj6lgpNksDNQFi2WCu21LjSwg=="},
+{"cclient": "099838404", "ivUser": "12345677J", "ivTicket": "XMX1HehwbMUSI4G8KG8x6ihJXP+A0OX0aMSnlwxGA9aHSAowelNJd+Dj5wKUURa0"},
+// LOPD
+{"cclient": "000000060", "ivUser": "28999180K"},
+{"cclient": "000000241", "ivUser": "74180173K"},
+{"cclient": "000000563", "ivUser": "54839266K"},
+{"cclient": "000000597", "ivUser": "86280174K"},
+{"cclient": "000000698", "ivUser": "58482489K"},
+{"cclient": "000000753", "ivUser": "43830270K"},
+{"cclient": "000000759", "ivUser": "95784487K"},
+// PRUEBA HC HC
+{"cclient": "099802136", "ivUser": "34B", "ivTicket": "oBOr2BT4+5b//aFFlS02wMQOkTnJYkR+50GU7E5pXXi+tm65fMLVhgXtuCAhYhYO"},
+// DIEGOOCU IGLESIASOCU MUNOZOCU
+// POMOCION PRUEBAS PARA
+{"cclient": "099810935", "ivUser": "232323T"},
+// PENICHE PENICHE PENICHE
+{"cclient": "099811081", "ivUser": "256328Q", "ivTicket": "oBOr2BT4+5ZGfxrTWRmng1L4iTEFuAgoBHS9ht3oaHs7kHsZKgKc9A=="},
+// Usuarios para probar Bolsa Broker
+{"cclient": "012981407", "ivUser": "32036859K", "ivTicket": "2C/5zDojC3MzKe9BgGgo/GysMllz87LPpfoyIZpP3jmQYb2ivRE/1euH48Nl3lWt"},
+{"cclient": "099822363", "ivUser": "49358236Y"},
+{"cclient": "001834854", "ivUser": "4059467J", "ivTicket": "D/nr0LUpKBl7HBO6kQkTd1ExiQUKjZrSv9V6IHCU9dxFI9ZZ9qdwi6mW0N3EEUDq"},
+{"cclient": "099791091", "ivUser": "16038978C"},
+{"cclient": "099832396", "ivUser": "12345V"},
+{"cclient": "010111689", "ivUser": "025159251B", "ivTicket": "Uc0rm+J3f7lx7AaHDbwKEaI6B2V5EdmSfe97NZbvWc6Y1G//IuEqEvti/crH+tyF"},
+{"cclient": "002986899", "ivUser": "050132220V", "ivTicket": "Y7upKtl0yoq21oX6cs8ygGhTqQsnauuK4b/oj8CFr4PQ+A7DEDYIwyC77vXiKj0q"},
+// planes
+{"cclient": "099809129", "ivUser": "46757760W", "ivTicket":"Feefz/Y0OAvoPI8Z3nzXU5ARlxS0anEeBhZ7xkWZn8uYJY/Z+gu9i1ed5ZHSNa3F"},
+{"cclient": "099808907", "ivUser": "44677069Y"},
+{"cclient": "099776349", "ivUser": "483T"},
+{"cclient": "090081418", "ivUser": "73619417M"},
+{"cclient": "099815817", "ivUser": "50322046R"},
+{"cclient": "001526667", "ivUser": "89142427Q"},
+{"cclient": "000003246", "ivUser": "11851858G"},
+{"cclient": "002083352", "ivUser": "7771641X", "ivTicket": "rAvQTJ+dDJDP6Me2mogg1vaqY/5u0U028LlZeJn8xbSLvepyYjD1q5NqkIQrNEO6"},
+{"cclient": "099824500", "ivUser": "20120709X"},
+{"cclient": "010386373", "ivUser": "58468691T"},
+{"cclient": "099800997", "ivUser": "X1779136V"},
+{"cclient": "001731808", "ivUser": "05539848E", "ivTicket": "FREr9zaeHfAuZH48+IU3Pl5rnCBm1MzsfWdiKCGnW7728ivkrxrcyt2hCmvHULF1"},
+// LOPD Autonomos:
+{"cclient": "009002111", "ivUser": "36294348A"},
+{"cclient": "009002156", "ivUser": "27298658G"},
+// LOPD Pensionista:
+{"cclient": "009002076", "ivUser": "36247548P"},
+{"cclient": "009002078", "ivUser": "36234548A"},
+// LOPD Rentista:
+{"cclient": "009003965", "ivUser": "36183798Z"},
+{"cclient": "009005061", "ivUser": "95976643N"},
+// LOPD Estudiante:
+{"cclient": "009002781", "ivUser": "9350083P"},
+{"cclient": "009002804", "ivUser": "22350672P"},
+//OCL
+{"cclient": "004050353", "ivUser": "58422211A", "ivTicket": "Zd59GnRM7rFEYfWLiIBfOUqFWdgA8TXEQxzqHRhYbaLMuhLVqA37nFiejDLxjmmN"},
+{"cclient": "000014172", "ivUser": "9709725E"},
+//Pan anonimo
+{"cclient": "023260263", "ivUser": "4918500105980447"},
+
+{"cclient": "033777163", "ivUser": "6939Q"},
+//Tarjetas liga
+{"cclient": "099839271", "ivUser": "11836697T"},
+{"cclient": "099836374", "ivUser": "334455N"},
+
+//CRM
+{"cclient": "031499641", "ivUser": "6517591N"},
+{"cclient": "020488630", "ivUser": "22865885K"},
+{"cclient": "099790392", "ivUser": "1038295Y"},
+{"cclient": "099821747", "ivUser": "1980W", "ivTicket": "oBOr2BT4+5augrV2j8KCzVVQKkk2vDHTPKGSely5WlQEreJXjsFqRAa6/cS4wHbB"},
+{"cclient": "099860175", "ivUser": "48396772b", "ivTicket": "SSUxmKkkeHGjSnGKXAfeB2DPj12i/jur5r6KuVoZX5Dq18zCt4RiB9LNAeZUlPeO"},
+
+{"cclient": "099811077", "ivUser": "8769524S"},
+
+//Tarjetas HCE
+{"cclient": "099841207", "ivUser": "09422831F"},
+//Activacion Tarjetas
+{"cclient": "002958825", "ivUser": "2352862P"},
+
+//Alta de Cliente
+{"cclient": "099853022", "ivUser": "X0022184N"},
+{"cclient": "099852856", "ivUser": "82325192G"},
+{"cclient": "099851366", "ivUser": "83693012Z"},
+{"cclient": "099852121", "ivUser": "040047893V"},
+{"cclient": "099853029", "ivUser": "X2968755F"},
+{"cclient": "099853031", "ivUser": "11346719Z"},
+{"cclient": "099853032", "ivUser": "31959673T"},
+{"cclient": "099852979", "ivUser": "036773785M"},
+{"cclient": "099852865", "ivUser": "X4806372Q"},
+{"cclient": "099852984", "ivUser": "063124045Q"},
+{"cclient": "099990655", "ivUser": "96605386G"},
+{"cclient": "099996656", "ivUser": "19806134Y", "ivTicket": "Cqiyt0CFeTQpuzIf6vFyNatyjWF4fE0Mvd18SEFa11E5N+K5NftSryWhHBZHPDMe"},
+
+//Cesta
+{"cclient": "099844361", "ivUser": "14530208G", "ivTicket": "IBkwK/+lQlkTuTy5ERCt06Rya0ewSfzhD5aRRIZLZpqVf5Vi89//6Mqef4GJHYI4"},
+{"cclient": "099831631", "ivUser": "1670Z"},
+
+{"cclient": "099853725", "ivUser": "92030737D"},
+{"cclient": "099853882", "ivUser": "55123S"},
+{"cclient": "099853613", "ivUser": "65150024V"},
+{"cclient": "099853726", "ivUser": "48090669S"},
+{"cclient": "099853025", "ivUser": "25576986C"},
+
+{"cclient": "099857886", "ivUser": "46474240A"},
+{"cclient": "099857885", "ivUser": "55435633K"},
+{"cclient": "099857957", "ivUser": "Y1127154F"},
+{"cclient": "099857958", "ivUser": "63799090B"},
+{"cclient": "099857961", "ivUser": "X5946273Z"},
+
+{"cclient": "099856531", "ivUser": "25174980P"},
+{"cclient": "099856767", "ivUser": "20031714W"},
+{"cclient": "099856970", "ivUser": "Z4048398N"},
+{"cclient": "099857082", "ivUser": "03409696S"},
+{"cclient": "099857018", "ivUser": "67697406B"},
+{"cclient": "099857084", "ivUser": "X3931387C"},
+{"cclient": "099857018", "ivUser": "X2232969Z"},
+{"cclient": "099857986", "ivUser": "076188792G"},
+{"cclient": "099853759", "ivUser": "20449887N"},
+
+//DetalleTraspasoTarjeta credito
+{"cclient": "011327343", "ivUser": "98516259Z"},
+//Tarjeta de debito con movimientos
+{"cclient": "004290637", "ivUser": "87605627F"},
+{"cclient": "099851432", "ivUser": "8033587D", "ivTicket": "uD+0H1z4AC8A7853+BQ//oaqkUtXW1M8UPutVQ8f0vAOmOpmjnhtlCObrUU3FuHB"},
+{"cclient": "099851476", "ivUser": "8033588X"},
+{"cclient": "099851516", "ivUser": "8033589B"},
+//Cliente con recibos domiciliados para realizar devoluciones
+{"cclient": "099839156", "ivUser": "70808043J"},
+{"cclient": "009297735", "ivUser": "75875664K", "ivTicket": "DPo1eQJvICHSbwL7+9LeKsGizivM5eTDHLTMRk3LCVWGtOoJb16B6eG0KvAqwRxz"},
+//Usuario BOL
+{"cclient": "003998390", "ivUser": "59332931S"},
+{"cclient": "099853853", "ivUser": "8033593S"},
+{"cclient": "013075184", "ivUser": "22820687H"},
+{"cclient": "099853828", "ivUser": "8033591J"},
+{"cclient": "099850082", "ivUser": "8033586P"},
+{"cclient": "009553130", "ivUser": "4135448W", "ivTicket": "D/nr0LUpKBl0hvaMZ626/tOgmz8wOLzY2Ksi57D+H0+CkztmQrqfWbmrXO47CnRN"},
+//Tarjeta de credito con movimientos
+{"cclient": "99841207", "ivUser": "009422831F"},
+{"cclient": "003098617", "ivUser": "57665287D", "ivTicket": "VJ3tnxua84zY0M0jkOQTzzdUCkMcX5zLbaXH5MwZuvByMGfZU8b6FwVCbA7r7ShK"},
+
+//Cliente con carteras asesoradas, pero sin contratos asociados a las carteras
+{"cclient": "099820161", "ivUser": "13465711Q", "ivTicket": "tF7IInPOJeEdWTPG/NhLYPLYDJCCq4GwmBwG7twLzTzo1iw+F1n00DtA6pRtPBco"},
+
+{"cclient": "003880225", "ivUser": "052998342V", "ivTicket": "fG/zuvM3g6RsiMNxbptF3bwdQyRAB9yI0cktBKttk2DaCp7qOxokFWRPo6ogMcvs"},
+{"cclient": "023670837", "ivUser": "X4619002G", "ivTicket": "l4bUNmfyilpih1PoxsR9haxGvTpIKAqwvj0/kZ7tRWpry+vWNj7uHlWLOhhxizI0"},
+{"cclient": "099809471", "ivUser": "000001025J", "ivTicket": "oBOr2BT4+5bU0h6dVK8Q5SojVVCGS6dImRsbse7+xsijCTDRr3o65uI4aORAvVAi"},
+{"cclient": "099805353", "ivUser": "000222722J", "ivTicket": "oBOr2BT4+5bOmWknZ5XqwmhrMVhg0WPMOmf8VSwc7d7wEKX/xK6C0bMB8UQnQOwI"},
+{"cclient": "099808725", "ivUser": "011819503X", "ivTicket": "uOeCpGGW/2c0ioxyvm4UsCDXf6MdMyTtI0Tmhc+N62Ghm883vUhHAnBHqqIo3f0H"},
+{"cclient": "004050353", "ivUser": "058422211A", "ivTicket": "Zd59GnRM7rFEYfWLiIBfOUqFWdgA8TXEVBq9tCbXG6p5ma0Of5zvOOqFXBslNBWc"},
+{"cclient": "099803347", "ivUser": "038609616E", "ivTicket": "X7tuyddpN3i4xUd/eyF/ZXNHkyPF6KEBXnXRok20FRsRLBmcJJr9lNBdlvmoLy2/"},
+
+//Cesta tareas planes
+{"cclient": "099858041", "ivUser": "2674Y"},
+{"cclient": "000010328", "ivUser": "26529425Y", "ivTicket": "l3LRbDFc4yVdY8UlMBvvMMYEiXdG3Wb6PqfuJAq9XIP6ug2ZNjuNeB+hmpxQyEWB"},
+{"cclient": "000321787", "ivUser": "15858795L", "ivTicket": "5mKPtXfm9OBfff5ufpbfmiWiFd6tK7bgKO3Lh30YVCkYpi052hUugkwAjbaivji0"},
+{"cclient": "099815143", "ivUser": "000000001R"},
+{"cclient": "099845589", "ivUser": "140506E"},
+{"cclient": "005011260", "ivUser": "78280227A"},
+{"cclient": "000204964", "ivUser": "85903720P"},
+{"cclient": "006525034", "ivUser": "3207087J"},
+{"cclient": "003986790", "ivUser": "75600574B"},
+{"cclient": "008977524", "ivUser": "947033P"},
+{"cclient": "004685929", "ivUser": "043039464R", "ivTicket": "Pk/9HsnUfhF7UUW2MMIIk/iLhZLLYRF+K83w2fAO0QkZdZDnFH1XG7/ydTFTBB75"},
+{"cclient": "099808451", "ivUser": "050461445C", "ivTicket": "Y7upKtl0yooDNVNwqSGvFsrjyUDwUlKXYhWLmhVQKykBgyktUoe1fhmMjlTPUbmS"},
+{"cclient": "099786375", "ivUser": "027415207N", "ivTicket": "ijBG81kX5JSvBR2GhNEpYXmowYVWSD3tw/UQXK0bZeEFE/AeuZYzOgw5nr0gN/Em"},
+{"cclient": "000000023", "ivUser": "1835934M", "ivTicket": "3szHXg9V5fbjijDftcp5kXloiaUJisC9gXHD/1cOte0QhbWml5rvG9blfuV8wd73"},
+{"cclient": "009297735", "ivUser": "075875664K", "ivTicket": "DPo1eQJvICHSbwL7+9LeKsGizivM5eTDHLTMRk3LCVWGtOoJb16B6eG0KvAqwRxz"},
+{"cclient": "099809871", "ivUser": "94325644E"},
+{"cclient": "099824489", "ivUser": "20120708D", "ivTicket": "EOz4prBhZ4wl/OXW2BOh6mHjSCjpFNyjVVqdzGxJFxlRwST1RWTPLeU1+85oFKQQ"},
+{"cclient": "099845885", "ivUser": "33993046N"},
+{"cclient": "099809871", "ivUser": "94325644E", "ivTicket": "b/jT3pGCO43CNk1ScEmiMu+/Jc9MHgjnOiTMqB41woNbVqMhGdrTmRiyYDqb/WN5"},
+{"cclient": "099824489", "ivUser": "20120708D"},
+{"cclient": "099838378", "ivUser": "110131F"},
+{"cclient": "000479163", "ivUser": "80320146Y", "ivTicket": "sswMmkok94TfDV/6nR0vWNvgOUWXIT4wn6kTtLk86hhfDjFDdoNEwdiGNpn9AUDB"},
+{"cclient": "000000073", "ivUser": "065695875D", "ivTicket": "89dzS9D66bM+M/9vFDe/nYAO+g3JHEE9emY3Q56UMvr9fiweN+p5b7ij4PlSzVd0"},
+{"cclient": "004005238", "ivUser": "071465354F", "ivTicket": "WUZNmrJA+M55ZBZyI0KE2LU155Pno2JbT1QqU1ZUnGTRoo/2XosJz9pQIg6fcziB"},
+{"cclient": "008279999", "ivUser": "77138514X", "ivTicket": "YMM4UuJipV68gnnP5CTOQMCgIsRHrAdmhpyH/9KFehHTkhS4rOSh/djQFodIvzQ8"},
+{"cclient": "010568455", "ivUser": "50865368V", "ivTicket": "Y7upKtl0yopLiOSaQGJpJ89K9TyaN/qSY+f0lMKxfyE58N8G/hGzi8rCsSCJxavu"},
+{"cclient": "099858707", "ivUser": "048538167W", "ivTicket": "SSUxmKkkeHEd8Y/UJZEHjSBoHghNmzyqXfTqBkjvladAmx3URxNgIi19qLdIWKZI"},
+{"cclient": "000000031", "ivUser": "034808357L", "ivTicket": "lwYDsFyyE91qPlBIO4Bts/VOpXn+cnmIBboDZo568fIXIu4RSiF25/D57Y0KLjwn"},
+{"cclient": "099843475", "ivUser": "002056828F"},
+{"cclient": "099988323", "ivUser": "2695G"},
+{"cclient": "000000575", "ivUser": "083492994G", "ivTicket": "BuBGuIDaObZ/le+rhDQkHG/p/hYXqpqm6dgn/1oJR0Qbz6Hayko0yeB2J9M/5xcx"},
+{"cclient": "006768806", "ivUser": "075592584W", "ivTicket": "DPo1eQJvICF0zXGVGdob1DIplTnKKw6Z8bd2F7GQdvPjQkyVmXL9dKgM5JsSnA/W"},
+{"cclient": "099853828", "ivUser": "008033591J", "ivTicket": "uD+0H1z4AC9wJfdfm18dGb+o4cL89x6Oh6klC4OPJxaj1XZE9ZDimBSfcw0zDrdZ"},
+{"cclient": "099986483", "ivUser": "000002694A", "ivTicket": "oBOr2BT4+5aJmyS+V5F6doVgaMyz4AKlP5tLwiWfsBQ1aDA5a550tWkr2/clLtwH"},
+
+// Citaprevia
+// movil validado
+{"cclient": "000529176", "ivUser": "082992787R", "ivTicket": "mOfm0iJSwLbmtgo4e/I3MXq/nBrfNuvHUl4p566/SyyNLt5vN5IJYL9LesFN530m"},
+{"cclient": "000883667", "ivUser": "029158696D", "ivTicket": "lNPaeaFpHrIF5fWQNi/6j0TaznNjCJo94wRal8e3EKgSdtftLBNr+SW8WE3zpKxu"},
+{"cclient": "004005238", "ivUser": "071465354F", "ivTicket": "WUZNmrJA+M55ZBZyI0KE2LU155Pno2Jb2+D6kOpeZJQ6eKHvJbxxmArDpjJrnzVv"},
+{"cclient": "005011260", "ivUser": "078280227A", "ivTicket": "iRiHTxkWyZfZIgjHOdD9t4lHj+HOLNpt4BIrDDcP06siZRU0wQC0a4VOkIbTYVrt"},
+{"cclient": "019662161", "ivUser": "053479725X", "ivTicket": "EjBHRJqZ4kR/29l+T2y08uSi99l5kWrtR2SJOLIyTdj6+upRzr/9+kenLiaXZbU2"},
+{"cclient": "022254136", "ivUser": "030251794D", "ivTicket": "T36tHqc76TQ59QGhDWyfdE8TVP8nYItsSYlfuNDctKZxjXbYoodeCyiZ2ulQSkgO"},
+{"cclient": "000024894", "ivUser": "059059042X", "ivTicket": "tMofLd83/xtgXoKdmVLwxbs1qXr7nVvMk0cujpYqwcpwDyeKEMK5jSvEkLUQO/t6"},
+{"cclient": "001695691", "ivUser": "005947759M", "ivTicket": "FREr9zaeHfBwB5Wux6R4am702Vt+5XsHCxjQ6/+bi5kX7t8vSTXODx+5qwHqLvjs"},
+{"cclient": "033777163", "ivUser": "000006939Q", "ivTicket": "oBOr2BT4+5bAJ8MWL5YrWlH5s/rr83i465JszlBn+zi7TwsVcuvsqmzHux4sFvZb"},
+{"cclient": "000016137", "ivUser": "066472433H", "ivTicket": "iMcp5UZRZRWXmVwtsFKrZ44ZPfGcR/TCnhmZXvh0gDCcyxtAfsIncoJD/YKmuu0U"},
+// movil no validado
+{"cclient": "002721207", "ivUser": "008453435S", "ivTicket": "uD+0H1z4AC+cD630IkFv7GN20/BjpjMX9CYjrZjn7Luo96MeZgjhuBCDGTU+Z1OP"},
+{"cclient": "002803947", "ivUser": "052590602K", "ivTicket": "fG/zuvM3g6TISJ+beXinsICKe9eu/r0dc2dLJm3npCQOVCvJbNF9x1YEUbf0jCno"},
+{"cclient": "099797760", "ivUser": "088534657K", "ivTicket": "4eotIQvNLH6onYnDM/NFSPm+hk00HeG7aBjRrgbdIyBwHvWxuaL4XXhqPA+2RNGP"},
+{"cclient": "099800796", "ivUser": "008906932K", "ivTicket": "uD+0H1z4AC/MSGbd2LosE+HUebkEWx2A6P4vc5KYgcpv7AC0H2ktQsawbyWAmior"},
+
+//Cliente con 4 cuentas
+{"cclient": "099826491", "ivUser": "ES12345678", "ivTicket": "YVRmGBZna+xNexZVfUv/FEtKo5y2bmZVPdVQPeLBZtrs0L/GDUxSxd3qSfLCoWwE"},
+
+{"cclient": "000036971", "ivUser": "049315809Z", "ivTicket": "DObDmGlhA3tpdNjGtvqyXv720oFGizAtxt9Ouc1Th8N9jmmb5M3j48N/WFOqy7/Z"},
+{"cclient": "001387897", "ivUser": "088418313B", "ivTicket": "4eotIQvNLH7dZkiKYwfqKoMYsL8qJFMif3vW1ND7hBo9aCtiTmbo6BvBxuylbmDn"},
+{"cclient": "000097326", "ivUser": "013960980A", "ivTicket": "tF7IInPOJeFUTh3YomCr8Y0nPTOlAcmwMgAU5U5C0QV8W9923Yly7XSVJxwRO4X5"},
+{"cclient": "000000049", "ivUser": "066195031L", "ivTicket": "iMcp5UZRZRX5d8ODpl9t2CY8XIdobVUeoZeBGPJODoqes+YxWLp7sa3s6zzZW3rJ"},
+{"cclient": "009402614", "ivUser": "030559612H", "ivTicket": "T36tHqc76TQryR73lCsUHNPvzyOwc7MfyGlIhgnLCCGKhAhXda1eL81yCE5EE0Xy"},
+{"cclient": "025054674", "ivUser": "019069457L", "ivTicket": "Cqiyt0CFeTQMpHYmub3rA8B8wDQ6hPwNkbAHMu6fvad6KQPiusBeYj+kpz4baOP5"},
+{"cclient": "099817812", "ivUser": "075594272B", "ivTicket": "DPo1eQJvICHQO+FbmjJqS4uHLaq1J3v9gbvfFFAW5LgX2JRjyIAiQKjgPRAWoXHj"},
+{"cclient": "000066235", "ivUser": "007649503W", "ivTicket": "rAvQTJ+dDJA0+KPsjX7HRsHXHGafPQ1bhAxT84i1/O7uhAznwbyRNabmRf+VQS1b"},
+{"cclient": "099825883", "ivUser": "050867318N", "ivTicket": "Y7upKtl0yoodcPqA12LVHpKRmPmNXx3Bvk2OjSKTwL3NvSE5O1hva+To6q4e7L5G"},
+{"cclient": "000936676", "ivUser": "067612500K", "ivTicket": "qAy5ljfbaJsO4mS5/QjjhQRHBS+0ZwjdNAfxVABjAXgU0b7Gak5qWdsFVI3Hflky"},
+{"cclient": "015509787", "ivUser": "072458025K", "ivTicket": "+gVnZ/AvcXreMCP9DJl1WQwS3M5EGxQJl+2MxXlWtZHNxNuNdwJ6st+P+3px+8nQ"},
+{"cclient": "099809871", "ivUser": "094325644E", "ivTicket": "b/jT3pGCO43CNk1ScEmiMu+/Jc9MHgjnn8QAm8YYWYH7Q2ym0/HVIr/pkEEvGq1v"},
+{"cclient": "099811079", "ivUser": "000541241M", "ivTicket": "oBOr2BT4+5bmt91+wWpQHgWRjiP97x4Dh6UJLoUKl/+8KlYjNP0K4xSGEZ8fK519"},
+{"cclient": "000023159", "ivUser": "080092694R", "ivTicket": "sswMmkok94SKWUZAkDyXmEflwB9RBEAJ76NUkEEP7LeO4falXREyOtvKHW8E/MlU"},
+{"cclient": "099823937", "ivUser": "000612388J", "ivTicket": "oBOr2BT4+5b5T1Bh0kyzJCDdyYdzDqoz0yOnbydUJD2dzeZng4Yr1erziWem0cbI"},
+{"cclient": "099813228", "ivUser": "012345619R", "ivTicket": "XMX1HehwbMWtf8T6rzxw9jdyx8irHtvZ4Y+qxwTFSSBMGPntj577BdITRS3Rp+CM"},
+{"cclient": "009105335", "ivUser": "006291718E", "ivTicket": "GXyjLkFlcYcYiFxkigQ2e1VUFj7Fx0HoiQ8z7j74/wrwbGWm5GQj1m/DQ9waR1AI"},
+
+
+//Care-Herramientas
+{"cclient": "000000031", "ivUser": "034808357L", "ivTicket": "lwYDsFyyE91qPlBIO4Bts/VOpXn+cnmIBboDZo568fKG/UKR/8tpNvTdyCBcvmFt"},
+{"cclient": "099836784", "ivUser": "042517874M", "ivTicket": "gnlAK3XihnA0SaOpwD7RoeVwefPGI9u/0EbucxtpMqrCCKjCSsQvuTPiKnZdK0p1"},
+{"cclient": "099844361", "ivUser": "014530208G", "ivTicket": "IBkwK/+lQlkTuTy5ERCt06Rya0ewSfzh09x7MnD+0GoslUBTAtQfxdLenGYoLz4W"},
+{"cclient": "004143303", "ivUser": "047370920M", "ivTicket": "4Ag89PQap+hQO657ObVu/s50OX9qz4J908ZOEHWDnHWR31akdj4qsN4S1WwSqcti"},
+{"cclient": "004879131", "ivUser": "046258882V", "ivTicket": "Feefz/Y0OAsnFAScvCID0/EapkVMn9Qj8+ZLumzHjdQcwke/D6Zh8Yuf2Vkdk4Fn"},
+{"cclient": "099817882", "ivUser": "080023646E", "ivTicket": "sswMmkok94RJZcTHGVbv9OO/FgtK1KvDZVO1XCckzgQUQPuInmhId69juxk7SVR5"},
+{"cclient": "099833945", "ivUser": "050853867Q", "ivTicket": "Y7upKtl0yoqfKXlL1nZq1GrXAeGHzSGKLO/wlRsUOhF4Fac6fr9IvyzDMxrMHvLC"},
+{"cclient": "099824489", "ivUser": "020120708D", "ivTicket": "EOz4prBhZ4wl/OXW2BOh6mHjSCjpFNyjVostGK6jd+VjT37wDcotydRvCJuufCoO"},
+
+//adeudos
+{"cclient": "014617922", "ivUser": "047650344W", "ivTicket": "4Ag89PQap+hNOdts3eHfXvAERkXA8cDRrBsx98FFGvfKLWIYArbtgNGBymtHrdP4"},
+
+{"cclient": "000000411", "ivUser": "000126458G", "ivTicket": "oBOr2BT4+5Z0Fty/PmakMOs90z+eQhcY5CVRdwyz0CmcaRpXAQ587V9TcqhQigNH"},
+{"cclient": "099838404", "ivUser": "012345677J", "ivTicket": "XMX1HehwbMUSI4G8KG8x6ihJXP+A0OX0aMSnlwxGA9amsQGW2aq5WTfZEiLQXM6h"},
+
+{"cclient": "099838404", "ivUser": "012345677J", "ivTicket": "XMX1HehwbMUSI4G8KG8x6ihJXP+A0OX0aMSnlwxGA9amsQGW2aq5WTfZEiLQXM6h"},
+
+//Eliminacion variables
+{"cclient": "037556013", "ivUser": "064789352P", "ivTicket": "IxqOPmJPuw6iJk5qJ87Q33yT9cUm2Wl6kB0n+p3lr7LvWCHD37V0+aj+KjLchdTx"},
+
+//SEGUROS AUTO
+{"cclient": "035509754", "ivUser": "052973117T", "ivTicket": "fG/zuvM3g6Rjb+rywJ6h0wT/RFZAoPe7oXq1IxCcQsIuxCYYPAmbCl0VRrU0Hv0G"},
+
+{"cclient": "001017325", "ivUser": "041635813V", "ivTicket": "JaEkyf8incipQdJYSpoxZWxFdbMnezpceWQBi5WUCCACFtCLkLQ5GUDzBLORejvg"},
+{"cclient": "004037395", "ivUser": "058192591S", "ivTicket": "Zd59GnRM7rHSSnFNOw+XL3ulssesffPdCMHddD/eLgPdztim32OWUVrf4zhSJc4J"},
+
+
+{"cclient": "099851448", "ivUser": "050550284X", "ivTicket": "Y7upKtl0yoqRrcOfQHaSVomAulicGV03qty+FL5O0q1v4lqHEcsqoMPhMhtkMHcb"},
+
+//Sin correo
+{"cclient": "000000022", "ivUser": "037562360W", "ivTicket": "TenoMTVYqRUhkonBtLsiYH8Zxg6lQy+Vc1D1t+no75Gxvebjriyf8I8QshO6gc0b"},
+
+//PRESTAMOS HIPOTECARIOS
+//895
+{"cclient": "000000282", "ivUser": "021120334D", "ivTicket": "M1qFeA/7r8hLOtz5KUao8daxy4l00EbDSqDiY6vstft+NHcjdWDMMqVqLgGtjYx0"},
+//83
+{"cclient": "000075223", "ivUser": "069685219A", "ivTicket": "Qz/ojo5EVz87IT905zNVHu0b/+9i+vJBoKACenXRt+jphAT+DI1+fAji50y5O+dA"},
+
+{"cclient": "099986765", "ivUser": "000019191D", "ivTicket": "oBOr2BT4+5bpIH7rjRk2z4Q5htLHNAIcaaTGsG1X5sYOHUeQUgGmdUYqS+VmY8Vy"},
+
+//974
+{"cclient": "099816318", "ivUser": "000000019L", "ivTicket": "oBOr2BT4+5aXNDQIYKMs+mPkS5TkxIFznUWpw7s5/kmzxEtxw2UoYy+gIupRBPDK"},
+
+{"cclient": "010037591", "ivUser": "000000838X", "ivTicket": "oBOr2BT4+5aowmoBMGFmFzenD+5YiGOOi7mvtZZgWlGQ7RMoxUt73yBVj27W4G27"},
+
+//PEOPERATIVOS
+{"cclient": "099994364", "ivUser": "009929746W", "ivTicket": "2xwHzfEKuSh0zR0i5th454B6KCreztALZBTQgGEoPXMjDcOJreE3TIEGSW6ZlHPR"},
+{"cclient": "099994362", "ivUser": "005110156Q", "ivTicket": "FREr9zaeHfA4RYUeIJEEGzzo/leyNd3U+5OvHvFKvww/jb9x8QYlScbARMhOxXf5"},
+
+
+{"cclient": "000024235", "ivUser": "051715012H", "ivTicket": "F6KEe0MPZYMXWZWfOJnAhvpxygZ9kjITpj4B0H5aO9VeiWhkcnn0tFS1r6Qceyxz"},
+
+
+//MIFID
+{"cclient": "099990648", "ivUser": "038050908F", "ivTicket": "X7tuyddpN3jD8kvMUcKzj19UEkDClXnNI0FBbSigxXptSBE50pskL+yZ6h0KAux6"},
+{"cclient": "099990411", "ivUser": "044239969K", "ivTicket": "O1i9DpMF7WKJCzTgz058s50bYjkOZoICwW5JhFr1EAS+7/qKT/haSbsUDwj93Ou5"},
+{"cclient": "000000018", "ivUser": "075232658A", "ivTicket": "DPo1eQJvICHxqICji+gyDAA6vt8lWCszFXJBwBqBRBZFN6m9cM8fDcKYiFSVY2ri"},
+//INTERVINIENTES
+{"cclient": "001046044", "ivUser": "047868005Z", "ivTicket": "4Ag89PQap+h6zxfmwZe3Q4ib01w/5CREfQQVRsHUpTozMFzS24Y04mChMZfjDokt"},
+{"cclient": "000000227", "ivUser": "000925172C", "ivTicket": "oBOr2BT4+5ZOaj32BgZ0xOkwnLpUIEoVMUqylbAKWt+ty17dWdp0RGiedA2Z5Kci"},
+{"cclient": "000002003", "ivUser": "093332952X", "ivTicket": "BU9KKY0KvFZZztEwVWpVCkvh7hRQxhm9Eluj09hd+3kHyWbAYKeClbedFNt6Xkn9"},
+{"cclient": "000036971", "ivUser": "049315809Z", "ivTicket": "DObDmGlhA3tpdNjGtvqyXv720oFGizAtRYet4hyHwJ87Y1HR6G5HiHwFi9F25Yic"},
+{"cclient": "008945968", "ivUser": "000000052Y", "ivTicket": "oBOr2BT4+5asJSC/O3Xa/M56rx0pbRhV4BHAFwGckeZMlNwA7pR54QetJTzoy2iA"},
+{"cclient": "000000027", "ivUser": "090247804J", "ivTicket": "X0KFcE8s3i0HpI1DQw/iZ/LPtGrJVw9WzSgDsJml66vkIWIrl7aK8YKNTNQrs4b/"},
+{"cclient": "099990043", "ivUser": "053415274M", "ivTicket": "EjBHRJqZ4kQ4PJIwlkVP+ef//9rFHX3rh5U7GRO+p9xtF2iuRrv38NRpxAnrBzWQ"},
+//OC TARJETA TRASPASO EFECTIVO
+{"cclient": "099809471", "ivUser": "000001025J", "ivTicket": "oBOr2BT4+5bU0h6dVK8Q5SojVVCGS6dIlnrvHh/sdexMTehAUqUhki64TjDU+42W"},
+{"cclient": "004050353", "ivUser": "058422211A", "ivTicket": "Zd59GnRM7rFEYfWLiIBfOUqFWdgA8TXE80i8tEihS6QTyNzFL2kmSa7luKfQT5Qm"},
+//OC APORTACION PPI
+{"cclient": "000000031", "ivUser": "034808357L", "ivTicket": "lwYDsFyyE91qPlBIO4Bts/VOpXn+cnmIP1tKanPZJwD6T/VjxXT8b5JWBGORuL65"},
+{"cclient": "000010328", "ivUser": "026529425Y", "ivTicket": "l3LRbDFc4yVdY8UlMBvvMMYEiXdG3Wb6/joAovTNxLDE4NxThR3m4mn62WBB0va2"},
+{"cclient": "000321787", "ivUser": "015858795L", "ivTicket": "5mKPtXfm9OBfff5ufpbfmiWiFd6tK7bgLktazNcPVQcur62jWlv6GSkytfYRnKUw"},
+//ocinthenight
+{"cclient": "000000031", "ivUser": "034808357L", "ivTicket": "lwYDsFyyE91qPlBIO4Bts/VOpXn+cnmIbU1ZS+r3X3MbtcUKSPH0zVOLehU1SDSl"},
+//OC ANTICIPO NOMINA
+{"cclient": "099813228", "ivUser": "12345619R", "ivTicket": "XMX1HehwbMWtf8T6rzxw9jdyx8irHtvZwDRMwsCZtANRSV66uFyPL0Zay1GNo7nL"}
+]
