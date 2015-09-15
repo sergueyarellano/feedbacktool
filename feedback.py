@@ -18,6 +18,48 @@ import os
 ######## FUNCTIONS ########
 ###########################
 
+#### printing #####
+
+def printBBVALogo():
+	print ("hhhhho                                                ")      
+	print ("yyyyyo                                                ")      
+	print ("sssss+                                                ")      
+	print ("sssss+                                                ")      
+	print ("sssss+         /oooooo:  :oooooo:`oo+`   `o+  +oo+    ")      
+	print ("ooooo+         odh-`-hh. +dd:`-hh./dd+   +d: /hydd/   ")      
+	print ("ooooo+         odh. oh+  +dd- +h+  sdh- .hs `hs`ydh.  ")      
+	print ("+++++:         odh. `sdy.+dd- `ody..hds`sh. oh-`-hdy` ")      
+	print ("/////:         odh.  odd/+dd-  odd/ /ddsd/ :hysssydd+ ")      
+	print ("/////:         +hhssyhy/ +hdssyhy/   shhy``yy`   `yhh-")      
+	print ("-----.         ```````   ```````      ```  ``     ````")      
+	print ("-----.                                                ")      
+	print ("-----.                                                ")
+
+def printLoop(type):
+	if type == "forms":
+		print "There are ", len(formList), type," recorded:"
+		for element in formList:
+			print (formList.index(element) + 1), element
+		print ""
+	else:
+		print "There are ", len(stepList), type," recorded:"
+		for element in stepList:
+			print (stepList.index(element) + 1), element
+		print ""
+	str(raw_input("Press any key to continue"))	
+	print ""
+
+#### Compiling objects #####
+
+def printMenu():
+	print	("               Linea de Feedback script 1.0.0")
+	print	("               ------------------------------")
+	print ("               1) Create mock form      8) Show me the lists ;) ")
+	print	("               2) BaseConf Steps        9) Exit")
+	print ("               3) Mock user (selenium)")
+	print ""
+	return
+
 def linksArray(type, idForm):
 	linksArrayObj = ""
 	if type == 1: # push
@@ -85,29 +127,10 @@ def mockFormPush(idStep, idForm, type):
 
 	return makeObj
 
-def printLoop(type):
-	if type == "forms":
-		print "There are ", len(formList), type," recorded:"
-		for element in formList:
-			print (formList.index(element) + 1), element
-		print ""
-	else:
-		print "There are ", len(stepList), type," recorded:"
-		for element in stepList:
-			print (stepList.index(element) + 1), element
-		print ""
-	str(raw_input("Press any key to continue"))	
-	print ""
-
-def askForSteps():
-	if len(stepList) > 0:
-		print "Last Step: " + str(stepList[len(stepList) - 1])
-	idStep = str(raw_input("New Step ID: "))
-	stepList.append(idStep)
+#### Object makers ####
 
 def createBaseConfSteps(hasSteps, successStep):
 
-	
 	baseConfSteps = "//FeedStepConf\n"
 	detalleOperativa = str(raw_input("Nombre detalle operativa: "))
 	if (hasSteps) and not(successStep == 0):
@@ -143,7 +166,19 @@ def createMockUser(user, cclien, ticket, opType):
 		+ '"},\n//OC ANTICIPO NOMINA'
 		)
 	return mockUserObject
-				
+
+#### misc ####
+
+def askForSteps():
+	if len(stepList) > 0:
+		print "Last Step: " + str(stepList[len(stepList) - 1])
+	idStep = str(raw_input("New Step ID: "))
+	stepList.append(idStep)
+
+def clearTerminal():
+	os.system('cls') #for window
+	os.system('clear') #for Linux
+
 ###########################
 ######## Classes ##########
 ###########################
@@ -165,47 +200,28 @@ formList = []
 operativas = []
 idStep = ""
 
-
 ###########################
 ###### MENU CHOICES #######
 ###########################
 
 while loop == 1:
-	os.system('cls') #for window
-	os.system('clear') #for Linux
-	
-     
-	print ("hhhhho                                                ")      
-	print ("yyyyyo                                                ")      
-	print ("sssss+                                                ")      
-	print ("sssss+                                                ")      
-	print ("sssss+         /oooooo:  :oooooo:`oo+`   `o+  +oo+    ")      
-	print ("ooooo+         odh-`-hh. +dd:`-hh./dd+   +d: /hydd/   ")      
-	print ("ooooo+         odh. oh+  +dd- +h+  sdh- .hs `hs`ydh.  ")      
-	print ("+++++:         odh. `sdy.+dd- `ody..hds`sh. oh-`-hdy` ")      
-	print ("/////:         odh.  odd/+dd-  odd/ /ddsd/ :hysssydd+ ")      
-	print ("/////:         +hhssyhy/ +hdssyhy/   shhy``yy`   `yhh-")      
-	print ("-----.         ```````   ```````      ```  ``     ````")      
-	print ("-----.                                                ")      
-	print ("-----.                                                ")
-	print	("               Linea de Feedback script 1.0.0")
-	print	("               ------------------------------")
-	print ("               1) Create mock form      8) Show me the lists ;) ")
-	print	("               2) BaseConf Steps        9) Exit")
-	print ("               3) Mock user (selenium)")
-	print ""
-	choice = raw_input("               Opt: ")
-	choice = int(choice)
 
-#############################################################
+	clearTerminal()
+	printBBVALogo()
+  printMenu()
 
+  # User selects an option from the menu
+	choice = int(raw_input("               Opt: "))
+
+######################################################
+# Create Mock form #
+####################
 	if choice == 1:
 
 		mk1 = "y"
 		while (mk1 == "y") or (mk1 == "Y") or (mk1 == ""):	
 			
-			os.system('cls') #for window
-			os.system('clear') #for Linux
+			clearTerminal()
 			print ""
 			print	"--------------------"
 			print "| CREATE MOCK FORM |"
@@ -253,7 +269,9 @@ while loop == 1:
 			print "  ---------------"
 			mk1 = str(raw_input("Do you want to create another? "))
 
-#############################################################
+######################################################
+# Add BaseConf steps #
+######################
 
 	elif choice == 2:
 
@@ -288,11 +306,9 @@ while loop == 1:
 		print "  ---------------"
 		raw_input('Press a key to continue...')
 		
-		
-		
-
-
-#############################################################
+######################################################
+# Mock user (selenium) #
+########################
 
 	elif choice == 3:
 
@@ -317,14 +333,11 @@ while loop == 1:
 			browser.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp')
 			assert 'BBVA.es' in browser.title
 
-			
-
 			btnAccesoClientes = browser.find_element(By.XPATH, '//*[contains(text(), "Acceso Clientes")]')
 			inputEnterUser = browser.find_element(By.XPATH, './/*[@id="eai_user"]')
 			inputEnterPass = browser.find_element(By.XPATH, './/*[@id="eai_password"]')
 			btnEntrar = browser.find_element(By.XPATH, './/*[@id="acceder"]')
 			
-
 			btnAccesoClientes.click()
 			inputEnterUser.send_keys(user + Keys.TAB)
 			inputEnterPass.send_keys('123456')
@@ -359,8 +372,6 @@ while loop == 1:
 			
 			opType = "//" + str(raw_input("Tipo operativa: "))
 
-			
-
 			with open('mockUsers.json') as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
@@ -376,7 +387,9 @@ while loop == 1:
 			print "Prueba mas tarde!"
 			raw_input('Pulsa <INTRO> para continuar')
 
-#############################################################
+######################################################
+# Show me the lists #
+#####################
 
 	elif choice == 8:
 		os.system('cls') #for window
@@ -395,7 +408,9 @@ while loop == 1:
 		else:
 			str(raw_input("There are no steps or forms recorded :("))
 
-#############################################################
+######################################################
+# Exit #
+########
 
 	elif choice == 9:
 		loop = 0
@@ -403,7 +418,3 @@ while loop == 1:
 		os.system('clear') #for Linux
 	else: 
 		print("I need a numeric input!!")
-
-# A implementar:
-#  mockear user en mockuser,
-#  usertypes.json
