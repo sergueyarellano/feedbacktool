@@ -11,9 +11,20 @@
 
 import re
 import sys
-import codecs
-import os
+import codecs # for unicode format
+import os # 
+import requests
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
+configDictionary = {
+	"feedConfFilePath": "/home/sam/feedbacktool/feedback.conf.js",
+	"feedMockUsersFilePath": "/home/sam/feedbacktool/mockUsers.json"
+}
 ###########################
 ######## FUNCTIONS ########
 ###########################
@@ -35,22 +46,6 @@ def printBBVALogo():
 	print ("-----.                                                ")      
 	print ("-----.                                                ")
 
-def printLoop(type):
-	if type == "forms":
-		print "There are ", len(formList), type," recorded:"
-		for element in formList:
-			print (formList.index(element) + 1), element
-		print ""
-	else:
-		print "There are ", len(stepList), type," recorded:"
-		for element in stepList:
-			print (stepList.index(element) + 1), element
-		print ""
-	str(raw_input("Press any key to continue"))	
-	print ""
-
-#### Compiling objects #####
-
 def printMenu():
 	print	("               Linea de Feedback script 1.0.0")
 	print	("               ------------------------------")
@@ -58,60 +53,73 @@ def printMenu():
 	print	("               2) BaseConf Steps        9) Exit")
 	print ("               3) Mock user (selenium)")
 	print ""
-	return
 
-def linksArray(type, idForm):
-	linksArrayObj = ""
-	if type == 1: # push
-		linksArrayObj = (
+def printCreateMockFormMenu():
+	print ""
+	print	"--------------------"
+	print "| CREATE MOCK FORM |"
+	print	"--------------------"
+
+def printTypeOfForm():
+	print "What type of form?"
+	print "  1) push\n  2) widget\n  3) push_pull\n"
+	return int(raw_input("Opt: "))
+
+def printListFormsOrStepsAux(lenX, type, list):
+	print "There are ", lenX, type," recorded:"
+	for element in list:
+		print (list.index(element) + 1), element
+
+def printListFormsOrSteps(type):
+	
+	lenForm = len(formList)
+	lenStep = len(stepList)
+	
+	# First condition if eval is true
+	(
+	printListFormsOrStepsAux(lenForm, type, formList) 
+	if type == 'forms' 
+	else printListFormsOrStepsAux(lenStep, type, stepList)
+	)
+
+	str(raw_input("\nPress any key to continue"))	
+	
+
+#### CREATING BIG OBJECTS #####
+
+def createLinksObjAux(idTypeForm, idForm):
+	
+	linksArrayObj = (
 		  "     {\n"	
 		+ "	     		'type': {" + "\n"
-    + "             'id': 'push'" + "\n"
+    + "             'id': '" + idTypeForm + "'\n"
     + "            }," + "\n"
     + "           'link': {" + "\n"
     + "             'href': '//www.opinator.com/opi/" + idForm +"?carry_formulario=" + idForm +"&id=41719461C32226318F2015245&carry_lang=en&lang=en'" + "\n"
     + "            }" + "\n"
-    + "        }")
+    + "        }")	
+	return linksArrayObj
 
-	elif type == 2: # pull_push
+def createLinksObj(type, idForm):
+	
+	if type == 1: # push
+		linksArrayObj = createLinksObjAux('push', idForm)
+	
+	elif type == 2: # widget
+		linksArrayObj = createLinksObjAux('widget', idForm)
+		
+	elif type == 3:	# pull_push
 		linksArrayObj = (
-			"     {\n"
-		+ "	     		'type': {" + "\n"
-    + "             'id': 'push'" + "\n"
-    + "            }," + "\n"
-    + "           'link': {" + "\n"
-    + "             'href': '//www.opinator.com/opi/" + idForm +"?carry_formulario=" + idForm +"&id=41719461C32226318F2015245&carry_lang=en&lang=en'" + "\n"
-    + "            }" + "\n"
-    + "          }, {"  + "\n"
-    + "           'type': {" + "\n"
-    + "             'id': 'pull'" + "\n"
-    + "            }," + "\n"
-    + "           'link': {" + "\n"
-    + "             'href': '//www.opinator.com/opi/" + idForm +"?carry_formulario=" + idForm +"&id=41719461C32226318F2015245&carry_lang=en&lang=en'" + "\n"
-    + "            }" + "\n"
-    + "          }")
-
-	elif type == 3: # widget
-		linksArrayObj = (
-		"     {\n" 	
-		+ "	     		'type': {" + "\n"
-    + "             'id': 'widget'" + "\n"
-    + "            }," + "\n"
-    + "           'link': {" + "\n"
-    + "             'href': '//www.opinator.com/opi/" + idForm +"?carry_formulario=" + idForm +"&id=41719461C32226318F2015245&carry_lang=en&lang=en'" + "\n"
-    + "            }" + "\n"
-    + "        }")
-
-	else:
-		print "That is not a valid type"
-		linksArrayObj = "That is not a valid type"
+			createLinksObjAux('push', idForm)
+			+ ","
+			+ createLinksObjAux('pull', idForm)
+			)		
 
 	return linksArrayObj
-			
 
-def mockFormPush(idStep, idForm, type):
+def createMockForm(idStep, idForm, type):
 
-	makeObj = (
+	mockForm = (
 	"//FeedMockForm\n"
 	+	"	     {\n"
 	+ "        'id': '" + idStep + "'," + "\n"
@@ -120,37 +128,52 @@ def mockFormPush(idStep, idForm, type):
 	+ "          'id': '" + idForm + "'," + "\n"
 	+ "          'usePushMode': true," + "\n"
 	+ "          'links': [" + "\n"
-	+ "     	     " + linksArray(type, idForm) + "\n"
+	+ "     	     " + createLinksObj(type, idForm) + "\n"
 	+ "          ]" + "\n"
 	+ "        }]" + "\n"
 	+ "      },")
 
-	return makeObj
+	return mockForm
 
-#### Object makers ####
+####  CREATING SMALL OBJECTS ####
+
+def concatenateSteps(detalleOperativa, successStep):
+	
+	successExitoNombre = str(stepList.pop(successStep - 1))
+	baseConfSteps = "//FeedStepConf\n"
+	
+	for step in stepList:
+		baseConfSteps += (
+			"      '" 
+			+ step 
+			+ "': [detallesOperativa." 
+			+  detalleOperativa + "Abandono" + "],\n"
+			)
+	
+	baseConfSteps += (
+		"      '" 
+		+ successExitoNombre 
+		+ "': [detallesOperativa." +  detalleOperativa + "Exito" + "],\n"
+		)
+
+	return baseConfSteps
 
 def createBaseConfSteps(hasSteps, successStep):
 
-	baseConfSteps = "//FeedStepConf\n"
 	detalleOperativa = str(raw_input("Nombre detalle operativa: "))
+
 	if (hasSteps) and not(successStep == 0):
-		successExitoNombre = str(stepList.pop(successStep - 1))
-		for step in stepList:
-			baseConfSteps += "      '" + step + "': [detallesOperativa." +  detalleOperativa + "Abandono" + "],\n"
-		baseConfSteps += "      '" + successExitoNombre + "': [detallesOperativa." +  detalleOperativa + "Exito" + "],\n"
+		baseConfSteps = concatenateSteps(detalleOperativa, successStep)
 		
 	else:
-		mk2 = "y"
-		while (mk2 == "y") or (mk2 == "Y") or (mk2 == ""):
+		mk = "y"
+		while checkLooping(mk):
 			askForSteps()
-			mk2 = str(raw_input('Do you want to create another Step? '))
-			if (mk2 != "y") and (mk2 != "Y") and (mk2 != ""):
-				printLoop("steps")
-				successStep = int(raw_input("Cual es el paso del Exito en la operativa? "))
-				successExitoNombre = str(stepList.pop(successStep - 1))
-				for step in stepList:
-					baseConfSteps += "      '" + step + "': [detallesOperativa." +  detalleOperativa + "Abandono" + "],\n"
-				baseConfSteps += "      '" + successExitoNombre + "': [detallesOperativa." +  detalleOperativa + "Exito" + "],\n"
+			mk = str(raw_input('Do you want to create another Step? '))
+
+		printListFormsOrSteps("steps")
+		successStep = int(raw_input("Cual es el paso del Exito en la operativa? "))
+		baseConfSteps = concatenateSteps(detalleOperativa, successStep)
 
 	return baseConfSteps
 
@@ -167,7 +190,43 @@ def createMockUser(user, cclien, ticket, opType):
 		)
 	return mockUserObject
 
+####  CHECKERS ####
+
+def checkLooping(mk):
+	return (mk == "y") or (mk == "Y") or (mk == "")
+
+def checkUseLastForm():
+
+	lenForm = len(formList)
+	
+	if (lenForm > 0):
+		useLastForm = (
+			str(raw_input("Shall I use the last Form ID " 
+			+ formList[lenForm-1] 
+			+ "? "))
+			)
+		if useLastForm == "y" or useLastForm == "":
+			idForm = formList[lenForm - 1]
+		else: 
+			idForm = str(raw_input("Form ID or <INTRO> for default: "))
+
+	else:		
+		idForm = str(raw_input("Form ID or <INTRO> for default: "))
+	# Set Options for Default Form 
+	if idForm == "":
+		idForm = "oc_financiacion_adeudo_abandono_web"
+		type = 1
+
+	return idForm
+
 #### misc ####
+def appendFormToTheList(idForm):
+	if (len(formList) == 0):
+		formList.append(idForm)
+	elif (idForm != formList[len(formList) - 1]):
+		formList.append(idForm)
+	else:
+		return
 
 def askForSteps():
 	if len(stepList) > 0:
@@ -183,13 +242,16 @@ def clearTerminal():
 ######## Classes ##########
 ###########################
 
-class myUser():
+class MyUser():
 	def __init__(self, user, cclien, ticket):
 		self.u = user
 		self.c = cclien
 		self.t = ticket
 
-
+class Configure():
+	def __init__(self, filePath, regExp):
+		self.f = filePath
+		self.r = regExp
 ###########################
 ### INITIALIZE VARIABLES ##
 ###########################
@@ -198,7 +260,6 @@ loop = 1
 stepList = []
 formList = []
 operativas = []
-idStep = ""
 
 ###########################
 ###### MENU CHOICES #######
@@ -208,7 +269,7 @@ while loop == 1:
 
 	clearTerminal()
 	printBBVALogo()
-  printMenu()
+	printMenu()
 
   # User selects an option from the menu
 	choice = int(raw_input("               Opt: "))
@@ -218,56 +279,33 @@ while loop == 1:
 ####################
 	if choice == 1:
 
-		mk1 = "y"
-		while (mk1 == "y") or (mk1 == "Y") or (mk1 == ""):	
+		mk = "y"
+		while checkLooping(mk):	
 			
 			clearTerminal()
-			print ""
-			print	"--------------------"
-			print "| CREATE MOCK FORM |"
-			print	"--------------------"
-
-			# Ask for StepID and append it to a list of steps
+			printCreateMockFormMenu()
 			askForSteps()
+			idForm = checkUseLastForm()
+			appendFormToTheList(idForm)
+			type = printTypeOfForm()
 
-			# Ask for the FormID
-			if (len(formList) > 0):
-				checkForm = str(raw_input("Shall I use the last Form ID " + formList[len(formList)-1] + "?"))
-				if (checkForm == "y") or (checkForm == ""):
-					idForm = formList[len(formList)-1]
-				else:
-					idForm = str(raw_input("Form ID or <INTRO> for default: "))
-			else:		
-				idForm = str(raw_input("Form ID or <INTRO> for default: "))
-				
-				
-			if idForm == "":
-				# Set Options for Default Form 
-				idForm = "oc_financiacion_adeudo_abandono_web"
-				type = 1
-			else: 
-				if (len(formList) == 0):
-					formList.append(idForm)
-				elif (idForm != formList[len(formList) - 1]):
-					formList.append(idForm)
-				else:
-					pass
-				print "What type of form?"
-				print "  1) push\n  2) push_pull\n  3) widget\n"
-				type = int(raw_input("Opt: "))
+
+
+
+
 
 			# Compile a RegExp and write the subsitute to the JSFile
-			with open('feedback.conf.js') as f:
+			with open(configDictionary['feedConfFilePath']) as f:
 				contents = f.read()
 			r = re.compile(r'//FeedMockForm')
-			contents = r.sub(mockFormPush(idStep, idForm, type), contents)
-			with open('feedback.conf.js','w') as f:
+			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
+			with open('/home/sam/feedbacktool/feedback.conf.js','w') as f:
 				f.write(contents)
 
 			print ""
 			print u'\u2514' + " Object created!"
 			print "  ---------------"
-			mk1 = str(raw_input("Do you want to create another? "))
+			mk = str(raw_input("Do you want to create another? "))
 
 ######################################################
 # Add BaseConf steps #
@@ -286,7 +324,7 @@ while loop == 1:
 
 		if len(stepList) > 0:
 			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
-			printLoop('steps')
+			printListFormsOrSteps('steps')
 			hasSteps = 'true'
 
 			successStep = int(raw_input("Cual es el paso del Exito en la operativa? "))
@@ -312,80 +350,71 @@ while loop == 1:
 
 	elif choice == 3:
 
-		from time import sleep
-		from selenium import webdriver
-		from selenium.webdriver.common.by import By
-		from selenium.webdriver.common.keys import Keys
-		from selenium.webdriver.support.ui import WebDriverWait
-		from selenium.webdriver.support import expected_conditions as EC
+		fp = webdriver.FirefoxProfile()
+		# Direct = 0, Manual = 1, PAC = 2, AUTODETECT = 4, SYSTEM = 5
+		fp.set_preference("network.proxy.type", 1)
+		PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
+		PROXY_PORT = "8080"
+		fp.set_preference("network.proxy.http", PROXY_HOST)
+		fp.set_preference("network.proxy.http_port", PROXY_PORT)
 
-		try:
-			fp = webdriver.FirefoxProfile()
-			# Direct = 0, Manual = 1, PAC = 2, AUTODETECT = 4, SYSTEM = 5
-			fp.set_preference("network.proxy.type", 1)
-			PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
-			PROXY_PORT = "8080"
-			fp.set_preference("network.proxy.http", PROXY_HOST)
-			fp.set_preference("network.proxy.http_port", PROXY_PORT)
+		user = str(raw_input('Enter the user to mock: '))
+		browser = webdriver.Firefox(firefox_profile=fp)
+		browser.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp')
+		assert 'BBVA.es' in browser.title
 
-			user = str(raw_input('Enter the user to mock: '))
-			browser = webdriver.Firefox(firefox_profile=fp)
-			browser.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp')
-			assert 'BBVA.es' in browser.title
+		btnAccesoClientes = browser.find_element(By.XPATH, '//*[contains(text(), "Acceso Clientes")]')
+		inputEnterUser = browser.find_element(By.XPATH, './/*[@id="eai_user"]')
+		inputEnterPass = browser.find_element(By.XPATH, './/*[@id="eai_password"]')
+		btnEntrar = browser.find_element(By.XPATH, './/*[@id="acceder"]')
+		
+		btnAccesoClientes.click()
+		inputEnterUser.send_keys(user + Keys.TAB)
+		inputEnterPass.send_keys('123456')
+		btnEntrar.click()
 
-			btnAccesoClientes = browser.find_element(By.XPATH, '//*[contains(text(), "Acceso Clientes")]')
-			inputEnterUser = browser.find_element(By.XPATH, './/*[@id="eai_user"]')
-			inputEnterPass = browser.find_element(By.XPATH, './/*[@id="eai_password"]')
-			btnEntrar = browser.find_element(By.XPATH, './/*[@id="acceder"]')
-			
-			btnAccesoClientes.click()
-			inputEnterUser.send_keys(user + Keys.TAB)
-			inputEnterPass.send_keys('123456')
-			btnEntrar.click()
+		# Check requests response??
+		sleep(8)
 
-			sleep(8)
-			assert 'BBVA' in browser.title
-			
-			browser.get('https://ei-bbvaglobal.igrupobbva/BBVANet/info')
-			
-			sleep(1)
+		if 
+		assert 'BBVA' in browser.title
+		
+		browser.get('https://ei-bbvaglobal.igrupobbva/BBVANet/info')
+		
+		sleep(1)
 
-			inputEnterUser2 = browser.find_element(By.XPATH, './html/body/form/input[1]')
-			inputEnterPass2 = browser.find_element(By.XPATH, './html/body/form/input[2]')
-			btnLogin = browser.find_element(By.XPATH, './html/body/form/input[3]')
+		inputEnterUser2 = browser.find_element(By.XPATH, './html/body/form/input[1]')
+		inputEnterPass2 = browser.find_element(By.XPATH, './html/body/form/input[2]')
+		btnLogin = browser.find_element(By.XPATH, './html/body/form/input[3]')
 
-			inputEnterUser2.send_keys('kqof')
-			inputEnterPass2.send_keys('ci4bbva')
-			btnLogin.click()
-			sleep(3)
+		inputEnterUser2.send_keys('kqof')
+		inputEnterPass2.send_keys('ci4bbva')
+		btnLogin.click()
+		sleep(3)
 
-			assert 'Echo' in browser.title
+		assert 'Echo' in browser.title
 
-			iv_cclien = browser.find_element(By.XPATH, './/td[contains(text(), "iv-cclien")]/following-sibling::td').text
-			iv_ticket = browser.find_element(By.XPATH, './/td[contains(text(), "iv-ticket")]/following-sibling::td').text
-			print "iv-cclien", iv_cclien
-			print "iv-ticket", iv_ticket
+		iv_cclien = browser.find_element(By.XPATH, './/td[contains(text(), "iv-cclien")]/following-sibling::td').text
+		iv_ticket = browser.find_element(By.XPATH, './/td[contains(text(), "iv-ticket")]/following-sibling::td').text
+		print "iv-cclien", iv_cclien
+		print "iv-ticket", iv_ticket
 
-			userData = myUser(user, iv_cclien, iv_ticket)
+		userData = MyUser(user, iv_cclien, iv_ticket)
 
-			browser.quit()
-			
-			opType = "//" + str(raw_input("Tipo operativa: "))
+		browser.quit()
+		
+		opType = "//" + str(raw_input("Tipo operativa: "))
 
-			with open('mockUsers.json') as f:
-				contents = f.read()
-			r = re.compile(r'//OC ANTICIPO NOMINA')
-			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
-			with open('mockUsers.json','w') as f:
-				f.write(contents)
+		with open(configDictionary['feedMockUsersFilePath']) as f:
+			contents = f.read()
+		r = re.compile(r'//OC ANTICIPO NOMINA')
+		contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+		with open(configDictionary['feedMockUsersFilePath'],'w') as f:
+			f.write(contents)
 
-			
-			print "Exito!"
-			raw_input('Pulsa <INTRO> para continuar')
-		except ValueError:
-			print "Oops! Ha ocurrido un error"
-			print "Prueba mas tarde!"
-			raw_input('Pulsa <INTRO> para continuar')
+		
+		print "Exito!"
+		raw_input('Pulsa <INTRO> para continuar')
 
 ######################################################
 # Show me the lists #
@@ -399,12 +428,12 @@ while loop == 1:
 		print "| DATA RECORDED |"
 		print	"-----------------"
 		if (len(stepList) > 0) and (len(formList) > 0):
-			printLoop('steps')
-			printLoop('forms')
+			printListFormsOrSteps('steps')
+			printListFormsOrSteps('forms')
 		elif (len(stepList) > 0):
-			printLoop('steps')
+			printListFormsOrSteps('steps')
 		elif (len(formList) > 0):
-			printLoop('forms')
+			printListFormsOrSteps('forms')
 		else:
 			str(raw_input("There are no steps or forms recorded :("))
 

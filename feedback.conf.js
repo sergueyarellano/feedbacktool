@@ -734,44 +734,15 @@
     'additionalButtonClasses': 'segurosauto',
     'botonType': 'boton_feedback_fondo_azul_redondeado'
   };
+  //FeedDetail
 
   var FeedbackConf = function () {
     //objeto con la lista de objetos de operativa en las que se pone el opinator
     this.baseConfLocal = {
       //FeedStepConf
-      'step 1': [detallesOperativa.OperativaIntheNIghtAbandono],
-      'step 2': [detallesOperativa.OperativaIntheNIghtAbandono],
-      'step 3': [detallesOperativa.OperativaIntheNIghtExito],
-
-      'step 1': [detallesOperativa.step 1Abandono],
-      'step 2': [detallesOperativa.step 1Exito],
-
-      'step 1': [detallesOperativa.poimspfdmpsdmfAbandono],
-      '': [detallesOperativa.poimspfdmpsdmfExito],
-
-      'step 1': [detallesOperativa.apsdfpsadfpalsmdfAbandono],
-      '': [detallesOperativa.apsdfpsadfpalsmdfExito],
-
-      '': [detallesOperativa.noooooooooombreExito],
-
-      'step 1': [detallesOperativa.noooooooooooombreAbandono],
-      '': [detallesOperativa.noooooooooooombreExito],
-
-      'step 1': [detallesOperativa.operaaaaaaaaaaativaAbandono],
-      'step 2': [detallesOperativa.operaaaaaaaaaaativaAbandono],
-      '': [detallesOperativa.operaaaaaaaaaaativaExito],
-
-      'step 1': [detallesOperativa.segurosAuto],
-      'step 2': [detallesOperativa.segurosAuto],
-      'step 3': [detallesOperativa.segurosAuto],
-
-      'paso 1': [detallesOperativa.ocinthenight],
-
-      'sdfasfasdf': [detallesOperativa.operativizate],
-
-      'stepinthenight': [detallesOperativa.operativizate],
-
-      'step': [detallesOperativa.asdfsadfsadf],
+      'step 1': [detallesOperativa.noooooooooombreeeAbandono],
+      'step 2': [detallesOperativa.noooooooooombreeeAbandono],
+      'step 3': [detallesOperativa.noooooooooombreeeExito],
 
       //Seguros auto simulacion web
       'seguros_auto_mostrar_productos': [detallesOperativa.segurosAutoAbandono],
@@ -991,10 +962,10 @@
     this.additionalOpinatorResponse = [
     //FeedMockForm
 	     {
-        'id': '',
-        'businessCode': '',
+        'id': 'steeeeeeeeeep',
+        'businessCode': 'steeeeeeeeeep',
         'forms': [{
-          'id': 'form_exito',
+          'id': 'foooooooooorm',
           'usePushMode': true,
           'links': [
      	          {
@@ -1002,50 +973,7 @@
              'id': 'push'
             },
            'link': {
-             'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }, {
-           'type': {
-             'id': 'pull'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }
-          ]
-        }]
-      },
-	     {
-        'id': '',
-        'businessCode': '',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': '',
-        'businessCode': '',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
+             'href': '//www.opinator.com/opi/foooooooooorm?carry_formulario=foooooooooorm&id=41719461C32226318F2015245&carry_lang=en&lang=en'
             }
         }
           ]
@@ -1065,14 +993,14 @@
            'link': {
              'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
             }
-          }, {
-           'type': {
+        },     {
+	     		'type': {
              'id': 'pull'
             },
            'link': {
              'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
             }
-          }
+        }
           ]
         }]
       },
@@ -1107,207 +1035,6 @@
             },
            'link': {
              'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'step final',
-        'businessCode': 'step final',
-        'forms': [{
-          'id': 'form_exito',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }, {
-           'type': {
-             'id': 'pull'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }
-          ]
-        }]
-      },
-	     {
-        'id': 'step2',
-        'businessCode': 'step2',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'step1',
-        'businessCode': 'step1',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'step 3',
-        'businessCode': 'step 3',
-        'forms': [{
-          'id': 'form_exito',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }, {
-           'type': {
-             'id': 'pull'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_exito?carry_formulario=form_exito&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }
-          ]
-        }]
-      },
-	     {
-        'id': 'step 2',
-        'businessCode': 'step 2',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'step 1',
-        'businessCode': 'step 1',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'paso 1',
-        'businessCode': 'paso 1',
-        'forms': [{
-          'id': 'form_abandono',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/form_abandono?carry_formulario=form_abandono&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'paso final',
-        'businessCode': 'paso final',
-        'forms': [{
-          'id': 's',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/s?carry_formulario=s&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }, {
-           'type': {
-             'id': 'pull'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/s?carry_formulario=s&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-          }
-          ]
-        }]
-      },
-	     {
-        'id': 'paso 2',
-        'businessCode': 'paso 2',
-        'forms': [{
-          'id': 'oc_financiacion_adeudo_abandono_web',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/oc_financiacion_adeudo_abandono_web?carry_formulario=oc_financiacion_adeudo_abandono_web&id=41719461C32226318F2015245&carry_lang=en&lang=en'
-            }
-        }
-          ]
-        }]
-      },
-	     {
-        'id': 'paso 1',
-        'businessCode': 'paso 1',
-        'forms': [{
-          'id': 'oc_financiacion_adeudo_abandono_web',
-          'usePushMode': true,
-          'links': [
-     	          {
-	     		'type': {
-             'id': 'push'
-            },
-           'link': {
-             'href': '//www.opinator.com/opi/oc_financiacion_adeudo_abandono_web?carry_formulario=oc_financiacion_adeudo_abandono_web&id=41719461C32226318F2015245&carry_lang=en&lang=en'
             }
         }
           ]
