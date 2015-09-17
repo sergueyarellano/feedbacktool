@@ -51,8 +51,9 @@ confjsFP = configDictionary['confjs'][indDic]
 if develop:
 	mockusersjsFP = 'mockUsers.json'
 	confjsFP = 'feedback.conf.js'
+	usertypesjsFP = 'userTypes.json'
 
-# lists
+# Initialize variables
 loop = 1
 stepList = []
 formList = []
@@ -223,6 +224,7 @@ def createMockUser(user, cclien, ticket, opType):
 		)
 	return mockUserObject
 
+def createMockUserForBDD
 ####  CHECKERS ####
 
 def checkLooping(mk):
@@ -427,11 +429,19 @@ while loop == 1:
 
 			browser.quit()
 
+			# Write to mockusers.js
 			with open(mockusersjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
 			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
 			with open(mockusersjsFP,'w') as f:
+				f.write(contents)
+			# Write to usertypes.json
+			with open(usertypesjsFP) as f:
+				contents = f.read()
+			r = re.compile(r'"GestorNoRemoto": {')
+			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			with open(usertypesjsFP,'w') as f:
 				f.write(contents)
 
 		
