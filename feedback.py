@@ -317,7 +317,7 @@ while loop == 1:
 			type = printTypeOfForm()
 
 			# Compile a RegExp and write the subsitute to the JSFile
-			with open(configDictionary[confjsFP]) as f:
+			with open(confjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'//FeedMockForm')
 			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
