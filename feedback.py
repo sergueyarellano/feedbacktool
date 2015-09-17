@@ -22,9 +22,37 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 configDictionary = {
-	"feedConfFilePath": "/home/sam/feedbacktool/feedback.conf.js",
-	"feedMockUsersFilePath": "/home/sam/feedbacktool/mockUsers.json"
+	'os' : {'posix': 0, 'nt': 1},
+	'usertypesjs': [
+		'/BBVA/itests/src/main/resources/users/userTypes.json',
+		'C:\BBVA\itests\src\main\resources\users\userTypes.json'
+	],
+	'mockusers': [
+		'/BBVA/WebApp/src/main/resources/META-INF/cabeceras/mockUsers.json',
+		'C:\BBVA\WebApp\src\main\resources\META-INF\cabeceras\mockUsers.json'
+	],
+	'confjs': [
+		'/BBVA/WebApp/src/main/webapp/js/bbva.app.feedback.conf.js',
+		'C:\BBVA\WebApp\src\main\webapp\js\bbva.app.feedback.conf.js'
+	]
 }
+
+###########################
+### INITIALIZE VARIABLES ##
+###########################
+# Config vars
+osname = os.name
+indDic = configDictionary['os'][osname]
+mockusersjsFP = configDictionary['mockusers'][indDic]
+usertypesjsFP = configDictionary['usertypesjs'][indDic]
+confjsFP = configDictionary['confjs'][indDic]
+
+# lists
+loop = 1
+stepList = []
+formList = []
+operativas = []
+
 ###########################
 ######## FUNCTIONS ########
 ###########################
@@ -252,14 +280,6 @@ class Configure():
 	def __init__(self, filePath, regExp):
 		self.f = filePath
 		self.r = regExp
-###########################
-### INITIALIZE VARIABLES ##
-###########################
-
-loop = 1
-stepList = []
-formList = []
-operativas = []
 
 ###########################
 ###### MENU CHOICES #######
@@ -289,17 +309,12 @@ while loop == 1:
 			appendFormToTheList(idForm)
 			type = printTypeOfForm()
 
-
-
-
-
-
 			# Compile a RegExp and write the subsitute to the JSFile
-			with open(configDictionary['feedConfFilePath']) as f:
+			with open(configDictionary[confjsFP]) as f:
 				contents = f.read()
 			r = re.compile(r'//FeedMockForm')
 			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
-			with open('/home/sam/feedbacktool/feedback.conf.js','w') as f:
+			with open(confjsFP,'w') as f:
 				f.write(contents)
 
 			print ""
@@ -376,7 +391,6 @@ while loop == 1:
 		# Check requests response??
 		sleep(8)
 
-		if 
 		assert 'BBVA' in browser.title
 		
 		browser.get('https://ei-bbvaglobal.igrupobbva/BBVANet/info')
@@ -405,16 +419,18 @@ while loop == 1:
 		
 		opType = "//" + str(raw_input("Tipo operativa: "))
 
-		with open(configDictionary['feedMockUsersFilePath']) as f:
+		with open(mockusersjsFP) as f:
 			contents = f.read()
 		r = re.compile(r'//OC ANTICIPO NOMINA')
 		contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
-		with open(configDictionary['feedMockUsersFilePath'],'w') as f:
+		with open(mockusersjsFP,'w') as f:
 			f.write(contents)
 
 		
 		print "Exito!"
 		raw_input('Pulsa <INTRO> para continuar')
+		# falta configurar usertypes y crear el fichero en ei nombrandolo con el nif usuario.
+
 
 ######################################################
 # Show me the lists #
