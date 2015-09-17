@@ -2,7 +2,7 @@ Feedback tools 2015
 ===================
 
 Feedback tools are power to the people, essence of Huelma (some might say "ponche de 12L"), or
-simply a helper to use while supporting or implementing feedback within BBVA developers environment.
+simply a helper to use while supporting or implementing feedback within developers environment.
 
 
 You might want to use feedback tools 2015 in the following cases.
