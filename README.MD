@@ -6,6 +6,7 @@ simply a helper to use while supporting or implementing feedback within BBVA dev
 
 
 You might want to use feedback tools 2015 in the following cases:
+
 * Creating a mock form (default option available) in Feedback.conf.js file
 * Mocking users in mockusers.json, usertypes (user ei) (BDD config files)
 * Creating properties to implement inside BaseConfLocal object, including details.
@@ -18,7 +19,7 @@ Necesary tools
 
 File paths
 ----------
-You need to edit "feedback.py" indicating the absolut path
-to your js files
+You need to edit "feedback.py" indicating the absolut path to the js files in the "configDictionary" object.
+
 Revision: 17 sep 2015
 Version: 1.0.0
