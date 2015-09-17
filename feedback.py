@@ -4,7 +4,7 @@
 # Implementacion feedback
 #
 ## -*- coding: UTF-8 -*-
-
+develop = True
 ###########################
 ######### IMPORTS #########
 ###########################
@@ -46,6 +46,11 @@ indDic = configDictionary['os'][osname]
 mockusersjsFP = configDictionary['mockusers'][indDic]
 usertypesjsFP = configDictionary['usertypesjs'][indDic]
 confjsFP = configDictionary['confjs'][indDic]
+
+# Paths for developing
+if develop:
+	mockusersjsFP = 'mockUsers.json'
+	confjsFP = 'feedback.conf.js'
 
 # lists
 loop = 1
@@ -365,66 +370,69 @@ while loop == 1:
 
 	elif choice == 3:
 
-		fp = webdriver.FirefoxProfile()
-		# Direct = 0, Manual = 1, PAC = 2, AUTODETECT = 4, SYSTEM = 5
-		fp.set_preference("network.proxy.type", 1)
-		PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
-		PROXY_PORT = "8080"
-		fp.set_preference("network.proxy.http", PROXY_HOST)
-		fp.set_preference("network.proxy.http_port", PROXY_PORT)
-
-		user = str(raw_input('Enter the user to mock: '))
-		browser = webdriver.Firefox(firefox_profile=fp)
-		browser.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp')
-		assert 'BBVA.es' in browser.title
-
-		btnAccesoClientes = browser.find_element(By.XPATH, '//*[contains(text(), "Acceso Clientes")]')
-		inputEnterUser = browser.find_element(By.XPATH, './/*[@id="eai_user"]')
-		inputEnterPass = browser.find_element(By.XPATH, './/*[@id="eai_password"]')
-		btnEntrar = browser.find_element(By.XPATH, './/*[@id="acceder"]')
 		
-		btnAccesoClientes.click()
-		inputEnterUser.send_keys(user + Keys.TAB)
-		inputEnterPass.send_keys('123456')
-		btnEntrar.click()
 
-		# Check requests response??
-		sleep(8)
+		u = raw_input('Enter the users to mock separated by spaces: ')
+		userList = map(str, u.split())
+		opType = "//" + str(raw_input("Nombre operativa: "))
 
-		assert 'BBVA' in browser.title
-		
-		browser.get('https://ei-bbvaglobal.igrupobbva/BBVANet/info')
-		
-		sleep(1)
+		for user in userList:
+			fp = webdriver.FirefoxProfile()
+			# Direct = 0, Manual = 1, PAC = 2, AUTODETECT = 4, SYSTEM = 5
+			fp.set_preference("network.proxy.type", 1)
+			PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
+			PROXY_PORT = "8080"
+			fp.set_preference("network.proxy.http", PROXY_HOST)
+			fp.set_preference("network.proxy.http_port", PROXY_PORT)
+			browser = webdriver.Firefox(firefox_profile=fp)
+			browser.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp')
+			assert 'BBVA.es' in browser.title
 
-		inputEnterUser2 = browser.find_element(By.XPATH, './html/body/form/input[1]')
-		inputEnterPass2 = browser.find_element(By.XPATH, './html/body/form/input[2]')
-		btnLogin = browser.find_element(By.XPATH, './html/body/form/input[3]')
+			btnAccesoClientes = browser.find_element(By.XPATH, '//*[contains(text(), "Acceso Clientes")]')
+			inputEnterUser = browser.find_element(By.XPATH, './/*[@id="eai_user"]')
+			inputEnterPass = browser.find_element(By.XPATH, './/*[@id="eai_password"]')
+			btnEntrar = browser.find_element(By.XPATH, './/*[@id="acceder"]')
+			
+			btnAccesoClientes.click()
+			inputEnterUser.send_keys(user + Keys.TAB)
+			inputEnterPass.send_keys('123456')
+			btnEntrar.click()
 
-		inputEnterUser2.send_keys('kqof')
-		inputEnterPass2.send_keys('ci4bbva')
-		btnLogin.click()
-		sleep(3)
+			# Check requests response??
+			sleep(8)
 
-		assert 'Echo' in browser.title
+			assert 'BBVA' in browser.title
+			
+			browser.get('https://ei-bbvaglobal.igrupobbva/BBVANet/info')
+			
+			sleep(1)
 
-		iv_cclien = browser.find_element(By.XPATH, './/td[contains(text(), "iv-cclien")]/following-sibling::td').text
-		iv_ticket = browser.find_element(By.XPATH, './/td[contains(text(), "iv-ticket")]/following-sibling::td').text
-		print "iv-cclien", iv_cclien
-		print "iv-ticket", iv_ticket
+			inputEnterUser2 = browser.find_element(By.XPATH, './html/body/form/input[1]')
+			inputEnterPass2 = browser.find_element(By.XPATH, './html/body/form/input[2]')
+			btnLogin = browser.find_element(By.XPATH, './html/body/form/input[3]')
 
-		userData = MyUser(user, iv_cclien, iv_ticket)
+			inputEnterUser2.send_keys('kqof')
+			inputEnterPass2.send_keys('ci4bbva')
+			btnLogin.click()
+			sleep(3)
 
-		browser.quit()
-		
-		opType = "//" + str(raw_input("Tipo operativa: "))
+			assert 'Echo' in browser.title
 
-		with open(mockusersjsFP) as f:
-			contents = f.read()
-		r = re.compile(r'//OC ANTICIPO NOMINA')
-		contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
-		with open(mockusersjsFP,'w') as f:
-			f.write(contents)
+			iv_cclien = browser.find_element(By.XPATH, './/td[contains(text(), "iv-cclien")]/following-sibling::td').text
+			iv_ticket = browser.find_element(By.XPATH, './/td[contains(text(), "iv-ticket")]/following-sibling::td').text
+			print "iv-cclien", iv_cclien
+			print "iv-ticket", iv_ticket
+
+			userData = MyUser(user, iv_cclien, iv_ticket)
+
+			browser.quit()
+
+			with open(mockusersjsFP) as f:
+				contents = f.read()
+			r = re.compile(r'//OC ANTICIPO NOMINA')
+			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			with open(mockusersjsFP,'w') as f:
+				f.write(contents)
 
 		
 		print "Exito!"
