@@ -1,9 +1,10 @@
-# Author: Serguey Arellano
+#
+# 
 # 9 sep, 2015
-# Feedback helper tools
+# Implementacion feedback
 #
 ## -*- coding: UTF-8 -*-
-develop = False
+develop = True
 ###########################
 ######### IMPORTS #########
 ###########################
@@ -49,8 +50,9 @@ confjsFP = configDictionary['confjs'][indDic]
 if develop:
 	mockusersjsFP = 'mockUsers.json'
 	confjsFP = 'feedback.conf.js'
+	usertypesjsFP = 'userTypes.json'
 
-# lists
+# Initialize variables
 loop = 1
 stepList = []
 formList = []
@@ -266,8 +268,10 @@ def askForSteps():
 	stepList.append(idStep)
 
 def clearTerminal():
-	os.system('cls') #for window
-	os.system('clear') #for Linux
+	if os.name == 'nt':
+		os.system('cls') #for window
+	else:
+		os.system('clear') #for Linux
 
 ###########################
 ######## Classes ##########
@@ -331,8 +335,8 @@ while loop == 1:
 
 	elif choice == 2:
 
-		os.system('cls') #for window
-		os.system('clear') #for Linux
+		clearTerminal()
+		
 		print ""
 		print	"-------------------"
 		print "| BASE CONF STEPS |"
@@ -425,11 +429,19 @@ while loop == 1:
 
 			browser.quit()
 
+			# Write to mockusers.js
 			with open(mockusersjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
 			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
 			with open(mockusersjsFP,'w') as f:
+				f.write(contents)
+			# Write to usertypes.json
+			with open(usertypesjsFP) as f:
+				contents = f.read()
+			r = re.compile(r'"GestorNoRemoto": {')
+			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			with open(usertypesjsFP,'w') as f:
 				f.write(contents)
 
 		
@@ -443,8 +455,7 @@ while loop == 1:
 #####################
 
 	elif choice == 8:
-		os.system('cls') #for window
-		os.system('clear') #for Linux
+		clearTerminal()
 		print ""
 		print	"-----------------"
 		print "| DATA RECORDED |"
@@ -465,7 +476,6 @@ while loop == 1:
 
 	elif choice == 9:
 		loop = 0
-		os.system('cls') #for window
-		os.system('clear') #for Linux
+		clearTerminal()
 	else: 
 		print("I need a numeric input!!")
