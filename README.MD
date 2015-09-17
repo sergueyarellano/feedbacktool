@@ -5,7 +5,7 @@ Feedback tools are power to the people, essence of Huelma (some might say "ponch
 simply a helper to use while supporting or implementing feedback within BBVA developers environment.
 
 
-You might want to use feedback tools 2015 in the following cases:
+You might want to use feedback tools 2015 in the following cases.
 
 * Creating a mock form (default option available) in Feedback.conf.js file
 * Mocking users in mockusers.json, usertypes (user ei) (BDD config files)
