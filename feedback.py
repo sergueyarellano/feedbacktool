@@ -13,7 +13,6 @@ import re
 import sys
 import codecs # for unicode format
 import os # 
-import requests
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -224,8 +223,6 @@ def createMockUser(user, cclien, ticket, opType):
 		)
 	return mockUserObject
 
-def createMockUserForBDD():
-	mockUserObject = 
 ####  CHECKERS ####
 
 def checkLooping(mk):
@@ -271,8 +268,10 @@ def askForSteps():
 	stepList.append(idStep)
 
 def clearTerminal():
-	os.system('cls') #for window
-	os.system('clear') #for Linux
+	if os.name == 'nt':
+		os.system('cls') #for window
+	else:
+		os.system('clear') #for Linux
 
 ###########################
 ######## Classes ##########
@@ -336,8 +335,8 @@ while loop == 1:
 
 	elif choice == 2:
 
-		os.system('cls') #for window
-		os.system('clear') #for Linux
+		clearTerminal()
+		
 		print ""
 		print	"-------------------"
 		print "| BASE CONF STEPS |"
@@ -456,8 +455,7 @@ while loop == 1:
 #####################
 
 	elif choice == 8:
-		os.system('cls') #for window
-		os.system('clear') #for Linux
+		clearTerminal()
 		print ""
 		print	"-----------------"
 		print "| DATA RECORDED |"
@@ -478,7 +476,6 @@ while loop == 1:
 
 	elif choice == 9:
 		loop = 0
-		os.system('cls') #for window
-		os.system('clear') #for Linux
+		clearTerminal()
 	else: 
 		print("I need a numeric input!!")
