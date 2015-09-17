@@ -1,7 +1,6 @@
-#
-# xe49706
+# Author: Serguey Arellano
 # 9 sep, 2015
-# Implementacion feedback
+# Feedback helper tools
 #
 ## -*- coding: UTF-8 -*-
 develop = False
