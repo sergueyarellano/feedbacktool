@@ -17,6 +17,7 @@ Necesary tools
 * [Python 2.7.x ](https://www.python.org/downloads/)
 * [Selenium for Python](http://www.seleniumhq.org/download/)
 
-:
+Log:
+
         Revision: 17 sep 2015
         Version: 1.0.0
