@@ -1,7 +1,7 @@
 #
 # 
 # 9 sep, 2015
-# Implementacion feedback
+# Implementacion feedbacka
 #
 ## -*- coding: UTF-8 -*-
 develop = False
