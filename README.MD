@@ -18,9 +18,5 @@ Necesary tools
 * [Selenium for Python](http://www.seleniumhq.org/download/)
 * [Firefox](https://www.mozilla.org/en-US/firefox/products/)
 
-File paths
-----------
-You need to edit "feedback.py" indicating the absolut path to the js files in the "configDictionary" object.
-
     Revision: 17 sep 2015
     Version: 1.0.0
