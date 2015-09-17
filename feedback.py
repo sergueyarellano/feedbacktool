@@ -13,7 +13,6 @@ import re
 import sys
 import codecs # for unicode format
 import os # 
-import requests
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
