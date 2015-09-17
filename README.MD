@@ -13,10 +13,10 @@ You might want to use feedback tools 2015 in the following cases.
 
 Necesary tools
 --------------
-
+* [Firefox](https://www.mozilla.org/en-US/firefox/products/)
 * [Python 2.7.x ](https://www.python.org/downloads/)
 * [Selenium for Python](http://www.seleniumhq.org/download/)
-* [Firefox](https://www.mozilla.org/en-US/firefox/products/)
+
 
     Revision: 17 sep 2015
     Version: 1.0.0
