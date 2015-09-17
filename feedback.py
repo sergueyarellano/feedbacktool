@@ -1,5 +1,5 @@
 #
-# xe49706
+# 
 # 9 sep, 2015
 # Implementacion feedback
 #
@@ -224,7 +224,8 @@ def createMockUser(user, cclien, ticket, opType):
 		)
 	return mockUserObject
 
-def createMockUserForBDD
+def createMockUserForBDD():
+	mockUserObject = 
 ####  CHECKERS ####
 
 def checkLooping(mk):
