@@ -1,3 +1,5 @@
 // Archivos para pruebas en local
 feedback.conf.js
 mockUsers.json
+bbva.app.feedback.conf.js
+userTypes.json
