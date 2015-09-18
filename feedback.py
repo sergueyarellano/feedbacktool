@@ -1,10 +1,9 @@
-#
-# 
+#sssssssssssss
 # 9 sep, 2015
 # Implementacion feedback
 #
 ## -*- coding: UTF-8 -*-
-develop = False
+develop = True
 ###########################
 ######### IMPORTS #########
 ###########################
@@ -13,6 +12,7 @@ import re
 import sys
 import codecs # for unicode format
 import os # 
+import configmodule as cf
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -20,31 +20,18 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-configDictionary = {
-	'os' : {'posix': 0, 'nt': 1},
-	'usertypesjs': [
-		'/BBVA/itests/src/main/resources/users/userTypes.json',
-		r'C:\\BBVA\\itests\\src\\main\\resources\\users\\userTypes.json'
-	],
-	'mockusers': [
-		'/BBVA/WebApp/src/main/resources/META-INF/cabeceras/mockUsers.json',
-		r'C:\\BBVA\\WebApp\\src\\main\\resources\\META-INF\\cabeceras\\mockUsers.json'
-	],
-	'confjs': [
-		'/BBVA/WebApp/src/main/webapp/js/bbva.app.feedback.conf.js',
-		r'C:\\BBVA\\WebApp\\src\\main\\webapp\\js\\bbva.app.feedback.conf.js'
-	]
-}
-
 ###########################
 ### INITIALIZE VARIABLES ##
 ###########################
+PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
+PROXY_PORT = "8080"
+cf.checkProxy(PROXY_HOST, PROXY_PORT)
 # Config vars
 osname = os.name
-indDic = configDictionary['os'][osname]
-mockusersjsFP = configDictionary['mockusers'][indDic]
-usertypesjsFP = configDictionary['usertypesjs'][indDic]
-confjsFP = configDictionary['confjs'][indDic]
+indDic = cf.configDictionary['os'][osname]
+mockusersjsFP = cf.configDictionary['mockusers'][indDic]
+usertypesjsFP = cf.configDictionary['usertypesjs'][indDic]
+confjsFP = cf.configDictionary['confjs'][indDic]
 
 # Paths for developing
 if develop:
@@ -173,7 +160,7 @@ def createMockForm(idStep, idForm, type):
 def concatenateSteps(detalleOperativa, successStep):
 	
 	successExitoNombre = str(stepList.pop(successStep - 1))
-	baseConfSteps = "//FeedStepConf\n"
+	baseConfSteps = "this.baseConfLocal = {\n"
 	
 	for step in stepList:
 		baseConfSteps += (
@@ -353,13 +340,16 @@ while loop == 1:
 		# print "<info> Remember to edit manually the success step if that is your case<info>"
 			print ""
 
+<<<<<<< HEAD
 		
-		with open('feedback.conf.js') as f:
+=======
+>>>>>>> Refactor script and add config module
+		with open(confjsFP) as f:
 			contents = f.read()
-		r = re.compile(r'//FeedStepConf')
+		r = re.compile(r'this.baseConfLocal = {')
 		contents = r.sub(createBaseConfSteps(hasSteps, successStep), contents)
 		
-		with open('feedback.conf.js','w') as f:
+		with open(confjsFP,'w') as f:
 			f.write(contents)
 		print ""
 		print u'\u2514' + " Properties created!"
@@ -382,8 +372,6 @@ while loop == 1:
 			fp = webdriver.FirefoxProfile()
 			# Direct = 0, Manual = 1, PAC = 2, AUTODETECT = 4, SYSTEM = 5
 			fp.set_preference("network.proxy.type", 1)
-			PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
-			PROXY_PORT = "8080"
 			fp.set_preference("network.proxy.http", PROXY_HOST)
 			fp.set_preference("network.proxy.http_port", PROXY_PORT)
 			browser = webdriver.Firefox(firefox_profile=fp)
