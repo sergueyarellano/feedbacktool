@@ -340,10 +340,6 @@ while loop == 1:
 		# print "<info> Remember to edit manually the success step if that is your case<info>"
 			print ""
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> Refactor script and add config module
 		with open(confjsFP) as f:
 			contents = f.read()
 		r = re.compile(r'this.baseConfLocal = {')
