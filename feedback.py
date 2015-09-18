@@ -24,15 +24,15 @@ configDictionary = {
 	'os' : {'posix': 0, 'nt': 1},
 	'usertypesjs': [
 		'/BBVA/itests/src/main/resources/users/userTypes.json',
-		r'C:\\BBVA\\itests\\src\\main\\resources\\users\\userTypes.json'
+		r'C:\BBVA\itests\src\main\resources\users\userTypes.json'
 	],
 	'mockusers': [
 		'/BBVA/WebApp/src/main/resources/META-INF/cabeceras/mockUsers.json',
-		r'C:\\BBVA\\WebApp\\src\\main\\resources\\META-INF\\cabeceras\\mockUsers.json'
+		r'C:\BBVA\WebApp\src\main\resources\META-INF\cabeceras\mockUsers.json'
 	],
 	'confjs': [
 		'/BBVA/WebApp/src/main/webapp/js/bbva.app.feedback.conf.js',
-		r'C:\\BBVA\\WebApp\\src\\main\\webapp\\js\\bbva.app.feedback.conf.js'
+		r'C:\BBVA\WebApp\src\main\webapp\js\bbva.app.feedback.conf.js'
 	]
 }
 
@@ -173,7 +173,7 @@ def createMockForm(idStep, idForm, type):
 def concatenateSteps(detalleOperativa, successStep):
 	
 	successExitoNombre = str(stepList.pop(successStep - 1))
-	baseConfSteps = "//FeedStepConf\n"
+	baseConfSteps = "this.baseConfLocal = {\n"
 	
 	for step in stepList:
 		baseConfSteps += (
@@ -354,12 +354,12 @@ while loop == 1:
 			print ""
 
 		
-		with open('feedback.conf.js') as f:
+		with open(confjsFP) as f:
 			contents = f.read()
-		r = re.compile(r'//FeedStepConf')
+		r = re.compile(r'this.baseConfLocal = {')
 		contents = r.sub(createBaseConfSteps(hasSteps, successStep), contents)
 		
-		with open('feedback.conf.js','w') as f:
+		with open(confjsFP,'w') as f:
 			f.write(contents)
 		print ""
 		print u'\u2514' + " Properties created!"
