@@ -3,7 +3,7 @@
 # Implementacion feedback
 #
 ## -*- coding: UTF-8 -*-
-develop = True
+develop = False
 ###########################
 ######### IMPORTS #########
 ###########################
@@ -70,8 +70,9 @@ def printMenu():
 	print	("               Linea de Feedback script 1.0.0")
 	print	("               ------------------------------")
 	print ("               1) Create mock form      8) Show me the lists ;) ")
-	print	("               2) BaseConf Steps        9) Exit")
-	print ("               3) Mock user (selenium)")
+	print	("               2) BaseConfSteps         9) Exit")
+	print ("               3) BaseConfSteps (detail)")
+	print ("               4) Mock user (selenium)")
 	print ""
 
 def printCreateMockFormMenu():
@@ -351,14 +352,17 @@ while loop == 1:
 		print u'\u2514' + " Properties created!"
 		print "  ---------------"
 		raw_input('Press a key to continue...')
-		
+
+######################################################
+# BaseConfSteps (detail) #
+##########################
+	elif choice == 3:
+				
 ######################################################
 # Mock user (selenium) #
 ########################
 
-	elif choice == 3:
-
-		
+	elif choice == 4:
 
 		u = raw_input('Enter the users to mock separated by spaces: ')
 		userList = map(str, u.split())
