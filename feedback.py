@@ -1,31 +1,35 @@
-#sssssssssssss
+# Author: SAM
 # 9 sep, 2015
 # Implementacion feedback
 #
 ## -*- coding: UTF-8 -*-
-develop = False
+develop = True
+
 ###########################
 ######### IMPORTS #########
 ###########################
 
-import re
-import sys
-import codecs # for unicode format
+# import re
+# import sys
+# import codecs # for unicode format
 import os # 
 import configmodule as cf
+import funcmodule as fn
+import variables as vr
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 ###########################
-### INITIALIZE VARIABLES ##
+### SET VARIABLES ##
 ###########################
+
 PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
 PROXY_PORT = "8080"
-cf.checkProxy(PROXY_HOST, PROXY_PORT)
+fn.checkProxy(PROXY_HOST, PROXY_PORT)
+stepList = vr.stepList
+formList = vr.formList
 # Config vars
 osname = os.name
 indDic = cf.configDictionary['os'][osname]
@@ -33,7 +37,7 @@ mockusersjsFP = cf.configDictionary['mockusers'][indDic]
 usertypesjsFP = cf.configDictionary['usertypesjs'][indDic]
 confjsFP = cf.configDictionary['confjs'][indDic]
 
-# Paths for developing
+# Files modified by this program:
 if develop:
 	mockusersjsFP = 'mockUsers.json'
 	confjsFP = 'feedback.conf.js'
@@ -41,225 +45,8 @@ if develop:
 
 # Initialize variables
 loop = 1
-stepList = []
-formList = []
 operativas = []
 
-###########################
-######## FUNCTIONS ########
-###########################
-
-#### printing #####
-
-def printBBVALogo():
-	print ("hhhhho                                                ")      
-	print ("yyyyyo                                                ")      
-	print ("sssss+                                                ")      
-	print ("sssss+                                                ")      
-	print ("sssss+         /oooooo:  :oooooo:`oo+`   `o+  +oo+    ")      
-	print ("ooooo+         odh-`-hh. +dd:`-hh./dd+   +d: /hydd/   ")      
-	print ("ooooo+         odh. oh+  +dd- +h+  sdh- .hs `hs`ydh.  ")      
-	print ("+++++:         odh. `sdy.+dd- `ody..hds`sh. oh-`-hdy` ")      
-	print ("/////:         odh.  odd/+dd-  odd/ /ddsd/ :hysssydd+ ")      
-	print ("/////:         +hhssyhy/ +hdssyhy/   shhy``yy`   `yhh-")      
-	print ("-----.         ```````   ```````      ```  ``     ````")      
-	print ("-----.                                                ")      
-	print ("-----.                                                ")
-
-def printMenu():
-	print	("               Linea de Feedback script 1.0.0")
-	print	("               ------------------------------")
-	print ("               1) Create mock form      8) Show me the lists ;) ")
-	print	("               2) BaseConfSteps         9) Exit")
-	print ("               3) BaseConfSteps (detail)")
-	print ("               4) Mock user (selenium)")
-	print ""
-
-def printCreateMockFormMenu():
-	print ""
-	print	"--------------------"
-	print "| CREATE MOCK FORM |"
-	print	"--------------------"
-
-def printTypeOfForm():
-	print "What type of form?"
-	print "  1) push\n  2) widget\n  3) push_pull\n"
-	return int(raw_input("Opt: "))
-
-def printListFormsOrStepsAux(lenX, type, list):
-	print "There are ", lenX, type," recorded:"
-	for element in list:
-		print (list.index(element) + 1), element
-
-def printListFormsOrSteps(type):
-	
-	lenForm = len(formList)
-	lenStep = len(stepList)
-	
-	# First condition if eval is true
-	(
-	printListFormsOrStepsAux(lenForm, type, formList) 
-	if type == 'forms' 
-	else printListFormsOrStepsAux(lenStep, type, stepList)
-	)
-
-	str(raw_input("\nPress any key to continue"))	
-	
-
-#### CREATING BIG OBJECTS #####
-
-def createLinksObjAux(idTypeForm, idForm):
-	
-	linksArrayObj = (
-		  "     {\n"	
-		+ "	     		'type': {" + "\n"
-    + "             'id': '" + idTypeForm + "'\n"
-    + "            }," + "\n"
-    + "           'link': {" + "\n"
-    + "             'href': '//www.opinator.com/opi/" + idForm +"?carry_formulario=" + idForm +"&id=41719461C32226318F2015245&carry_lang=en&lang=en'" + "\n"
-    + "            }" + "\n"
-    + "        }")	
-	return linksArrayObj
-
-def createLinksObj(type, idForm):
-	
-	if type == 1: # push
-		linksArrayObj = createLinksObjAux('push', idForm)
-	
-	elif type == 2: # widget
-		linksArrayObj = createLinksObjAux('widget', idForm)
-		
-	elif type == 3:	# pull_push
-		linksArrayObj = (
-			createLinksObjAux('push', idForm)
-			+ ","
-			+ createLinksObjAux('pull', idForm)
-			)		
-
-	return linksArrayObj
-
-def createMockForm(idStep, idForm, type):
-
-	mockForm = (
-	"//FeedMockForm\n"
-	+	"	     {\n"
-	+ "        'id': '" + idStep + "'," + "\n"
-	+ "        'businessCode': '" + idStep + "'," + "\n"
-	+ "        'forms': [{" + "\n"
-	+ "          'id': '" + idForm + "'," + "\n"
-	+ "          'usePushMode': true," + "\n"
-	+ "          'links': [" + "\n"
-	+ "     	     " + createLinksObj(type, idForm) + "\n"
-	+ "          ]" + "\n"
-	+ "        }]" + "\n"
-	+ "      },")
-
-	return mockForm
-
-####  CREATING SMALL OBJECTS ####
-
-def concatenateSteps(detalleOperativa, successStep):
-	
-	successExitoNombre = str(stepList.pop(successStep - 1))
-	baseConfSteps = "this.baseConfLocal = {\n"
-	
-	for step in stepList:
-		baseConfSteps += (
-			"      '" 
-			+ step 
-			+ "': [detallesOperativa." 
-			+  detalleOperativa + "Abandono" + "],\n"
-			)
-	
-	baseConfSteps += (
-		"      '" 
-		+ successExitoNombre 
-		+ "': [detallesOperativa." +  detalleOperativa + "Exito" + "],\n"
-		)
-
-	return baseConfSteps
-
-def createBaseConfSteps(hasSteps, successStep):
-
-	detalleOperativa = str(raw_input("Nombre detalle operativa: "))
-
-	if (hasSteps) and not(successStep == 0):
-		baseConfSteps = concatenateSteps(detalleOperativa, successStep)
-		
-	else:
-		mk = "y"
-		while checkLooping(mk):
-			askForSteps()
-			mk = str(raw_input('Do you want to create another Step? '))
-
-		printListFormsOrSteps("steps")
-		successStep = int(raw_input("Cual es el paso del Exito en la operativa? "))
-		baseConfSteps = concatenateSteps(detalleOperativa, successStep)
-
-	return baseConfSteps
-
-def createMockUser(user, cclien, ticket, opType):
-	mockUserObject = (
-		opType + "\n"
-		+ '{"cclient": "' 
-		+ cclien 
-		+ '", "ivUser": "' 
-		+ user 
-		+ '", "ivTicket": "' 
-		+ ticket 
-		+ '"},\n//OC ANTICIPO NOMINA'
-		)
-	return mockUserObject
-
-####  CHECKERS ####
-
-def checkLooping(mk):
-	return (mk == "y") or (mk == "Y") or (mk == "")
-
-def checkUseLastForm():
-
-	lenForm = len(formList)
-	
-	if (lenForm > 0):
-		useLastForm = (
-			str(raw_input("Shall I use the last Form ID " 
-			+ formList[lenForm-1] 
-			+ "? "))
-			)
-		if useLastForm == "y" or useLastForm == "":
-			idForm = formList[lenForm - 1]
-		else: 
-			idForm = str(raw_input("Form ID or <INTRO> for default: "))
-
-	else:		
-		idForm = str(raw_input("Form ID or <INTRO> for default: "))
-	# Set Options for Default Form 
-	if idForm == "":
-		idForm = "oc_financiacion_adeudo_abandono_web"
-		type = 1
-
-	return idForm
-
-#### misc ####
-def appendFormToTheList(idForm):
-	if (len(formList) == 0):
-		formList.append(idForm)
-	elif (idForm != formList[len(formList) - 1]):
-		formList.append(idForm)
-	else:
-		return
-
-def askForSteps():
-	if len(stepList) > 0:
-		print "Last Step: " + str(stepList[len(stepList) - 1])
-	idStep = str(raw_input("New Step ID: "))
-	stepList.append(idStep)
-
-def clearTerminal():
-	if os.name == 'nt':
-		os.system('cls') #for window
-	else:
-		os.system('clear') #for Linux
 
 ###########################
 ######## Classes ##########
@@ -282,12 +69,41 @@ class Configure():
 
 while loop == 1:
 
-	clearTerminal()
-	printBBVALogo()
-	printMenu()
+	fn.clearTerminal()
+	fn.printBBVALogo()
+	fn.printMenu()
 
   # User selects an option from the menu
 	choice = int(raw_input("               Opt: "))
+
+# ######################################################
+# # Create Mock form #
+# ####################
+# 	if choice == 1:
+
+# 		mk = "y"
+# 		while fn.checkLooping(mk):	
+			
+# 			fn.clearTerminal()
+# 			fn.printCreateMockFormMenu()
+# 			stepList = fn.askForAList("Enter steps separated by spaces: ")
+# 			idForm = fn.checkUseLastForm()
+# 			fn.appendFormToTheList(idForm)
+# 			type = fn.printTypeOfForm()
+
+# 			# Compile a RegExp and write the subsitute to the JSFile
+# 			with open(confjsFP) as f:
+# 				contents = f.read()
+# 			r = re.compile('this.additionalOpinatorResponse = [')
+# 			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
+# 			with open(confjsFP,'w') as f:
+# 				f.write(contents)
+
+# 			print ""
+# 			print u'\u2514' + " Object created!"
+# 			print "  ---------------"
+# 			mk = str(raw_input("Do you want to create another? "))
+
 
 ######################################################
 # Create Mock form #
@@ -295,19 +111,31 @@ while loop == 1:
 	if choice == 1:
 
 		mk = "y"
-		while checkLooping(mk):	
+		while fn.checkLooping(mk):	
 			
-			clearTerminal()
-			printCreateMockFormMenu()
-			askForSteps()
-			idForm = checkUseLastForm()
-			appendFormToTheList(idForm)
-			type = printTypeOfForm()
+			fn.clearTerminal()
+			fn.printCreateMockFormMenu()
+			# idForm = fn.checkUseLastForm()
+			formList =fn.askForAList()
+
+			print "Enter forms, their type (push, pull, widget) and associated steps"
+			print "form1 push step1 step2 | form2 pull step3"
+			print ""
+			### Formatting the input to a JSON ###
+			input1 = raw_input("Your turn:       ")
+			input1 = map(str, data.split("|"))
+			data = []
+			for i in input1:
+				data.append(map(str,i.split()))
+			#######################################
+			
+			fn.appendFormToTheList(idForm)
+			type = fn.printTypeOfForm()
 
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(confjsFP) as f:
 				contents = f.read()
-			r = re.compile(r'//FeedMockForm')
+			r = re.compile('this.additionalOpinatorResponse = [')
 			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
 			with open(confjsFP,'w') as f:
 				f.write(contents)
@@ -318,34 +146,30 @@ while loop == 1:
 			mk = str(raw_input("Do you want to create another? "))
 
 ######################################################
-# Add BaseConf steps #
-######################
+# BaseConf steps #
+##################
 
 	elif choice == 2:
 
-		clearTerminal()
-		
-		print ""
-		print	"-------------------"
-		print "| BASE CONF STEPS |"
-		print	"-------------------"
+		fn.clearTerminal()
+		fn.printBaseConfStepsMenu()
+
 		hasSteps = 'false'
 		successStep = 0
 
 		if len(stepList) > 0:
 			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
-			printListFormsOrSteps('steps')
+			fn.printListFormsOrSteps('steps')
 			hasSteps = 'true'
 
-			successStep = int(raw_input("Cual es el paso del Exito en la operativa? "))
+			successStep = int(raw_input("Which is the success Step? "))
 		# print "<info> Remember to edit manually the success step if that is your case<info>"
 			print ""
 
 		with open(confjsFP) as f:
 			contents = f.read()
 		r = re.compile(r'this.baseConfLocal = {')
-		contents = r.sub(createBaseConfSteps(hasSteps, successStep), contents)
-		
+		contents = r.sub(fn.createBaseConfSteps(hasSteps, successStep, operativas), contents)
 		with open(confjsFP,'w') as f:
 			f.write(contents)
 		print ""
@@ -357,6 +181,34 @@ while loop == 1:
 # BaseConfSteps (detail) #
 ##########################
 	elif choice == 3:
+
+		fn.clearTerminal()
+		fn.printBaseConfStepsDetailMenu()
+
+		hasForms = fn.checkFormsAreLoaded()
+		url = raw_input("Enter URL: ")
+
+		if hasForms:
+			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
+			fn.printListFormsOrSteps('forms')
+			successForm = int(raw_input("Which is the success Form? "))
+		else:
+			formList = fn.askForAList("Enter forms separated by spaces: ")
+			fn.printListFormsOrSteps('forms')
+			successForm = int(raw_input("Which is the success Form? "))
+		
+		with open(confjsFP) as f:
+			contents = f.read()
+		r = re.compile(r'//Objetos de configuracion Operativa')
+		contents = r.sub(fn.createBaseConfStepsDetail(hasForms, successForm, url), contents)
+		
+		with open(confjsFP,'w') as f:
+			f.write(contents)
+		print ""
+		print u'\u2514' + " Properties created!"
+		print "  ---------------"
+		raw_input('Press a key to continue...')
+
 				
 ######################################################
 # Mock user (selenium) #
@@ -364,8 +216,7 @@ while loop == 1:
 
 	elif choice == 4:
 
-		u = raw_input('Enter the users to mock separated by spaces: ')
-		userList = map(str, u.split())
+		userList = fn.askForAList("Enter the users to mock separated by spaces: ")
 		opType = "//" + str(raw_input("Nombre operativa: "))
 
 		for user in userList:
@@ -421,14 +272,14 @@ while loop == 1:
 			with open(mockusersjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
-			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			contents = r.sub(fn.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
 			with open(mockusersjsFP,'w') as f:
 				f.write(contents)
 			# Write to usertypes.json
 			with open(usertypesjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'"GestorNoRemoto": {')
-			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			contents = r.sub(fn.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
 			with open(usertypesjsFP,'w') as f:
 				f.write(contents)
 
@@ -443,18 +294,16 @@ while loop == 1:
 #####################
 
 	elif choice == 8:
-		clearTerminal()
-		print ""
-		print	"-----------------"
-		print "| DATA RECORDED |"
-		print	"-----------------"
+		fn.clearTerminal()
+		fn.printDataRecordedMenu()
+
 		if (len(stepList) > 0) and (len(formList) > 0):
-			printListFormsOrSteps('steps')
-			printListFormsOrSteps('forms')
+			fn.printListFormsOrSteps('steps')
+			fn.printListFormsOrSteps('forms')
 		elif (len(stepList) > 0):
-			printListFormsOrSteps('steps')
+			fn.printListFormsOrSteps('steps')
 		elif (len(formList) > 0):
-			printListFormsOrSteps('forms')
+			fn.printListFormsOrSteps('forms')
 		else:
 			str(raw_input("There are no steps or forms recorded :("))
 
@@ -464,6 +313,6 @@ while loop == 1:
 
 	elif choice == 9:
 		loop = 0
-		clearTerminal()
+		fn.clearTerminal()
 	else: 
 		print("I need a numeric input!!")
