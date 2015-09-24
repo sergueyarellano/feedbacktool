@@ -356,7 +356,7 @@ while loop == 1:
 ######################################################
 # BaseConfSteps (detail) #
 ##########################
-	elif choice == 3:
+	# elif choice == 3:
 				
 ######################################################
 # Mock user (selenium) #
@@ -425,14 +425,14 @@ while loop == 1:
 			with open(mockusersjsFP,'w') as f:
 				f.write(contents)
 			# Write to usertypes.json
-			with open(usertypesjsFP) as f:
-				contents = f.read()
-			r = re.compile(r'"GestorNoRemoto": {')
-			contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
-			with open(usertypesjsFP,'w') as f:
-				f.write(contents)
+			# with open(usertypesjsFP) as f:
+			# 	contents = f.read()
+			# r = re.compile(r'"GestorNoRemoto": {')
+			# contents = r.sub(createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			# with open(usertypesjsFP,'w') as f:
+			# 	f.write(contents)
 
-		
+
 		print "Exito!"
 		raw_input('Pulsa <INTRO> para continuar')
 		# falta configurar usertypes y crear el fichero en ei nombrandolo con el nif usuario.
