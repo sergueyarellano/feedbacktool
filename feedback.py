@@ -13,9 +13,12 @@ develop = True
 # import sys
 # import codecs # for unicode format
 import os # 
+import re
 import configmodule as cf
-import funcmodule as fn
+import funcmodule as _
 import variables as vr
+import json
+import readline
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -27,7 +30,7 @@ from selenium.webdriver.common.keys import Keys
 
 PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
 PROXY_PORT = "8080"
-fn.checkProxy(PROXY_HOST, PROXY_PORT)
+_.checkProxy(PROXY_HOST, PROXY_PORT)
 stepList = vr.stepList
 formList = vr.formList
 # Config vars
@@ -69,81 +72,35 @@ class Configure():
 
 while loop == 1:
 
-	fn.clearTerminal()
-	fn.printBBVALogo()
-	fn.printMenu()
+	_.clearTerminal()
+	_.printBBVALogo()
+	_.printMenu()
 
   # User selects an option from the menu
 	choice = int(raw_input("               Opt: "))
 
-# ######################################################
-# # Create Mock form #
-# ####################
-# 	if choice == 1:
-
-# 		mk = "y"
-# 		while fn.checkLooping(mk):	
-			
-# 			fn.clearTerminal()
-# 			fn.printCreateMockFormMenu()
-# 			stepList = fn.askForAList("Enter steps separated by spaces: ")
-# 			idForm = fn.checkUseLastForm()
-# 			fn.appendFormToTheList(idForm)
-# 			type = fn.printTypeOfForm()
-
-# 			# Compile a RegExp and write the subsitute to the JSFile
-# 			with open(confjsFP) as f:
-# 				contents = f.read()
-# 			r = re.compile('this.additionalOpinatorResponse = [')
-# 			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
-# 			with open(confjsFP,'w') as f:
-# 				f.write(contents)
-
-# 			print ""
-# 			print u'\u2514' + " Object created!"
-# 			print "  ---------------"
-# 			mk = str(raw_input("Do you want to create another? "))
-
-
 ######################################################
 # Create Mock form #
 ####################
-	if choice == 1:
-
-		mk = "y"
-		while fn.checkLooping(mk):	
+	if choice == 1:	
 			
-			fn.clearTerminal()
-			fn.printCreateMockFormMenu()
-			# idForm = fn.checkUseLastForm()
-			formList =fn.askForAList()
-
-			print "Enter forms, their type (push, pull, widget) and associated steps"
-			print "form1 push step1 step2 | form2 pull step3"
-			print ""
-			### Formatting the input to a JSON ###
-			input1 = raw_input("Your turn:       ")
-			input1 = map(str, data.split("|"))
-			data = []
-			for i in input1:
-				data.append(map(str,i.split()))
-			#######################################
-			
-			fn.appendFormToTheList(idForm)
-			type = fn.printTypeOfForm()
+			_.clearTerminal()
+			_.printCreateMockFormMenu()
+			_.mapToJSONFromInput()
 
 			# Compile a RegExp and write the subsitute to the JSFile
+			
 			with open(confjsFP) as f:
 				contents = f.read()
 			r = re.compile('this.additionalOpinatorResponse = [')
-			contents = r.sub(createMockForm(stepList[len(stepList) - 1], idForm, type), contents)
+			contents = r.sub(createMockForm(), contents)
 			with open(confjsFP,'w') as f:
 				f.write(contents)
 
 			print ""
 			print u'\u2514' + " Object created!"
 			print "  ---------------"
-			mk = str(raw_input("Do you want to create another? "))
+			
 
 ######################################################
 # BaseConf steps #
@@ -151,15 +108,15 @@ while loop == 1:
 
 	elif choice == 2:
 
-		fn.clearTerminal()
-		fn.printBaseConfStepsMenu()
+		_.clearTerminal()
+		_.printBaseConfStepsMenu()
 
 		hasSteps = 'false'
 		successStep = 0
 
 		if len(stepList) > 0:
 			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
-			fn.printListFormsOrSteps('steps')
+			_.printListFormsOrSteps('steps')
 			hasSteps = 'true'
 
 			successStep = int(raw_input("Which is the success Step? "))
@@ -169,7 +126,7 @@ while loop == 1:
 		with open(confjsFP) as f:
 			contents = f.read()
 		r = re.compile(r'this.baseConfLocal = {')
-		contents = r.sub(fn.createBaseConfSteps(hasSteps, successStep, operativas), contents)
+		contents = r.sub(_.createBaseConfSteps(hasSteps, successStep, operativas), contents)
 		with open(confjsFP,'w') as f:
 			f.write(contents)
 		print ""
@@ -182,25 +139,25 @@ while loop == 1:
 ##########################
 	elif choice == 3:
 
-		fn.clearTerminal()
-		fn.printBaseConfStepsDetailMenu()
+		_.clearTerminal()
+		_.printBaseConfStepsDetailMenu()
 
-		hasForms = fn.checkFormsAreLoaded()
+		hasForms = _.checkFormsAreLoaded()
 		url = raw_input("Enter URL: ")
 
 		if hasForms:
 			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
-			fn.printListFormsOrSteps('forms')
+			_.printListFormsOrSteps('forms')
 			successForm = int(raw_input("Which is the success Form? "))
 		else:
-			formList = fn.askForAList("Enter forms separated by spaces: ")
-			fn.printListFormsOrSteps('forms')
+			formList = _.askForAList("Enter forms separated by spaces: ")
+			_.printListFormsOrSteps('forms')
 			successForm = int(raw_input("Which is the success Form? "))
 		
 		with open(confjsFP) as f:
 			contents = f.read()
 		r = re.compile(r'//Objetos de configuracion Operativa')
-		contents = r.sub(fn.createBaseConfStepsDetail(hasForms, successForm, url), contents)
+		contents = r.sub(_.createBaseConfStepsDetail(hasForms, successForm, url), contents)
 		
 		with open(confjsFP,'w') as f:
 			f.write(contents)
@@ -216,7 +173,7 @@ while loop == 1:
 
 	elif choice == 4:
 
-		userList = fn.askForAList("Enter the users to mock separated by spaces: ")
+		userList = _.askForAList("Enter the users to mock separated by spaces: ")
 		opType = "//" + str(raw_input("Nombre operativa: "))
 
 		for user in userList:
@@ -272,16 +229,16 @@ while loop == 1:
 			with open(mockusersjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
-			contents = r.sub(fn.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
 			with open(mockusersjsFP,'w') as f:
 				f.write(contents)
 			# Write to usertypes.json
-			with open(usertypesjsFP) as f:
-				contents = f.read()
-			r = re.compile(r'"GestorNoRemoto": {')
-			contents = r.sub(fn.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
-			with open(usertypesjsFP,'w') as f:
-				f.write(contents)
+			# with open(usertypesjsFP) as f:
+			# 	contents = f.read()
+			# r = re.compile(r'"GestorNoRemoto": {')
+			# contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			# with open(usertypesjsFP,'w') as f:
+			# 	f.write(contents)
 
 		
 		print "Exito!"
@@ -294,16 +251,16 @@ while loop == 1:
 #####################
 
 	elif choice == 8:
-		fn.clearTerminal()
-		fn.printDataRecordedMenu()
+		_.clearTerminal()
+		_.printDataRecordedMenu()
 
 		if (len(stepList) > 0) and (len(formList) > 0):
-			fn.printListFormsOrSteps('steps')
-			fn.printListFormsOrSteps('forms')
+			_.printListFormsOrSteps('steps')
+			_.printListFormsOrSteps('forms')
 		elif (len(stepList) > 0):
-			fn.printListFormsOrSteps('steps')
+			_.printListFormsOrSteps('steps')
 		elif (len(formList) > 0):
-			fn.printListFormsOrSteps('forms')
+			_.printListFormsOrSteps('forms')
 		else:
 			str(raw_input("There are no steps or forms recorded :("))
 
@@ -313,6 +270,6 @@ while loop == 1:
 
 	elif choice == 9:
 		loop = 0
-		fn.clearTerminal()
+		_.clearTerminal()
 	else: 
 		print("I need a numeric input!!")

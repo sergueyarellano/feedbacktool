@@ -1,9 +1,10 @@
 import os
 import json
 import variables as vr
+import readline
 stepList = vr.stepList
 formList = vr.formList
-
+osname = os.name
 ###########################
 ######## FUNCTIONS ########
 ###########################
@@ -39,24 +40,28 @@ def printCreateMockFormMenu():
 	print	"--------------------"
 	print "| CREATE MOCK FORM |"
 	print	"--------------------"
+	print ""
 
 def printBaseConfStepsMenu():
 	print ""
 	print	"-------------------"
 	print "| BASE CONF STEPS |"
 	print	"-------------------"	
+	print ""
 
 def printDataRecordedMenu():
 	print ""
 	print	"-----------------"
 	print "| DATA RECORDED |"
 	print	"-----------------"
+	print ""
 
 def printBaseConfStepsDetailMenu():
 	print ""
 	print	"----------------------------"
 	print "| BASE CONF STEPS (DETAIL) |"
-	print	"----------------------------"		
+	print	"----------------------------"
+	print ""		
 
 def printTypeOfForm():
 	print "What type of form?"
@@ -100,13 +105,13 @@ def createLinksObjAux(idTypeForm, idForm):
 
 def createLinksObj(type, idForm):
 	
-	if type == 1: # push
-		linksArrayObj = createLinksObjAux('push', idForm)
+	if type == "push":
+		linksArrayObj = createLinksObjAux(type, idForm)
 	
-	elif type == 2: # widget
-		linksArrayObj = createLinksObjAux('widget', idForm)
+	elif type == "widget": # widget
+		linksArrayObj = createLinksObjAux(type, idForm)
 		
-	elif type == 3:	# pull_push
+	elif type == "pull":	# pull_push
 		linksArrayObj = (
 			createLinksObjAux('push', idForm)
 			+ ","
@@ -115,24 +120,32 @@ def createLinksObj(type, idForm):
 
 	return linksArrayObj
 
-def createMockForm(idStep, idForm, type):
+def createMockForm():
+	formsLoaded = readWriteJSON("","r")
+	mockForms = "this.additionalOpinatorResponse = [\n"
+	for item in formsLoaded:
 
+		while len(item['steps']) > 0:
+			sorted(item)
+			len(item['steps'])
+			idStep = sorted(item['steps'].pop())
+			idForm = item['form']
+			type = item['type']
+			mockForm = (
+			"	     {\n"
+			+ "        'id': '" + idStep + "'," + "\n"
+			+ "        'businessCode': '" + idStep + "'," + "\n"
+			+ "        'forms': [{" + "\n"
+			+ "          'id': '" + idForm + "'," + "\n"
+			+ "          'usePushMode': true," + "\n"
+			+ "          'links': [" + "\n"
+			+ "     	     " + createLinksObj(type, idForm) + "\n"
+			+ "          ]" + "\n"
+			+ "        }]" + "\n"
+			+ "      },")
 
-	mockForm = (
-	"this.additionalOpinatorResponse = [\n"
-	+	"	     {\n"
-	+ "        'id': '" + idStep + "'," + "\n"
-	+ "        'businessCode': '" + idStep + "'," + "\n"
-	+ "        'forms': [{" + "\n"
-	+ "          'id': '" + idForm + "'," + "\n"
-	+ "          'usePushMode': true," + "\n"
-	+ "          'links': [" + "\n"
-	+ "     	     " + createLinksObj(type, idForm) + "\n"
-	+ "          ]" + "\n"
-	+ "        }]" + "\n"
-	+ "      },")
-
-	return mockForm
+			mockForms += mockForm
+	return mockForms
 
 ####  CREATING SMALL OBJECTS ####
 
@@ -299,10 +312,40 @@ def checkProxy(PROXY_HOST, PROXY_PORT):
 		with open('feedback.py','w') as f:
 			f.write(contents)
 
+def mapToJSONFromInput():
+
+	print "Enter forms, their type (push, pull, widget) and associated steps"
+	print ""
+	print "<pattern> form1 push step1 step2 | form2 pull step3 <pattern>"
+	print ""
+
+	### Formatting the input to a JSON ###
+	input1 = raw_input(vr.prompt)
+	input1 = map(str, input1.split(" | "))
+	data = []
+	for i in input1:
+
+		data.append(map(str,i.split()))
+
+	dataOut = []
+
+	for element in data:
+		f = element.pop(0)
+		t = element.pop(0)
+		d = {
+			'form': f, 
+			'type': t,
+			'steps': element 
+		}
+
+		dataOut.append(d)
+
+	readWriteJSON(dataOut, 'w')
+
 def readWriteJSON(data, rw):
 	if rw == "w":
-		with open('db.json', 'w') as f:
+		with open('forms.json', 'w') as f:
 			json.dump(data, f)
 	elif rw == "r":
-		with open('db.json', 'r') as f:
+		with open('forms.json', 'r') as f:
 			return json.load(f)
