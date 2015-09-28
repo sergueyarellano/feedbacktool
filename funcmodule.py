@@ -3,6 +3,7 @@ import json
 import variables as vr
 import readline
 import codecs
+import sys
 stepList = vr.stepList
 formList = vr.formList
 osname = os.name
@@ -220,17 +221,26 @@ def createBaseConfStepsDetail(hasForms, successForm, url):
 	baseConfStepsDetail = concatenateForms(successForm, url)
 	return baseConfStepsDetail
 
-def createMockUser(user, cclien, ticket, opType):
-	mockUserObject = (
-		opType + "\n"
-		+ '{"cclient": "' 
-		+ cclien 
-		+ '", "ivUser": "' 
-		+ user 
-		+ '", "ivTicket": "' 
-		+ ticket 
-		+ '"},\n//OC ANTICIPO NOMINA'
-		)
+def createMockUser(user, cclien, ticket, opType, dif):
+	if dif == 'mockusers':
+		mockUserObject = (
+			"//" + opType + "\n"
+			+ '{"cclient": "' 
+			+ cclien 
+			+ '", "ivUser": "' 
+			+ user 
+			+ '", "ivTicket": "' 
+			+ ticket 
+			+ '"},\n//OC ANTICIPO NOMINA'
+			)
+	elif dif == 'usertypes':
+		mockUserObject = (
+		'\n  "' + opType + '": {\n'
+		+ '    "sandbox": "",\n'
+    + '    "ei": "' + user + '",\n'
+    + '    "pr": ""\n'
+    + '  },\n  "GestorNoRemoto": {'
+  )
 	return mockUserObject
 
 ####  CHECKERS ####
@@ -302,7 +312,7 @@ def checkProxy(PROXY_HOST, PROXY_PORT):
 	else:
 		PROXY_HOST = str(raw_input("Enter Proxy address\nExample_<http://User:Password@CACHETABII.igrupobbva>_: "))
 		PROXY_PORT = str(raw_input("Proxy: "))
-
+		# NOTA CREAR UN CHECKER PARA AVISAR QUE HAY QUE CAMBIAR LA password
 		with open('feedback.py') as f:
 			contents = f.read()
 		r = re.compile(r'PROXY_HOST = ""')

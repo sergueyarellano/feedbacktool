@@ -30,7 +30,7 @@ from selenium.webdriver.common.keys import Keys
 ### SET VARIABLES ##
 ###########################
 
-PROXY_HOST = "http://xe49706:bbva0006@CACHETABII.igrupobbva"
+PROXY_HOST = "http://xe49706:bbva0007@CACHETABII.igrupobbva"
 PROXY_PORT = "8080"
 _.checkProxy(PROXY_HOST, PROXY_PORT)
 stepList = vr.stepList
@@ -99,9 +99,11 @@ while loop == 1:
 			with open(confjsFP,'w') as f:
 				f.write(contents)
 
-			print ""
-			raw_input(u'\u2514' + " Object created!")
-			print "  ---------------"
+			_.clearTerminal()
+			print "<info>Do not forget to check the comma ',' at the end of additionalOpinatorResponse array (feedbacl.conf.js),"
+			print "      because internet explorer does not support it :s <info>"
+			print u'\u2514' + " Object created! ", raw_input()
+
 			
 ######################################################
 # BaseConf steps #
@@ -175,7 +177,7 @@ while loop == 1:
 	elif choice == 4:
 
 		userList = _.askForAList("Enter the users to mock separated by spaces: ")
-		opType = "//" + str(raw_input("Nombre operativa: "))
+		opType = str(raw_input("Nombre operativa: "))
 
 		for user in userList:
 			fp = webdriver.FirefoxProfile()
@@ -230,16 +232,17 @@ while loop == 1:
 			with open(mockusersjsFP) as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
-			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
+			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'mockusers'), contents)
 			with open(mockusersjsFP,'w') as f:
 				f.write(contents)
+
 			# Write to usertypes.json
-			# with open(usertypesjsFP) as f:
-			# 	contents = f.read()
-			# r = re.compile(r'"GestorNoRemoto": {')
-			# contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType), contents)
-			# with open(usertypesjsFP,'w') as f:
-			# 	f.write(contents)
+			with open(usertypesjsFP) as f:
+				contents = f.read()
+			r = re.compile(r'"GestorNoRemoto": {')
+			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'usertypes'), contents)
+			with open(usertypesjsFP,'w') as f:
+				f.write(contents)
 
 		
 		print "Exito!"
