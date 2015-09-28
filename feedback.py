@@ -14,6 +14,8 @@ develop = True
 # import codecs # for unicode format
 import os # 
 import re
+import codecs
+import sys
 import configmodule as cf
 import funcmodule as _
 import variables as vr
@@ -92,16 +94,15 @@ while loop == 1:
 			
 			with open(confjsFP) as f:
 				contents = f.read()
-			r = re.compile('this.additionalOpinatorResponse = [')
-			contents = r.sub(createMockForm(), contents)
+			r = re.compile('this.additionalOpinatorResponse = \[')
+			contents = r.sub(_.createMockForm(), contents)
 			with open(confjsFP,'w') as f:
 				f.write(contents)
 
 			print ""
-			print u'\u2514' + " Object created!"
+			raw_input(u'\u2514' + " Object created!")
 			print "  ---------------"
 			
-
 ######################################################
 # BaseConf steps #
 ##################

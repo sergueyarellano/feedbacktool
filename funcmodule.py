@@ -2,6 +2,7 @@ import os
 import json
 import variables as vr
 import readline
+import codecs
 stepList = vr.stepList
 formList = vr.formList
 osname = os.name
@@ -122,15 +123,19 @@ def createLinksObj(type, idForm):
 
 def createMockForm():
 	formsLoaded = readWriteJSON("","r")
+	print formsLoaded
 	mockForms = "this.additionalOpinatorResponse = [\n"
 	for item in formsLoaded:
-
+		print item
 		while len(item['steps']) > 0:
-			sorted(item)
-			len(item['steps'])
-			idStep = sorted(item['steps'].pop())
+			# sorted(item)
+			# len(item['steps'])
+			idStep = item['steps'].pop()
 			idForm = item['form']
 			type = item['type']
+			print idStep
+			print idForm
+			print type
 			mockForm = (
 			"	     {\n"
 			+ "        'id': '" + idStep + "'," + "\n"
@@ -141,7 +146,7 @@ def createMockForm():
 			+ "          'links': [" + "\n"
 			+ "     	     " + createLinksObj(type, idForm) + "\n"
 			+ "          ]" + "\n"
-			+ "        }]" + "\n"
+			+ "        }]" + "\n"		
 			+ "      },")
 
 			mockForms += mockForm

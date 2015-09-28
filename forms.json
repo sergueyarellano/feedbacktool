@@ -1,1 +1,1 @@
-[{"steps": ["step1", "step2"], "type": "push", "form": "form1"}, {"steps": ["step3"], "type": "pull", "form": "form2"}]
+[{"steps": ["step1", "step2"], "type": "push", "form": "form1"}, {"steps": ["step3"], "type": "pull", "form": "form2"}, {"steps": ["step5", "step6", "step7"], "type": "widget", "form": "form3"}]
