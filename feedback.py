@@ -19,12 +19,15 @@ import configmodule as cf
 import funcmodule as _
 
 import json
-import readline
+if os.name == 'posix':
+	import readline
 from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
+import requests
 
 ###########################
 ### SET VARIABLES ##
@@ -147,7 +150,46 @@ while loop == 1:
 # Mock user (requests) #
 ########################
 	# A implementar, parte de Ivan
-	# elif choice == 3:
+	elif choice == 3:
+	
+		userList = _.askForAList("Enter the users to mock separated by spaces: ")
+		opType = str(raw_input("Nombre operativa: "))
+
+		for user in userList:
+		
+			print 'Try to create user: ' + user
+			#Creamos una sesion en KQOF
+			requests.packages.urllib3.disable_warnings()
+			s = requests.Session()
+			#Borramos las cookies
+			s.cookies.clear()
+			
+			#Numero de reintentos para entrar en el entorno
+			MAX_RETRY=3
+		
+			cnt=0
+			while cnt < MAX_RETRY:
+				try:
+					response = s.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp', verify=False)
+					print 'Go to KQOF Main Page ======> ' + str(response.status_code) + ' ' + response.reason
+					if response.status_code == requests.codes.ok:
+						_.getMockInfo(s,user)
+						break
+					else:
+						cnt += 1
+						print 'Retry connection after {0} seconds'.format(cnt*3)
+						sleep(cnt*3)
+				except requests.exceptions.RequestException as e:
+					cnt += 1
+					print 'Retry connection after {0} seconds'.format(cnt*3)
+					sleep(cnt*3)
+					if cnt == MAX_RETRY:
+						print e
+
+			s.close()		
+			
+		raw_input('Pulsa <INTRO> para continuar')
+		# falta configurar usertypes y crear el fichero en ei nombrandolo con el nif usuario.
 
 ######################################################
 # Mock user (selenium) #

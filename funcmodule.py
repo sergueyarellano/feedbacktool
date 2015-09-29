@@ -2,9 +2,14 @@
 
 import os, sys
 import json
-import readline
+if os.name == 'posix':
+	import readline
 import codecs
 from time import sleep
+
+import requests
+from lxml import html
+
 prompt = os.name + '@' + os.name + " $ "
 ###########################
 ######## FUNCTIONS ########
@@ -283,6 +288,42 @@ def checkUseLastForm():
 		type = 1
 
 	return idForm
+
+#####MOCK INFO #####
+def getMockInfo(mysession, user):
+	#Form data de inicio de sesion
+	eai_user='0019-'+user.zfill(10)
+	payload={'eai_user':eai_user,'eai_password':'123456', 'origen':'bbvanet2', 'eai_URLDestino':'/BBVANet/','idioma':'CAS','eai_url_params':''}
+	#Hacemos login
+	response = mysession.post("https://ei-bbvaglobal.igrupobbva/DFAUTH/slod/DFServlet", data=payload, verify=False)
+	print 'Login KQOF Main Page ======> ' + str(response.status_code) + ' ' + response.reason
+	
+	if response.status_code == requests.codes.ok:
+		#Abrimos puerta trasera
+		response = mysession.get("https://ei-bbvaglobal.igrupobbva/BBVANet/info", verify=False)
+		print 'Go to KQOF Info ======> ' + str(response.status_code) + ' ' + response.reason
+
+		if response.status_code == requests.codes.ok:
+			payload={'techUser':'kqof','techPasswd':'ci4bbva'}
+			response = mysession.post("https://ei-bbvaglobal.igrupobbva/BBVANet/info", data=payload, verify=False)
+			print 'Login KQOF Info ======> ' + str(response.status_code) + ' ' + response.reason
+			
+			if response.status_code == requests.codes.ok:	
+				tree = html.fromstring(response.text)
+				iv_cclien = tree.xpath('.//td[contains(text(), "iv-cclien")]/following-sibling::td/text()')
+				iv_ticket = tree.xpath('.//td[contains(text(), "iv-ticket")]/following-sibling::td/text()')
+				return {'iv_cclien':iv_cclien, 'iv_ticket':iv_ticket}
+			else:
+				print 'Can not get iv_cclien and iv_ticket from user: ' + user
+				return {}
+		else:
+			print 'Can not login KQOF Info with user ' + user
+			return {}
+	else:
+		print 'Can not login KQOF Main Page with user: ' + user
+		return {}
+
+
 
 #### misc ####
 def deletePrevData():
