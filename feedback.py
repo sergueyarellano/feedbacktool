@@ -102,8 +102,9 @@ while loop == 1:
 				f.write(contents)
 
 			_.clearTerminal()
-			_.printINFOMessageNo1()
 			_.printConfirmation(" Object created! ")
+			_.printINFOMessageNo1()
+			raw_input(' Press key to continue...')
 		else:
 			pass
 
@@ -136,7 +137,9 @@ while loop == 1:
 			with open(CONFJS_FILEPATH,'w') as f:
 				f.write(contents)
 
+			_.clearTerminal()
 			_.printConfirmation(" Properties created!")
+			raw_input(' Press key to continue...')
 		else:
 			pass
 
@@ -231,10 +234,15 @@ while loop == 1:
 #####################
 
 	elif choice == "8":
-		_.clearTerminal()
-		_.printPrettyData()
-		_.printConfirmation('/forms.json')
+		if os.path.isfile('forms.json'):
+			_.clearTerminal()
+			_.printConfirmation('/forms.json')
+			_.printPrettyData()
+			raw_input(' Press key to continue...')
+		else:
 
+			print "\n               There is nothing to show!!"
+			sleep(1)
 ######################################################
 # Exit #
 ########

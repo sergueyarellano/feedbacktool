@@ -58,15 +58,16 @@ def printDataRecordedMenu():
 	print ""
 
 def printConfirmation(confirmation):
-	print "▂ ▂ ▃ ▄ ▅ ▆ ▇ █ ", confirmation, raw_input()
+	print "\n", confirmation, "\n ▂ ▂ ▃ ▄ ▄ ▃ ▂ ▂ \n"
 
 		
 def printINFOMessageNo1():
-	print "<info>"
-	print "      Do not forget to check trailing comma ',' at the end "
-	print "      of additionalOpinatorResponse array (feedbacl.conf.js),"
-	print "      because internet explorer does not support it :s "
-	print "<info>"
+	print " info:"
+	print " ----"
+	print " Do not forget to check trailing comma ',' at the end "
+	print " of additionalOpinatorResponse array (feedbacl.conf.js),"
+	print " because internet explorer does not support it :s "
+	print ""
 
 def printListFormsOrStepsAux(lenX, type, list):
 	print "There are ", lenX, type," recorded:"
@@ -180,19 +181,19 @@ def createBaseConfStepsDetail():
 		for url in item['urlLocation']:
 			urls += url
 			if item['urlLocation'].index(url) < len(item['urlLocation']) - 1:
-				urls += ", "
+				urls += "', '"
 		
 		if item['type'] == 'push':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
-				+ "    'urlLocation': [" + urls + "],\n"
+				+ "    'urlLocation': ['" + urls + "'],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    };\n" 
 				)
 		elif item['type'] == 'pull':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
-				+ "    'urlLocation': [" + urls + "],\n"
+				+ "    'urlLocation': ['" + urls + "'],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    'additionalButtonClasses': 'fb_floatRight',\n"
 		    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado',\n"
@@ -202,7 +203,7 @@ def createBaseConfStepsDetail():
 		elif item['type'] == 'widget':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
-				+ "    'urlLocation': [" + urls + "],\n"
+				+ "    'urlLocation': ['" + urls + "'],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    'noModelButton': true,\n"
     		+	"    'botonType': 'boton_estrellas',\n"
@@ -362,13 +363,14 @@ def mapToJSONFromInput(file):
 		readWriteJSON(dataOut, 'w', file)
 
 def loadingApp():
-	x = ""
-	print ""
-	print "LOADING FEEDBACK TOOLS:\n"
-	print "0%	    20%	     40%	     60%	    80%	    100%"
+	clearTerminal()
+	x = "				"
+	print "\n\n\n"
+	print "				LOADING FEEDBACK TOOLS:\n"
+	print "				0%	    20%	     40%	     60%	    80%	    100%"
 	for i in range(8):
 		u = i + 1
-		sleep(0.1)
+		sleep(0.2 / u )
 		sys.stdout.write("\r" + x)
 		sys.stdout.flush()
 		x += "▄  " * u
