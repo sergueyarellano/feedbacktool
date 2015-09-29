@@ -216,6 +216,7 @@ while loop == 1:
 				f.write(contents)
 
 			# Write to usertypes.json
+
 			with open(USERTYPESJS_FILEPATH) as f:
 				contents = f.read()
 			r = re.compile(r'"GestorNoRemoto": {')
@@ -223,7 +224,6 @@ while loop == 1:
 			with open(USERTYPESJS_FILEPATH,'w') as f:
 				f.write(contents)
 
-		
 		print "Exito!"
 		raw_input('Pulsa <INTRO> para continuar')
 		# falta configurar usertypes y crear el fichero en ei nombrandolo con el nif usuario.
