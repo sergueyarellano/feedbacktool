@@ -3,7 +3,7 @@
 # Implementacion feedback
 #
 # -*- coding: UTF-8 -*-
-develop = True
+develop = False
 
 # IDEAS
 #	Crear un checker para saber si opinator nos esta mandando bien los objetos, y si en realidad aparecera feedback
@@ -30,8 +30,8 @@ from selenium.webdriver.common.keys import Keys
 ### SET VARIABLES ##
 ###########################
 
-PROXY_HOST = "http://xe49706:bbva0007@CACHETABII.igrupobbva"
-PROXY_PORT = "8080"
+PROXY_HOST = ""
+PROXY_PORT = ""
 _.checkProxy(PROXY_HOST, PROXY_PORT)
 
 # Config vars
