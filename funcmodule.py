@@ -3,10 +3,8 @@ import json
 import variables as vr
 import readline
 import codecs
-import sys
-stepList = vr.stepList
-formList = vr.formList
-osname = os.name
+from time import sleep
+prompt = os.name + '@' + os.name + " $ "
 ###########################
 ######## FUNCTIONS ########
 ###########################
@@ -32,9 +30,8 @@ def printMenu():
 	print	("               Linea de Feedback script 1.0.0")
 	print	("               ------------------------------")
 	print ("               1) Create mock form      8) Show me the lists ;) ")
-	print	("               2) BaseConfSteps         9) Exit")
-	print ("               3) BaseConfSteps (detail)")
-	print ("               4) Mock user (selenium)")
+	print	("               2) Create Local Object   9) Exit")
+	print ("               3) Mock user (selenium)")
 	print ""
 
 def printCreateMockFormMenu():
@@ -46,9 +43,9 @@ def printCreateMockFormMenu():
 
 def printBaseConfStepsMenu():
 	print ""
-	print	"-------------------"
-	print "| BASE CONF STEPS |"
-	print	"-------------------"	
+	print	"-----------------------"
+	print "| CREATE LOCAL OBJECT |"
+	print	"-----------------------"	
 	print ""
 
 def printDataRecordedMenu():
@@ -58,17 +55,21 @@ def printDataRecordedMenu():
 	print	"-----------------"
 	print ""
 
-def printBaseConfStepsDetailMenu():
+def printConfirmation(confirmation):
 	print ""
-	print	"----------------------------"
-	print "| BASE CONF STEPS (DETAIL) |"
-	print	"----------------------------"
-	print ""		
+	print u'\u2514' + confirmation
+	try:
+		sleep(5)
+	except KeyboardInterrupt:
+		pass
+		
+def printINFOMessageNo1():
+	print "<info>"
+	print "      Do not forget to check trailing comma ',' at the end "
+	print "      of additionalOpinatorResponse array (feedbacl.conf.js),"
+	print "      because internet explorer does not support it :s "
+	print "<info>"
 
-def printTypeOfForm():
-	print "What type of form?"
-	print "  1) push\n  2) widget\n  3) push_pull\n"
-	return int(raw_input("Opt: "))
 
 def printListFormsOrStepsAux(lenX, type, list):
 	print "There are ", lenX, type," recorded:"
@@ -123,20 +124,16 @@ def createLinksObj(type, idForm):
 	return linksArrayObj
 
 def createMockForm():
-	formsLoaded = readWriteJSON("","r")
-	print formsLoaded
+	formsLoaded = readWriteJSON("","r","forms.json")
 	mockForms = "this.additionalOpinatorResponse = [\n"
 	for item in formsLoaded:
-		print item
+
 		while len(item['steps']) > 0:
 			# sorted(item)
 			# len(item['steps'])
 			idStep = item['steps'].pop()
 			idForm = item['form']
 			type = item['type']
-			print idStep
-			print idForm
-			print type
 			mockForm = (
 			"	     {\n"
 			+ "        'id': '" + idStep + "'," + "\n"
@@ -155,71 +152,64 @@ def createMockForm():
 
 ####  CREATING SMALL OBJECTS ####
 
-def concatenateSteps(detalleOperativa, successStep):
-	
-	successExitoNombre = str(stepList.pop(successStep - 1))
+
+def createBaseConfSteps():
+	formsLoaded = readWriteJSON("", "r", 'forms.json')
 	baseConfSteps = "this.baseConfLocal = {\n"
 	
-	for step in stepList:
-		baseConfSteps += (
-			"      '" 
-			+ step 
-			+ "': [detallesOperativa." 
-			+  detalleOperativa + "Abandono" + "],\n"
-			)
-	
-	baseConfSteps += (
-		"      '" 
-		+ successExitoNombre 
-		+ "': [detallesOperativa." +  detalleOperativa + "Exito" + "],\n"
-		)
+	for item in formsLoaded:
+		for step in item['steps']:
+
+			baseConfSteps += (
+				"      '" 
+				+ step 
+				+ "': [detallesOperativa." 
+				+  item['nameOp'] + "],\n"
+				)
 
 	return baseConfSteps
 
-def createBaseConfSteps(hasSteps, successStep):
 
-	detalleOperativa = str(raw_input("Nombre detalle operativa: "))
-	
+def createBaseConfStepsDetail():
+	formsLoaded = readWriteJSON("","r","forms.json")
+	baseConfStepsDetail = ""
 
-	if (hasSteps) and not(successStep == 0):
-		baseConfSteps = concatenateSteps(detalleOperativa, successStep)
+	for item in formsLoaded:
+		url = ""
+		for step in item['steps']:
+			url += step
+			if item['steps'].index(step) < len(item['steps']) - 1:
+				url += ", "
 		
-	else:
-		mk = "y"
-		while checkLooping(mk):
-			askForSteps()
-			mk = str(raw_input('Do you want to create another Step? '))
+		if item['type'] == 'push':
+			baseConfStepsDetail += (
+				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
+				+ "    'urlLocation': [" + url + "],\n"
+				+ "    'id': '" + item['form'] + "'\n"
+				+ "    };\n" 
+				)
+		elif item['type'] == 'pull':
+			baseConfStepsDetail += (
+				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
+				+ "    'urlLocation': [" + url + "],\n"
+				+ "    'id': '" + item['form'] + "'\n"
+				+ "    'additionalButtonClasses': 'fb_floatRight',\n"
+		    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado',\n"
+		    + "    'additional_carry': ''"
+				+ "    };" 
+				)
+		elif item['type'] == 'widget':
+			baseConfStepsDetail += (
+				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
+				+ "    'urlLocation': [" + url + "],\n"
+				+ "    'id': '" + item['form'] + "'\n"
+				+ "    'noModelButton': true,\n"
+    		+	"    'botonType': 'boton_estrellas',\n"
+    		+	"    'answersId': []\n"
+				+ "    };\n" 
+				)
 
-		printListFormsOrSteps("steps")
-		successStep = int(raw_input("Cual es el paso del Exito en la operativa? "))
-		baseConfSteps = concatenateSteps(detalleOperativa, successStep)
-
-	return baseConfSteps
-
-def concatenateForms(successForm, url):
-	successExitoNombre = str(formList.pop(successForm - 1))
-	baseConfStepsDetail = "//Objetos de configuracion Operativa\n"
-	detalleOperativa = str(raw_input("Nombre detalle operativa: "))
-
-	for form in formList:
-		baseConfStepsDetail += (
-			"  detallesOperativa." + detalleOperativa + "Abandono = {\n"
-			+ "    'urlLocation': ['" + str(url) + "],\n"
-			+ "    'id': '" + form + "'\n"
-			+ "  };\n" 
-			)
-	baseConfStepsDetail += (
-		"  detallesOperativa." + detalleOperativa + "Exito = {\n"
-		+ "    'urlLocation': ['" + str(url) + "],\n"
-		+ "    'id': '" + str(successForm) + "',\n"
-		+ "    'additionalButtonClasses': 'fb_floatRight',\n"
-    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado'\n"
-		+ "  };" 
-		)
-
-def createBaseConfStepsDetail(hasForms, successForm, url):	
-	baseConfStepsDetail = concatenateForms(successForm, url)
-	return baseConfStepsDetail
+	return baseConfStepsDetail + u"\nvar FeedbackConf = function () {"
 
 def createMockUser(user, cclien, ticket, opType, dif):
 	if dif == 'mockusers':
@@ -281,6 +271,10 @@ def checkUseLastForm():
 	return idForm
 
 #### misc ####
+def deletePrevData():
+	os.remove('forms.json')
+
+
 def appendFormToTheList(idForm):
 	if (len(formList) == 0):
 		formList.append(idForm)
@@ -327,40 +321,55 @@ def checkProxy(PROXY_HOST, PROXY_PORT):
 		with open('feedback.py','w') as f:
 			f.write(contents)
 
-def mapToJSONFromInput():
+def mapToJSONFromInput(file):
+	if os.path.isfile('forms.json'):
+		pass
+	else:
+		print "Enter forms, their type (push, pull, widget) and associated steps"
+		print ""
+		print "<pattern> NomOperativa | form1 push <url1_url2> step1 step2 | form2 pull <url> step3 <pattern>"
+		print ""
 
-	print "Enter forms, their type (push, pull, widget) and associated steps"
-	print ""
-	print "<pattern> form1 push step1 step2 | form2 pull step3 <pattern>"
-	print ""
+		### Formatting the input to a JSON ###
+		input1 = raw_input(prompt)
+		input1 = map(str, input1.split(" | "))
+		data = []
+		nameOp = input1.pop(0)
+		for i in input1:
 
-	### Formatting the input to a JSON ###
-	input1 = raw_input(vr.prompt)
-	input1 = map(str, input1.split(" | "))
-	data = []
-	for i in input1:
+			data.append(map(str,i.split()))
 
-		data.append(map(str,i.split()))
+		dataOut = []
 
-	dataOut = []
+		### String methods all the time... iterating through arrays ###
+		for element in data:
+			f = element.pop(0)
+			t = element.pop(0)
+			u = element.pop(0).split('_')
+			nameOpOut = nameOp
 
-	for element in data:
-		f = element.pop(0)
-		t = element.pop(0)
-		d = {
-			'form': f, 
-			'type': t,
-			'steps': element 
-		}
+			if t == 'pull':
+				nameOpOut += 'Exito'
+			else:
+				nameOpOut += 'Abandono'
+			
+			d = {
+				'nameOp': nameOpOut,
+				'form': f, 
+				'type': t,
+				'steps': element, 
+				'urlLocation': u
+			}
 
-		dataOut.append(d)
+			dataOut.append(d)
 
-	readWriteJSON(dataOut, 'w')
+		readWriteJSON(dataOut, 'w', file)
 
-def readWriteJSON(data, rw):
+def readWriteJSON(data, rw, file):
+
 	if rw == "w":
-		with open('forms.json', 'w') as f:
+		with open(file, 'w') as f:
 			json.dump(data, f)
 	elif rw == "r":
-		with open('forms.json', 'r') as f:
+		with open(file, 'r') as f:
 			return json.load(f)

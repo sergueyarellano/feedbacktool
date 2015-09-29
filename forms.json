@@ -1,1 +1,1 @@
-[{"steps": ["step1", "step2"], "type": "push", "form": "form1"}, {"steps": ["step3"], "type": "pull", "form": "form2"}]
+[{"steps": ["step1", "step2"], "nameOp": "NomOperativaAbandono", "type": "push", "urlLocation": ["<url1", "url2>"], "form": "form1"}, {"steps": ["step3"], "nameOp": "NomOperativaExito", "type": "pull", "urlLocation": ["<url>"], "form": "form2"}]

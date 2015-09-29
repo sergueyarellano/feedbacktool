@@ -5,17 +5,16 @@
 ## -*- coding: UTF-8 -*-
 develop = True
 
+# IDEAS
+#	Crear un checker para saber si opinator nos esta mandando bien los objetos, y si en realidad aparecera feedback
+
 ###########################
 ######### IMPORTS #########
 ###########################
 
-# import re
-# import sys
-# import codecs # for unicode format
 import os # 
 import re
 import codecs
-import sys
 import configmodule as cf
 import funcmodule as _
 import variables as vr
@@ -33,8 +32,7 @@ from selenium.webdriver.common.keys import Keys
 PROXY_HOST = "http://xe49706:bbva0007@CACHETABII.igrupobbva"
 PROXY_PORT = "8080"
 _.checkProxy(PROXY_HOST, PROXY_PORT)
-stepList = vr.stepList
-formList = vr.formList
+
 # Config vars
 osname = os.name
 indDic = cf.configDictionary['os'][osname]
@@ -50,8 +48,6 @@ if develop:
 
 # Initialize variables
 loop = 1
-operativas = []
-
 
 ###########################
 ######## Classes ##########
@@ -71,14 +67,15 @@ class Configure():
 ###########################
 ###### MENU CHOICES #######
 ###########################
+if os.path.isfile('forms.json'):
+	_.deletePrevData()
 
 while loop == 1:
-
+	
 	_.clearTerminal()
 	_.printBBVALogo()
 	_.printMenu()
 
-  # User selects an option from the menu
 	choice = int(raw_input("               Opt: "))
 
 ######################################################
@@ -86,95 +83,58 @@ while loop == 1:
 ####################
 	if choice == 1:	
 			
-			_.clearTerminal()
-			_.printCreateMockFormMenu()
-			_.mapToJSONFromInput()
+		_.clearTerminal()
+		_.printCreateMockFormMenu()
+		_.mapToJSONFromInput('forms.json')
 
-			# Compile a RegExp and write the subsitute to the JSFile
-			
-			with open(confjsFP) as f:
-				contents = f.read()
-			r = re.compile('this.additionalOpinatorResponse = \[')
-			contents = r.sub(_.createMockForm(), contents)
-			with open(confjsFP,'w') as f:
-				f.write(contents)
+		# Compile a RegExp and write the subsitute to the JSFile
+		with open(confjsFP) as f:
+			contents = f.read()
+		r = re.compile('this.additionalOpinatorResponse = \[')
+		contents = r.sub(_.createMockForm(), contents)
 
-			_.clearTerminal()
-			print "<info>Do not forget to check the comma ',' at the end of additionalOpinatorResponse array (feedbacl.conf.js),"
-			print "      because internet explorer does not support it :s <info>"
-			print u'\u2514' + " Object created! ", raw_input()
+		with open(confjsFP,'w') as f:
+			f.write(contents)
+
+		_.clearTerminal()
+		_.printINFOMessageNo1()
+		_.printConfirmation(" Object created! ")
 
 			
 ######################################################
-# BaseConf steps #
-##################
+# Create Local Object #
+#######################
 
 	elif choice == 2:
 
 		_.clearTerminal()
 		_.printBaseConfStepsMenu()
+		_.mapToJSONFromInput("forms.json")
 
-		hasSteps = 'false'
-		successStep = 0
-
-		if len(stepList) > 0:
-			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
-			_.printListFormsOrSteps('steps')
-			hasSteps = 'true'
-
-			successStep = int(raw_input("Which is the success Step? "))
-		# print "<info> Remember to edit manually the success step if that is your case<info>"
-			print ""
-
+		# Compile a RegExp and write the subsitute to the JSFile
 		with open(confjsFP) as f:
 			contents = f.read()
 		r = re.compile(r'this.baseConfLocal = {')
-		contents = r.sub(_.createBaseConfSteps(hasSteps, successStep, operativas), contents)
+		contents = r.sub(_.createBaseConfSteps(), contents)
+
 		with open(confjsFP,'w') as f:
 			f.write(contents)
-		print ""
-		print u'\u2514' + " Properties created!"
-		print "  ---------------"
-		raw_input('Press a key to continue...')
 
-######################################################
-# BaseConfSteps (detail) #
-##########################
-	elif choice == 3:
-
-		_.clearTerminal()
-		_.printBaseConfStepsDetailMenu()
-
-		hasForms = _.checkFormsAreLoaded()
-		url = raw_input("Enter URL: ")
-
-		if hasForms:
-			print "<info> I will use the", len(stepList) ,"steps you already recorded <info>"
-			_.printListFormsOrSteps('forms')
-			successForm = int(raw_input("Which is the success Form? "))
-		else:
-			formList = _.askForAList("Enter forms separated by spaces: ")
-			_.printListFormsOrSteps('forms')
-			successForm = int(raw_input("Which is the success Form? "))
-		
 		with open(confjsFP) as f:
 			contents = f.read()
-		r = re.compile(r'//Objetos de configuracion Operativa')
-		contents = r.sub(_.createBaseConfStepsDetail(hasForms, successForm, url), contents)
-		
+		r = re.compile(r'var FeedbackConf = function \(\) {')
+		contents = r.sub(_.createBaseConfStepsDetail(), contents)
+
 		with open(confjsFP,'w') as f:
 			f.write(contents)
-		print ""
-		print u'\u2514' + " Properties created!"
-		print "  ---------------"
-		raw_input('Press a key to continue...')
 
-				
+		_.printConfirmation(" Properties created!")
+
 ######################################################
 # Mock user (selenium) #
 ########################
 
-	elif choice == 4:
+	elif choice == 3:
 
 		userList = _.askForAList("Enter the users to mock separated by spaces: ")
 		opType = str(raw_input("Nombre operativa: "))
