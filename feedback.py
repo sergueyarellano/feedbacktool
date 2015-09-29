@@ -2,7 +2,7 @@
 # 9 sep, 2015
 # Implementacion feedback
 #
-## -*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 develop = True
 
 # IDEAS
@@ -72,65 +72,73 @@ class Configure():
 if os.path.isfile('forms.json'):
 	_.deletePrevData()
 
+_.loadingApp()
+
 while loop == 1:
 	
 	_.clearTerminal()
 	_.printBBVALogo()
 	_.printMenu()
 
-	choice = int(raw_input("               Opt: "))
+	choice = raw_input("               Opt: ")
 
 ######################################################
 # Create Mock form #
 ####################
-	if choice == 1:	
+	if choice == "1":	
 			
 		_.clearTerminal()
 		_.printCreateMockFormMenu()
 		_.mapToJSONFromInput('forms.json')
 
-		# Compile a RegExp and write the subsitute to the JSFile
-		with open(CONFJS_FILEPATH) as f:
-			contents = f.read()
-		r = re.compile('this.additionalOpinatorResponse = \[')
-		contents = r.sub(_.createMockForm(), contents)
+		if os.path.isfile('forms.json'):
+			# Compile a RegExp and write the subsitute to the JSFile
+			with open(CONFJS_FILEPATH) as f:
+				contents = f.read()
+			r = re.compile('this.additionalOpinatorResponse = \[')
+			contents = r.sub(_.createMockForm(), contents)
 
-		with open(CONFJS_FILEPATH,'w') as f:
-			f.write(contents)
+			with open(CONFJS_FILEPATH,'w') as f:
+				f.write(contents)
 
-		_.clearTerminal()
-		_.printINFOMessageNo1()
-		_.printConfirmation(" Object created! ")
+			_.clearTerminal()
+			_.printINFOMessageNo1()
+			_.printConfirmation(" Object created! ")
+		else:
+			pass
 
 			
 ######################################################
 # Create Local Object #
 #######################
 
-	elif choice == 2:
+	elif choice == "2":
 
 		_.clearTerminal()
 		_.printBaseConfStepsMenu()
 		_.mapToJSONFromInput("forms.json")
 
-		# Compile a RegExp and write the subsitute to the JSFile
-		with open(CONFJS_FILEPATH) as f:
-			contents = f.read()
-		r = re.compile(r'this.baseConfLocal = {')
-		contents = r.sub(_.createBaseConfSteps(), contents)
+		if os.path.isfile('forms.json'):
+			# Compile a RegExp and write the subsitute to the JSFile
+			with open(CONFJS_FILEPATH) as f:
+				contents = f.read()
+			r = re.compile(r'this.baseConfLocal = {')
+			contents = r.sub(_.createBaseConfSteps(), contents)
 
-		with open(CONFJS_FILEPATH,'w') as f:
-			f.write(contents)
+			with open(CONFJS_FILEPATH,'w') as f:
+				f.write(contents)
 
-		with open(CONFJS_FILEPATH) as f:
-			contents = f.read()
-		r = re.compile(r'var FeedbackConf = function \(\) {')
-		contents = r.sub(_.createBaseConfStepsDetail(), contents)
+			with open(CONFJS_FILEPATH) as f:
+				contents = f.read()
+			r = re.compile(r'var FeedbackConf = function \(\) {')
+			contents = r.sub(_.createBaseConfStepsDetail(), contents)
 
-		with open(CONFJS_FILEPATH,'w') as f:
-			f.write(contents)
+			with open(CONFJS_FILEPATH,'w') as f:
+				f.write(contents)
 
-		_.printConfirmation(" Properties created!")
+			_.printConfirmation(" Properties created!")
+		else:
+			pass
 
 ######################################################
 # Mock user (requests) #
@@ -142,7 +150,7 @@ while loop == 1:
 # Mock user (selenium) #
 ########################
 
-	elif choice == 4:
+	elif choice == "4":
 
 		userList = _.askForAList("Enter the users to mock separated by spaces: ")
 		opType = str(raw_input("Nombre operativa: "))
@@ -222,31 +230,16 @@ while loop == 1:
 # Show me the lists #
 #####################
 
-	elif choice == 8:
+	elif choice == "8":
 		_.clearTerminal()
 		_.printPrettyData()
-		_.printConfirmation('./forms.json')
-
-
-
-		# _.clearTerminal()
-		# _.printDataRecordedMenu()
-
-		# if (len(stepList) > 0) and (len(formList) > 0):
-		# 	_.printListFormsOrSteps('steps')
-		# 	_.printListFormsOrSteps('forms')
-		# elif (len(stepList) > 0):
-		# 	_.printListFormsOrSteps('steps')
-		# elif (len(formList) > 0):
-		# 	_.printListFormsOrSteps('forms')
-		# else:
-		# 	str(raw_input("There are no steps or forms recorded :("))
+		_.printConfirmation('/forms.json')
 
 ######################################################
 # Exit #
 ########
 
-	elif choice == 9:
+	elif choice == "9":
 		loop = 0
 		_.clearTerminal()
 	else: 

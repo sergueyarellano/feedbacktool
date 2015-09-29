@@ -1,4 +1,6 @@
-import os
+# -*- coding: iso-8859-15 -*-
+
+import os, sys
 import json
 import readline
 import codecs
@@ -56,8 +58,8 @@ def printDataRecordedMenu():
 	print ""
 
 def printConfirmation(confirmation):
-	print ""
-	print u'\u2514' + confirmation, raw_input()
+	print "▂ ▂ ▃ ▄ ▅ ▆ ▇ █ ", confirmation, raw_input()
+
 		
 def printINFOMessageNo1():
 	print "<info>"
@@ -65,7 +67,6 @@ def printINFOMessageNo1():
 	print "      of additionalOpinatorResponse array (feedbacl.conf.js),"
 	print "      because internet explorer does not support it :s "
 	print "<info>"
-
 
 def printListFormsOrStepsAux(lenX, type, list):
 	print "There are ", lenX, type," recorded:"
@@ -314,15 +315,19 @@ def clearTerminal():
 
 def mapToJSONFromInput(file):
 	if os.path.isfile('forms.json'):
-		pass
+		return
 	else:
-		print "Enter forms, their type (push, pull, widget) and associated steps"
+		print "Follow the pattern:"
 		print ""
-		print "<pattern> NomOperativa | form1 push <url1_url2> step1 step2 | form2 pull <url> step3 <pattern>"
-		print ""
+		print "<pattern>"
+		print "          NomOperativa | form1 push url1_url2 step1 step2 | form2 pull url step3"
+		print "<pattern>"
+		print "												press (q) to go back"
 
 		### Formatting the input to a JSON ###
 		input1 = raw_input(prompt)
+		if input1 == 'q':
+			return
 		input1 = map(str, input1.split(" | "))
 		data = []
 		nameOp = input1.pop(0)
@@ -355,6 +360,18 @@ def mapToJSONFromInput(file):
 			dataOut.append(d)
 
 		readWriteJSON(dataOut, 'w', file)
+
+def loadingApp():
+	x = ""
+	print ""
+	print "LOADING FEEDBACK TOOLS:\n"
+	print "0%	    20%	     40%	     60%	    80%	    100%"
+	for i in range(8):
+		u = i + 1
+		sleep(0.1)
+		sys.stdout.write("\r" + x)
+		sys.stdout.flush()
+		x += "▄  " * u
 
 def readWriteJSON(data, rw, file):
 
