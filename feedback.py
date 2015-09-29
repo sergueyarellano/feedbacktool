@@ -17,10 +17,11 @@ import re
 import codecs
 import configmodule as cf
 import funcmodule as _
-import variables as vr
+
 import json
 import readline
 from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -36,15 +37,16 @@ _.checkProxy(PROXY_HOST, PROXY_PORT)
 # Config vars
 osname = os.name
 indDic = cf.configDictionary['os'][osname]
-mockusersjsFP = cf.configDictionary['mockusers'][indDic]
-usertypesjsFP = cf.configDictionary['usertypesjs'][indDic]
-confjsFP = cf.configDictionary['confjs'][indDic]
+
+MOCKUSERSJS_FILEPATH = cf.configDictionary['mockusers'][indDic]
+USERTYPESJS_FILEPATH = cf.configDictionary['usertypesjs'][indDic]
+CONFJS_FILEPATH = cf.configDictionary['confjs'][indDic]
 
 # Files modified by this program:
 if develop:
-	mockusersjsFP = 'mockUsers.json'
-	confjsFP = 'feedback.conf.js'
-	usertypesjsFP = 'userTypes.json'
+	MOCKUSERSJS_FILEPATH = 'mockUsers.json'
+	CONFJS_FILEPATH = 'feedback.conf.js'
+	USERTYPESJS_FILEPATH = 'userTypes.json'
 
 # Initialize variables
 loop = 1
@@ -88,12 +90,12 @@ while loop == 1:
 		_.mapToJSONFromInput('forms.json')
 
 		# Compile a RegExp and write the subsitute to the JSFile
-		with open(confjsFP) as f:
+		with open(CONFJS_FILEPATH) as f:
 			contents = f.read()
 		r = re.compile('this.additionalOpinatorResponse = \[')
 		contents = r.sub(_.createMockForm(), contents)
 
-		with open(confjsFP,'w') as f:
+		with open(CONFJS_FILEPATH,'w') as f:
 			f.write(contents)
 
 		_.clearTerminal()
@@ -112,20 +114,20 @@ while loop == 1:
 		_.mapToJSONFromInput("forms.json")
 
 		# Compile a RegExp and write the subsitute to the JSFile
-		with open(confjsFP) as f:
+		with open(CONFJS_FILEPATH) as f:
 			contents = f.read()
 		r = re.compile(r'this.baseConfLocal = {')
 		contents = r.sub(_.createBaseConfSteps(), contents)
 
-		with open(confjsFP,'w') as f:
+		with open(CONFJS_FILEPATH,'w') as f:
 			f.write(contents)
 
-		with open(confjsFP) as f:
+		with open(CONFJS_FILEPATH) as f:
 			contents = f.read()
 		r = re.compile(r'var FeedbackConf = function \(\) {')
 		contents = r.sub(_.createBaseConfStepsDetail(), contents)
 
-		with open(confjsFP,'w') as f:
+		with open(CONFJS_FILEPATH,'w') as f:
 			f.write(contents)
 
 		_.printConfirmation(" Properties created!")
@@ -195,19 +197,19 @@ while loop == 1:
 			browser.quit()
 
 			# Write to mockusers.js
-			with open(mockusersjsFP) as f:
+			with open(MOCKUSERSJS_FILEPATH) as f:
 				contents = f.read()
 			r = re.compile(r'//OC ANTICIPO NOMINA')
 			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'mockusers'), contents)
-			with open(mockusersjsFP,'w') as f:
+			with open(MOCKUSERSJS_FILEPATH,'w') as f:
 				f.write(contents)
 
 			# Write to usertypes.json
-			with open(usertypesjsFP) as f:
+			with open(USERTYPESJS_FILEPATH) as f:
 				contents = f.read()
 			r = re.compile(r'"GestorNoRemoto": {')
 			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'usertypes'), contents)
-			with open(usertypesjsFP,'w') as f:
+			with open(USERTYPESJS_FILEPATH,'w') as f:
 				f.write(contents)
 
 		
@@ -222,17 +224,23 @@ while loop == 1:
 
 	elif choice == 8:
 		_.clearTerminal()
-		_.printDataRecordedMenu()
+		_.printPrettyData()
+		_.printConfirmation('./forms.json')
 
-		if (len(stepList) > 0) and (len(formList) > 0):
-			_.printListFormsOrSteps('steps')
-			_.printListFormsOrSteps('forms')
-		elif (len(stepList) > 0):
-			_.printListFormsOrSteps('steps')
-		elif (len(formList) > 0):
-			_.printListFormsOrSteps('forms')
-		else:
-			str(raw_input("There are no steps or forms recorded :("))
+
+
+		# _.clearTerminal()
+		# _.printDataRecordedMenu()
+
+		# if (len(stepList) > 0) and (len(formList) > 0):
+		# 	_.printListFormsOrSteps('steps')
+		# 	_.printListFormsOrSteps('forms')
+		# elif (len(stepList) > 0):
+		# 	_.printListFormsOrSteps('steps')
+		# elif (len(formList) > 0):
+		# 	_.printListFormsOrSteps('forms')
+		# else:
+		# 	str(raw_input("There are no steps or forms recorded :("))
 
 ######################################################
 # Exit #

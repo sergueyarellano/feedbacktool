@@ -1,6 +1,5 @@
 import os
 import json
-import variables as vr
 import readline
 import codecs
 from time import sleep
@@ -58,11 +57,7 @@ def printDataRecordedMenu():
 
 def printConfirmation(confirmation):
 	print ""
-	print u'\u2514' + confirmation
-	try:
-		sleep(5)
-	except KeyboardInterrupt:
-		pass
+	print u'\u2514' + confirmation, raw_input()
 		
 def printINFOMessageNo1():
 	print "<info>"
@@ -76,6 +71,10 @@ def printListFormsOrStepsAux(lenX, type, list):
 	print "There are ", lenX, type," recorded:"
 	for element in list:
 		print (list.index(element) + 1), element
+
+def printPrettyData():
+	formsLoaded = readWriteJSON("","r","forms.json")
+	print json.dumps(formsLoaded, sort_keys=True, indent=2, separators=(',', ': '))
 
 def printListFormsOrSteps(type):
 	
@@ -196,8 +195,8 @@ def createBaseConfStepsDetail():
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    'additionalButtonClasses': 'fb_floatRight',\n"
 		    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado',\n"
-		    + "    'additional_carry': ''"
-				+ "    };" 
+		    + "    'additional_carry': ''\n"
+				+ "    };\n" 
 				)
 		elif item['type'] == 'widget':
 			baseConfStepsDetail += (
@@ -235,14 +234,26 @@ def createMockUser(user, cclien, ticket, opType, dif):
 	return mockUserObject
 
 ####  CHECKERS ####
-
-def checkFormsAreLoaded():
-	u = False
-	if len(formList) > 1:
-		u = True
+def checkProxy(PROXY_HOST, PROXY_PORT):
+	if PROXY_HOST and PROXY_PORT:
+		pass
 	else:
-		u = False
-	return u
+		PROXY_HOST = str(raw_input("Enter Proxy address\nExample_<http://User:Password@CACHETABII.igrupobbva>_: "))
+		PROXY_PORT = str(raw_input("Port: "))
+		# NOTA CREAR UN CHECKER PARA AVISAR QUE HAY QUE CAMBIAR LA password
+		with open('feedback.py') as f:
+			contents = f.read()
+		r = re.compile(r'PROXY_HOST = ""')
+		contents = r.sub('PROXY_HOST = "' + PROXY_HOST + '"', contents)
+		with open('feedback.py','w') as f:
+			f.write(contents)
+
+		with open('feedback.py') as f:
+			contents = f.read()
+		r = re.compile(r'PROXY_PORT = ""')
+		contents = r.sub('PROXY_PORT = "' + PROXY_PORT + '"', contents)
+		with open('feedback.py','w') as f:
+			f.write(contents)
 
 def checkLooping(mk):
 	return (mk == "y") or (mk == "Y") or (mk == "")
@@ -300,27 +311,6 @@ def clearTerminal():
 		os.system('cls') #for window
 	else:
 		os.system('clear') #for Linux
-
-def checkProxy(PROXY_HOST, PROXY_PORT):
-	if PROXY_HOST and PROXY_PORT:
-		pass
-	else:
-		PROXY_HOST = str(raw_input("Enter Proxy address\nExample_<http://User:Password@CACHETABII.igrupobbva>_: "))
-		PROXY_PORT = str(raw_input("Proxy: "))
-		# NOTA CREAR UN CHECKER PARA AVISAR QUE HAY QUE CAMBIAR LA password
-		with open('feedback.py') as f:
-			contents = f.read()
-		r = re.compile(r'PROXY_HOST = ""')
-		contents = r.sub('PROXY_HOST = "' + PROXY_HOST + '"', contents)
-		with open('feedback.py','w') as f:
-			f.write(contents)
-
-		with open('feedback.py') as f:
-			contents = f.read()
-		r = re.compile(r'PROXY_PORT = ""')
-		contents = r.sub('PROXY_PORT = "' + PROXY_PORT + '"', contents)
-		with open('feedback.py','w') as f:
-			f.write(contents)
 
 def mapToJSONFromInput(file):
 	if os.path.isfile('forms.json'):
