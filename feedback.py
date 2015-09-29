@@ -131,10 +131,16 @@ while loop == 1:
 		_.printConfirmation(" Properties created!")
 
 ######################################################
+# Mock user (requests) #
+########################
+	# A implementar, parte de Ivan
+	# elif choice == 3:
+
+######################################################
 # Mock user (selenium) #
 ########################
 
-	elif choice == 3:
+	elif choice == 4:
 
 		userList = _.askForAList("Enter the users to mock separated by spaces: ")
 		opType = str(raw_input("Nombre operativa: "))

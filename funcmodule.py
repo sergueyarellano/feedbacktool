@@ -31,7 +31,8 @@ def printMenu():
 	print	("               ------------------------------")
 	print ("               1) Create mock form      8) Show me the lists ;) ")
 	print	("               2) Create Local Object   9) Exit")
-	print ("               3) Mock user (selenium)")
+	print ("               3) Mock user (requests)")
+	print ("               4) Mock user (selenium)")
 	print ""
 
 def printCreateMockFormMenu():
@@ -175,23 +176,23 @@ def createBaseConfStepsDetail():
 	baseConfStepsDetail = ""
 
 	for item in formsLoaded:
-		url = ""
-		for step in item['steps']:
-			url += step
-			if item['steps'].index(step) < len(item['steps']) - 1:
-				url += ", "
+		urls = ""
+		for url in item['urlLocation']:
+			urls += url
+			if item['urlLocation'].index(url) < len(item['urlLocation']) - 1:
+				urls += ", "
 		
 		if item['type'] == 'push':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
-				+ "    'urlLocation': [" + url + "],\n"
+				+ "    'urlLocation': [" + urls + "],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    };\n" 
 				)
 		elif item['type'] == 'pull':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
-				+ "    'urlLocation': [" + url + "],\n"
+				+ "    'urlLocation': [" + urls + "],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    'additionalButtonClasses': 'fb_floatRight',\n"
 		    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado',\n"
@@ -201,7 +202,7 @@ def createBaseConfStepsDetail():
 		elif item['type'] == 'widget':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
-				+ "    'urlLocation': [" + url + "],\n"
+				+ "    'urlLocation': [" + urls + "],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    'noModelButton': true,\n"
     		+	"    'botonType': 'boton_estrellas',\n"
