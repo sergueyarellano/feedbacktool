@@ -408,7 +408,6 @@ def loadingApp():
 	x = "				"
 	print "\n\n\n"
 	print "				LOADING FEEDBACK TOOLS:\n"
-	print "				0%	    20%	     40%	     60%	    80%	    100%"
 	for i in range(8):
 		u = i + 1
 		sleep(0.2 / u )
