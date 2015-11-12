@@ -19,12 +19,15 @@ import configmodule as cf
 import funcmodule as _
 
 import json
-import readline
+if os.name == 'posix':
+	import readline
 from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
+import requests
 
 ###########################
 ### SET VARIABLES ##
@@ -123,6 +126,7 @@ while loop == 1:
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
+
 			r = re.compile(r'stub.VSIDS = {')
 			contents = r.sub(_.createBaseConfSteps(), contents)
 
@@ -131,7 +135,9 @@ while loop == 1:
 
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
+
 			r = re.compile(r'var fbConfig = \(function \(\) {')
+
 			contents = r.sub(_.createBaseConfStepsDetail(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -147,7 +153,64 @@ while loop == 1:
 # Mock user (requests) #
 ########################
 	# A implementar, parte de Ivan
-	# elif choice == 3:
+	elif choice == "3":
+	
+		userList = _.askForAList("Enter the users to mock separated by spaces: ")
+		opType = str(raw_input("Nombre operativa: "))
+		mockInfo = []
+		for user in userList:
+		
+			print 'Try to create user: ' + user
+			#Creamos una sesion en KQOF
+			if osname == 'nt':
+				requests.packages.urllib3.disable_warnings()
+			s = requests.Session()
+			#Borramos las cookies
+			s.cookies.clear()
+			
+			#Numero de reintentos para entrar en el entorno
+			MAX_RETRY=3
+		
+			cnt=0
+			while cnt < MAX_RETRY:
+				try:
+					response = s.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp', verify=False)
+					print 'Go to KQOF Main Page ======> ' + str(response.status_code) + ' ' + response.reason
+					if response.status_code == requests.codes.ok:
+						iv_cclien = _.getMockInfo(s,user)['iv_cclien']
+						iv_ticket = _.getMockInfo(s,user)['iv_ticket']
+						break
+					else:
+						cnt += 1
+						print 'Retry connection after {0} seconds'.format(cnt*3)
+						sleep(cnt*3)
+				except requests.exceptions.RequestException as e:
+					cnt += 1
+					print 'Retry connection after {0} seconds'.format(cnt*3)
+					sleep(cnt*3)
+					if cnt == MAX_RETRY:
+						print e
+
+			s.close()		
+			print mockInfo
+			# Write to mockusers.js
+			with open(MOCKUSERSJS_FILEPATH) as f:
+				contents = f.read()
+			r = re.compile(r'//OC ANTICIPO NOMINA')
+			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'mockusers'), contents)
+			with open(MOCKUSERSJS_FILEPATH,'w') as f:
+				f.write(contents)
+
+		# Write to usertypes.json
+
+		with open(USERTYPESJS_FILEPATH) as f:
+			contents = f.read()
+		r = re.compile(r'"GestorNoRemoto": {')
+		contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'usertypes'), contents)
+		with open(USERTYPESJS_FILEPATH,'w') as f:
+			f.write(contents)
+		raw_input('Pulsa <INTRO> para continuar')
+		# falta configurar usertypes y crear el fichero en ei nombrandolo con el nif usuario.
 
 ######################################################
 # Mock user (selenium) #
