@@ -132,7 +132,7 @@ def createLinksObj(type, idForm):
 
 def createMockForm():
 	formsLoaded = readWriteJSON("","r","forms.json")
-	mockForms = "this.additionalOpinatorResponse = [\n"
+	mockForms = "stub.mockedForms = [\n"
 	for item in formsLoaded:
 
 		while len(item['steps']) > 0:
@@ -162,7 +162,7 @@ def createMockForm():
 
 def createBaseConfSteps():
 	formsLoaded = readWriteJSON("", "r", 'forms.json')
-	baseConfSteps = "this.baseConfLocal = {\n"
+	baseConfSteps = "stub.VSIDS = {\n"
 	
 	for item in formsLoaded:
 		for step in item['steps']:
@@ -216,7 +216,7 @@ def createBaseConfStepsDetail():
 				+ "    };\n" 
 				)
 
-	return baseConfStepsDetail + u"\nvar FeedbackConf = function () {"
+	return baseConfStepsDetail + u"\nvar fbConfig = (function () {"
 
 def createMockUser(user, cclien, ticket, opType, dif):
 	if dif == 'mockusers':
@@ -408,7 +408,6 @@ def loadingApp():
 	x = "				"
 	print "\n\n\n"
 	print "				LOADING FEEDBACK TOOLS:\n"
-	print "				0%	    20%	     40%	     60%	    80%	    100%"
 	for i in range(8):
 		u = i + 1
 		sleep(0.2 / u )

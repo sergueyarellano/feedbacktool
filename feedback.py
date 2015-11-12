@@ -98,7 +98,7 @@ while loop == 1:
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile('this.additionalOpinatorResponse = \[')
+			r = re.compile('stub.mockedForms = \[')
 			contents = r.sub(_.createMockForm(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -126,7 +126,9 @@ while loop == 1:
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile(r'this.baseConfLocal = {')
+
+				# stub.VSIDS = {
+			r = re.compile(r'stub.VSIDS = {')
 			contents = r.sub(_.createBaseConfSteps(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -134,7 +136,11 @@ while loop == 1:
 
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile(r'var FeedbackConf = function \(\) {')
+
+				  # var fbConfig = (function () {
+			# r = re.compile(r'var FeedbackConf = function \(\) {')
+			r = re.compile(r'var fbConfig = (function \() {')
+
 			contents = r.sub(_.createBaseConfStepsDetail(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -150,16 +156,17 @@ while loop == 1:
 # Mock user (requests) #
 ########################
 	# A implementar, parte de Ivan
-	elif choice == 3:
+	elif choice == "3":
 	
 		userList = _.askForAList("Enter the users to mock separated by spaces: ")
 		opType = str(raw_input("Nombre operativa: "))
-
+		mockInfo = []
 		for user in userList:
 		
 			print 'Try to create user: ' + user
 			#Creamos una sesion en KQOF
-			requests.packages.urllib3.disable_warnings()
+			if osname == 'nt':
+				requests.packages.urllib3.disable_warnings()
 			s = requests.Session()
 			#Borramos las cookies
 			s.cookies.clear()
@@ -173,7 +180,8 @@ while loop == 1:
 					response = s.get('https://ei-bbvaglobal.igrupobbva/particulares/index.jsp', verify=False)
 					print 'Go to KQOF Main Page ======> ' + str(response.status_code) + ' ' + response.reason
 					if response.status_code == requests.codes.ok:
-						_.getMockInfo(s,user)
+						iv_cclien = _.getMockInfo(s,user)['iv_cclien']
+						iv_ticket = _.getMockInfo(s,user)['iv_ticket']
 						break
 					else:
 						cnt += 1
@@ -187,7 +195,23 @@ while loop == 1:
 						print e
 
 			s.close()		
-			
+			print mockInfo
+			# Write to mockusers.js
+			with open(MOCKUSERSJS_FILEPATH) as f:
+				contents = f.read()
+			r = re.compile(r'//OC ANTICIPO NOMINA')
+			contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'mockusers'), contents)
+			with open(MOCKUSERSJS_FILEPATH,'w') as f:
+				f.write(contents)
+
+		# Write to usertypes.json
+
+		with open(USERTYPESJS_FILEPATH) as f:
+			contents = f.read()
+		r = re.compile(r'"GestorNoRemoto": {')
+		contents = r.sub(_.createMockUser(user, iv_cclien, iv_ticket, opType, 'usertypes'), contents)
+		with open(USERTYPESJS_FILEPATH,'w') as f:
+			f.write(contents)
 		raw_input('Pulsa <INTRO> para continuar')
 		# falta configurar usertypes y crear el fichero en ei nombrandolo con el nif usuario.
 
