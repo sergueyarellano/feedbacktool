@@ -30,8 +30,8 @@ from selenium.webdriver.common.keys import Keys
 ### SET VARIABLES ##
 ###########################
 
-PROXY_HOST = ""
-PROXY_PORT = ""
+PROXY_HOST = "xe49706:bbva0009@CACHETABII.igrupobbva"
+PROXY_PORT = "8080"
 _.checkProxy(PROXY_HOST, PROXY_PORT)
 
 # Config vars
@@ -95,7 +95,7 @@ while loop == 1:
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile('this.additionalOpinatorResponse = \[')
+			r = re.compile('stub.mockedForms = \[')
 			contents = r.sub(_.createMockForm(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -123,7 +123,7 @@ while loop == 1:
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile(r'this.baseConfLocal = {')
+			r = re.compile(r'stub.VSIDS = {')
 			contents = r.sub(_.createBaseConfSteps(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -131,7 +131,7 @@ while loop == 1:
 
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile(r'var FeedbackConf = function \(\) {')
+			r = re.compile(r'var fbConfig = \(function \(\) {')
 			contents = r.sub(_.createBaseConfStepsDetail(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
