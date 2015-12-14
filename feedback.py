@@ -33,7 +33,7 @@ import requests
 ### SET VARIABLES ##
 ###########################
 
-PROXY_HOST = "xe49706:bbva0009@CACHETABII.igrupobbva"
+PROXY_HOST = ""
 PROXY_PORT = "8080"
 _.checkProxy(PROXY_HOST, PROXY_PORT)
 
