@@ -18,18 +18,18 @@ prompt = os.name + '@' + os.name + " $ "
 #### printing #####
 
 def printBBVALogo():
-	print ("hhhhho                                                ")      
-	print ("yyyyyo                                                ")      
-	print ("sssss+                                                ")      
-	print ("sssss+                                                ")      
-	print ("sssss+         /oooooo:  :oooooo:`oo+`   `o+  +oo+    ")      
-	print ("ooooo+         odh-`-hh. +dd:`-hh./dd+   +d: /hydd/   ")      
-	print ("ooooo+         odh. oh+  +dd- +h+  sdh- .hs `hs`ydh.  ")      
-	print ("+++++:         odh. `sdy.+dd- `ody..hds`sh. oh-`-hdy` ")      
-	print ("/////:         odh.  odd/+dd-  odd/ /ddsd/ :hysssydd+ ")      
-	print ("/////:         +hhssyhy/ +hdssyhy/   shhy``yy`   `yhh-")      
-	print ("-----.         ```````   ```````      ```  ``     ````")      
-	print ("-----.                                                ")      
+	print ("hhhhho                                                ")
+	print ("yyyyyo                                                ")
+	print ("sssss+                                                ")
+	print ("sssss+                                                ")
+	print ("sssss+         /oooooo:  :oooooo:`oo+`   `o+  +oo+    ")
+	print ("ooooo+         odh-`-hh. +dd:`-hh./dd+   +d: /hydd/   ")
+	print ("ooooo+         odh. oh+  +dd- +h+  sdh- .hs `hs`ydh.  ")
+	print ("+++++:         odh. `sdy.+dd- `ody..hds`sh. oh-`-hdy` ")
+	print ("/////:         odh.  odd/+dd-  odd/ /ddsd/ :hysssydd+ ")
+	print ("/////:         +hhssyhy/ +hdssyhy/   shhy``yy`   `yhh-")
+	print ("-----.         ```````   ```````      ```  ``     ````")
+	print ("-----.                                                ")
 	print ("-----.                                                ")
 
 def printMenu():
@@ -52,7 +52,7 @@ def printBaseConfStepsMenu():
 	print ""
 	print	"-----------------------"
 	print "| CREATE LOCAL OBJECT |"
-	print	"-----------------------"	
+	print	"-----------------------"
 	print ""
 
 def printDataRecordedMenu():
@@ -65,13 +65,12 @@ def printDataRecordedMenu():
 def printConfirmation(confirmation):
 	print "\n", confirmation, "\n ▂ ▂ ▃ ▄ ▄ ▃ ▂ ▂ \n"
 
-		
+
 def printINFOMessageNo1():
 	print " info:"
 	print " ----"
 	print " Do not forget to check trailing comma ',' at the end "
-	print " of additionalOpinatorResponse array (feedbacl.conf.js),"
-	print " because internet explorer does not support it :s "
+	print " of mockedForms array (feedback.conf.js),"
 	print ""
 
 def printListFormsOrStepsAux(lenX, type, list):
@@ -84,55 +83,55 @@ def printPrettyData():
 	print json.dumps(formsLoaded, sort_keys=True, indent=2, separators=(',', ': '))
 
 def printListFormsOrSteps(type):
-	
+
 	lenForm = len(formList)
 	lenStep = len(stepList)
-	
+
 	# First condition if eval is true
 	(
-	printListFormsOrStepsAux(lenForm, type, formList) 
-	if type == 'forms' 
+	printListFormsOrStepsAux(lenForm, type, formList)
+	if type == 'forms'
 	else printListFormsOrStepsAux(lenStep, type, stepList)
 	)
 
-	str(raw_input("\nPress any key to continue"))	
-	
+	str(raw_input("\nPress any key to continue"))
+
 
 #### CREATING BIG OBJECTS #####
 
 def createLinksObjAux(idTypeForm, idForm):
-	
+
 	linksArrayObj = (
-		  "     {\n"	
+		  "     {\n"
 		+ "	     		'type': {" + "\n"
     + "             'id': '" + idTypeForm + "'\n"
     + "            }," + "\n"
     + "           'link': {" + "\n"
     + "             'href': '//www.opinator.com/opi/" + idForm +"?carry_formulario=" + idForm +"&id=41719461C32226318F2015245&carry_lang=en&lang=en'" + "\n"
     + "            }" + "\n"
-    + "        }")	
+    + "        }")
 	return linksArrayObj
 
 def createLinksObj(type, idForm):
-	
+
 	if type == "push":
 		linksArrayObj = createLinksObjAux(type, idForm)
-	
+
 	elif type == "widget": # widget
 		linksArrayObj = createLinksObjAux(type, idForm)
-		
+
 	elif type == "pull":	# pull_push
 		linksArrayObj = (
 			createLinksObjAux('push', idForm)
 			+ ","
 			+ createLinksObjAux('pull', idForm)
-			)		
+			)
 
 	return linksArrayObj
 
 def createMockForm():
 	formsLoaded = readWriteJSON("","r","forms.json")
-	mockForms = "stub.mockedForms = [\n"
+	mockForms = "mockedForms: [\n"
 	for item in formsLoaded:
 
 		while len(item['steps']) > 0:
@@ -151,7 +150,7 @@ def createMockForm():
 			+ "          'links': [" + "\n"
 			+ "     	     " + createLinksObj(type, idForm) + "\n"
 			+ "          ]" + "\n"
-			+ "        }]" + "\n"		
+			+ "        }]" + "\n"
 			+ "      },")
 
 			mockForms += mockForm
@@ -159,18 +158,17 @@ def createMockForm():
 
 ####  CREATING SMALL OBJECTS ####
 
-
 def createBaseConfSteps():
 	formsLoaded = readWriteJSON("", "r", 'forms.json')
-	baseConfSteps = "stub.VSIDS = {\n"
-	
+	baseConfSteps = "VSIDS: {\n"
+
 	for item in formsLoaded:
 		for step in item['steps']:
 
 			baseConfSteps += (
-				"      '" 
-				+ step 
-				+ "': [detallesOperativa." 
+				"      '"
+				+ step
+				+ "': [detallesOperativa."
 				+  item['nameOp'] + "],\n"
 				)
 
@@ -187,13 +185,13 @@ def createBaseConfStepsDetail():
 			urls += url
 			if item['urlLocation'].index(url) < len(item['urlLocation']) - 1:
 				urls += "', '"
-		
+
 		if item['type'] == 'push':
 			baseConfStepsDetail += (
 				"\n  detallesOperativa." + item['nameOp'] + " = {\n"
 				+ "    'urlLocation': ['" + urls + "'],\n"
 				+ "    'id': '" + item['form'] + "'\n"
-				+ "    };\n" 
+				+ "    };\n"
 				)
 		elif item['type'] == 'pull':
 			baseConfStepsDetail += (
@@ -203,7 +201,7 @@ def createBaseConfStepsDetail():
 				+ "    'additionalButtonClasses': 'fb_floatRight',\n"
 		    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado',\n"
 		    + "    'additional_carry': ''\n"
-				+ "    };\n" 
+				+ "    };\n"
 				)
 		elif item['type'] == 'widget':
 			baseConfStepsDetail += (
@@ -213,21 +211,21 @@ def createBaseConfStepsDetail():
 				+ "    'noModelButton': true,\n"
     		+	"    'botonType': 'boton_estrellas',\n"
     		+	"    'answersId': []\n"
-				+ "    };\n" 
+				+ "    };\n"
 				)
 
-	return baseConfStepsDetail + u"\nvar fbConfig = (function () {"
+	return baseConfStepsDetail + u"\nreturn {"
 
 def createMockUser(user, cclien, ticket, opType, dif):
 	if dif == 'mockusers':
 		mockUserObject = (
 			"//" + opType + "\n"
-			+ '{"cclient": "' 
-			+ cclien 
-			+ '", "ivUser": "' 
-			+ user 
-			+ '", "ivTicket": "' 
-			+ ticket 
+			+ '{"cclient": "'
+			+ cclien
+			+ '", "ivUser": "'
+			+ user
+			+ '", "ivTicket": "'
+			+ ticket
 			+ '"},\n//OC ANTICIPO NOMINA'
 			)
 	elif dif == 'usertypes':
@@ -268,21 +266,21 @@ def checkLooping(mk):
 def checkUseLastForm():
 
 	lenForm = len(formList)
-	
+
 	if (lenForm > 0):
 		useLastForm = (
-			str(raw_input("Shall I use the last Form ID " 
-			+ formList[lenForm-1] 
+			str(raw_input("Shall I use the last Form ID "
+			+ formList[lenForm-1]
 			+ "? "))
 			)
 		if useLastForm == "y" or useLastForm == "":
 			idForm = formList[lenForm - 1]
-		else: 
+		else:
 			idForm = str(raw_input("Form ID or <INTRO> for default: "))
 
-	else:		
+	else:
 		idForm = str(raw_input("Form ID or <INTRO> for default: "))
-	# Set Options for Default Form 
+	# Set Options for Default Form
 	if idForm == "":
 		idForm = "oc_financiacion_adeudo_abandono_web"
 		type = 1
@@ -297,7 +295,7 @@ def getMockInfo(mysession, user):
 	#Hacemos login
 	response = mysession.post("https://ei-bbvaglobal.igrupobbva/DFAUTH/slod/DFServlet", data=payload, verify=False)
 	print 'Login KQOF Main Page ======> ' + str(response.status_code) + ' ' + response.reason
-	
+
 	if response.status_code == requests.codes.ok:
 		#Abrimos puerta trasera
 		response = mysession.get("https://ei-bbvaglobal.igrupobbva/BBVANet/info", verify=False)
@@ -307,8 +305,8 @@ def getMockInfo(mysession, user):
 			payload={'techUser':'kqof','techPasswd':'ci4bbva'}
 			response = mysession.post("https://ei-bbvaglobal.igrupobbva/BBVANet/info", data=payload, verify=False)
 			print 'Login KQOF Info ======> ' + str(response.status_code) + ' ' + response.reason
-			
-			if response.status_code == requests.codes.ok:	
+
+			if response.status_code == requests.codes.ok:
 				tree = html.fromstring(response.text)
 				iv_cclien = tree.xpath('.//td[contains(text(), "iv-cclien")]/following-sibling::td/text()')
 				iv_ticket = tree.xpath('.//td[contains(text(), "iv-ticket")]/following-sibling::td/text()')
@@ -390,12 +388,12 @@ def mapToJSONFromInput(file):
 				nameOpOut += 'Exito'
 			else:
 				nameOpOut += 'Abandono'
-			
+
 			d = {
 				'nameOp': nameOpOut,
-				'form': f, 
+				'form': f,
 				'type': t,
-				'steps': element, 
+				'steps': element,
 				'urlLocation': u
 			}
 
