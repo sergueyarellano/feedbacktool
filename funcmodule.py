@@ -1,6 +1,7 @@
 # -*- coding: iso-8859-15 -*-
 
 import os, sys
+import re
 import json
 if os.name == 'posix':
 	import readline
