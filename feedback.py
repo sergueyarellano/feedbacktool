@@ -12,7 +12,7 @@ develop = False
 ######### IMPORTS #########
 ###########################
 
-import os # 
+import os #
 import re
 import codecs
 import configmodule as cf
@@ -33,7 +33,7 @@ import requests
 ### SET VARIABLES ##
 ###########################
 
-PROXY_HOST = ""
+PROXY_HOST = "http://xe49706:bbva0016@CACHETABII.igrupobbva"
 PROXY_PORT = "8080"
 _.checkProxy(PROXY_HOST, PROXY_PORT)
 
@@ -78,7 +78,7 @@ if os.path.isfile('forms.json'):
 _.loadingApp()
 
 while loop == 1:
-	
+
 	_.clearTerminal()
 	_.printBBVALogo()
 	_.printMenu()
@@ -88,8 +88,8 @@ while loop == 1:
 ######################################################
 # Create Mock form #
 ####################
-	if choice == "1":	
-			
+	if choice == "1":
+
 		_.clearTerminal()
 		_.printCreateMockFormMenu()
 		_.mapToJSONFromInput('forms.json')
@@ -98,7 +98,7 @@ while loop == 1:
 			# Compile a RegExp and write the subsitute to the JSFile
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
-			r = re.compile('stub.mockedForms = \[')
+			r = re.compile('mockedForms: \[')
 			contents = r.sub(_.createMockForm(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -111,7 +111,7 @@ while loop == 1:
 		else:
 			pass
 
-			
+
 ######################################################
 # Create Local Object #
 #######################
@@ -127,7 +127,8 @@ while loop == 1:
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
 
-			r = re.compile(r'stub.VSIDS = {')
+				# stub.VSIDS = {
+			r = re.compile(r'VSIDS: {')
 			contents = r.sub(_.createBaseConfSteps(), contents)
 
 			with open(CONFJS_FILEPATH,'w') as f:
@@ -136,7 +137,9 @@ while loop == 1:
 			with open(CONFJS_FILEPATH) as f:
 				contents = f.read()
 
-			r = re.compile(r'var fbConfig = \(function \(\) {')
+				  # var fbConfig = (function () {
+			# r = re.compile(r'var FeedbackConf = function \(\) {')
+			r = re.compile(r'return {')
 
 			contents = r.sub(_.createBaseConfStepsDetail(), contents)
 
@@ -154,12 +157,12 @@ while loop == 1:
 ########################
 	# A implementar, parte de Ivan
 	elif choice == "3":
-	
+
 		userList = _.askForAList("Enter the users to mock separated by spaces: ")
 		opType = str(raw_input("Nombre operativa: "))
 		mockInfo = []
 		for user in userList:
-		
+
 			print 'Try to create user: ' + user
 			#Creamos una sesion en KQOF
 			if osname == 'nt':
@@ -167,10 +170,10 @@ while loop == 1:
 			s = requests.Session()
 			#Borramos las cookies
 			s.cookies.clear()
-			
+
 			#Numero de reintentos para entrar en el entorno
 			MAX_RETRY=3
-		
+
 			cnt=0
 			while cnt < MAX_RETRY:
 				try:
@@ -191,7 +194,7 @@ while loop == 1:
 					if cnt == MAX_RETRY:
 						print e
 
-			s.close()		
+			s.close()
 			print mockInfo
 			# Write to mockusers.js
 			with open(MOCKUSERSJS_FILEPATH) as f:
@@ -235,7 +238,7 @@ while loop == 1:
 			inputEnterUser = browser.find_element(By.XPATH, './/*[@id="eai_user"]')
 			inputEnterPass = browser.find_element(By.XPATH, './/*[@id="eai_password"]')
 			btnEntrar = browser.find_element(By.XPATH, './/*[@id="acceder"]')
-			
+
 			btnAccesoClientes.click()
 			inputEnterUser.send_keys(user + Keys.TAB)
 			inputEnterPass.send_keys('123456')
@@ -245,9 +248,9 @@ while loop == 1:
 			sleep(8)
 
 			assert 'BBVA' in browser.title
-			
+
 			browser.get('https://ei-bbvaglobal.igrupobbva/BBVANet/info')
-			
+
 			sleep(1)
 
 			inputEnterUser2 = browser.find_element(By.XPATH, './html/body/form/input[1]')
@@ -313,5 +316,5 @@ while loop == 1:
 	elif choice == "9":
 		loop = 0
 		_.clearTerminal()
-	else: 
+	else:
 		print("I need a numeric input!!")
