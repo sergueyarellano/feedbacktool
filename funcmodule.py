@@ -199,7 +199,7 @@ def createBaseConfStepsDetail():
 				+ "    'urlLocation': ['" + urls + "'],\n"
 				+ "    'id': '" + item['form'] + "'\n"
 				+ "    'additionalButtonClasses': 'fb_floatRight',\n"
-		    + "    'botonType': 'boton_feedback_fondo_azul_cuadrado',\n"
+		    + "    'botonType': 'boton_feedback_fondo_azul_redondeado',\n"
 		    + "    'additional_carry': ''\n"
 				+ "    };\n"
 				)
@@ -220,13 +220,9 @@ def createMockUser(user, cclien, ticket, opType, dif):
 	if dif == 'mockusers':
 		mockUserObject = (
 			"//" + opType + "\n"
-			+ '{"cclient": "'
-			+ cclien
-			+ '", "ivUser": "'
-			+ user
-			+ '", "ivTicket": "'
-			+ ticket
-			+ '"},\n//OC ANTICIPO NOMINA'
+			+ '{'
+			+'"cclient": "{cclien}", "ivUser": "{user}", "ivTicket": "{ticket}"'.format(cclien=cclien[0], user=user, ticket=ticket[0])
+			+'}' + ',\n//OC ANTICIPO NOMINA'
 			)
 	elif dif == 'usertypes':
 		mockUserObject = (
